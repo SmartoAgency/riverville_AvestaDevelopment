@@ -1,0 +1,17 @@
+@import '../scripts/libs/swiper/swiper';
+@import '../../../node_modules/swiper/swiper';
+@import '../../../node_modules/swiper/modules/effect-fade/effect-fade';
+@import '../../../node_modules/accordion-js/dist/accordion.min';
+@import '../../../node_modules/intl-tel-input/build/css/intlTelInput.min';
+
+
+
+.iti {
+    width: 100%;
+}
+.iti__flag {background-image: url("../images/libs/flags.png");}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .iti__flag {background-image: url("../images/libs/flags@2x.png");}
+}
+

@@ -1,0 +1,49 @@
+.footer {
+  padding-left: var(--page-side-fields);
+  padding-right: var(--page-side-fields);
+  
+  padding-bottom: 30px;
+  font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 140%; /* 19.6px */
+text-transform: uppercase;
+  text-transform: uppercase;
+  color: #696865;
+  /* identical to box height, or 17px */
+
+  letter-spacing: -0.03em;
+  color: var(--color-gray-body);
+  position: relative;
+
+  .delimiter {
+    margin-bottom: 40px;
+  }
+  .dev-logo {
+    position: absolute;
+    right: var(--page-side-fields);
+    bottom: -5px;
+    width: 52px;
+    height: 57px;
+  }
+  p~p {
+    margin-top: 2px;
+  }
+}
+
+.tablet,
+.mobile {
+  .footer {
+    padding-bottom: 20px;
+    padding-right: 75px;
+    .dev-logo {
+      right: 0;
+    }
+    .delimiter {
+      margin-bottom: 20px;
+    }
+    p~p {
+      margin-top: 8px;
+    }
+  }
+}

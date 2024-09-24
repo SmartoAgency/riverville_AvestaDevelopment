@@ -1,0 +1,39 @@
+.bordered-block {
+    display: flex;
+    flex-direction: column;
+   
+    border: 1px solid var(--color-gray-light);
+    border-radius: 20px;
+    overflow: hidden;
+    &__item {
+       cursor: pointer;
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: center;
+       padding: 20px 40px;
+       transition: .25s ease-out;
+       &--no-interactive {
+           cursor: initial;
+       }
+       input {
+           display: none;
+       }
+       // display: table-cell;
+       &-text {
+           width: 100%;
+           text-align: center;
+           margin-top: 4px;
+       }
+   }
+   .build-highlighter~.build-highlighter {
+       margin-left: 4px;
+   }
+   .active {
+       background-color: var(--color-green);
+       color: var(--color-white);
+       
+   }
+   &__item:nth-child(n+2) {
+       border-top: 1px solid var(--color-gray-light);
+   }
+}

@@ -1,0 +1,16 @@
+.delimiter {
+    background: rgba(28, 29, 34, 0.2);
+    width: 100%;
+    height: 1px;
+}
+
+.delimiter-mobile {
+    background: rgba(28, 29, 34, 0.2);
+    width: 100%;
+    height: 1px;
+}
+.desktop {
+    .delimiter-mobile {
+        display: none;
+    }
+}

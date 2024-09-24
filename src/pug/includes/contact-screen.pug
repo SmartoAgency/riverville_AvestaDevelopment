@@ -1,0 +1,25 @@
+.container.contacts
+  .contacts__h1.text-style-h-1.text-new-blue.text-uppercase Контакти
+  .contacts__left
+    .contacts__group
+      .contacts__title Локація:
+      .contacts__text м. Дніпро, Запорізьке шосе, 32
+      a(target='_blank' href="#").button-30.button-30--bordered Відкрити Google Maps
+    .contacts__group
+      .contacts__title Відділ продажів:
+      a(href="tel:+380671953122").contacts__text +38 (067) 195-31-22
+      .contacts__text Графік роботи:
+      .contacts__text.contacts__text--no-b-margin Пн - Пт: 10-18
+      .contacts__text Сб: 10-16, Нд: 10-15
+    .contacts__group
+      .contacts__title Social
+      a(target='_blank' href="https://instagram.com/").contacts__text Instagram
+      a(target='_blank' href="https://facebook.com").contacts__text Facebook
+      a(target='_blank' href="https://youtube.com").contacts__text Youtube
+      a(target='_blank' href="https://t.me/").contacts__text Telegram
+    .contacts__group
+      .contacts__title Email:
+      a(href="mailto:som@som.com").contacts__text som@som.com
+  .contacts__right
+    include ../components/form/form.pug
+    +form('bottom-form')

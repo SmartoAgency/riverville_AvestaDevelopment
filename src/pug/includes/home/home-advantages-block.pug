@@ -1,0 +1,30 @@
+-
+  const block2Items = [
+    'Бізнес-клас',
+    'Видові квартири на березі річки Уж',
+    'Рекреаційна зона',
+    'Облаштована набережна',
+    'Охорона 24/7',
+    'Закрита територія',
+    'Двір без авто',
+  ]
+
+.home-advantages-block
+  .home-advantages-block__title.text-style-1920-h-1
+    span Переваги проекту
+  .home-advantages-block__bg
+    img(src="./assets/images/home/home-advantages-block/home-advantages-block-bg.jpg", alt="", srcset="")
+  .home-advantages-block__bottom-gradient
+  .home-advantages-block__top-gradient
+.home-advantages-block2
+  .swiper-container(data-home-advantages-block2)
+    .swiper-wrapper
+      each val, index in block2Items
+        -
+          const src = `./assets/images/home/home-advantages-block2/${index + 1}.jpg`
+        .swiper-slide 
+          .home-advantages-block2__item
+            .home-advantages-block2__item-img
+              img(src=src, alt="", srcset="" loading="lazy")
+            .home-advantages-block2__item-number.text-style-1920-body #{index + 1}
+            .home-advantages-block2__item-text.color-ffffff.text-style-1920-h-3 #{val}

@@ -1,0 +1,117 @@
+.header {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 40;
+	transition: .45s ease-out;
+	padding: 15px var(--page-side-fields) 5px var(--page-side-fields);
+	background: rgba(217, 217, 226, 0.50);
+	backdrop-filter: blur(14px);
+	background: transparent;
+	// background-color: #27314B;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    // height: var(--header-h);
+    --v-padding: 15px;
+    --between-margin: 60px;
+    
+    font-size: 14px;
+    line-height: 100%;
+	transition: background-color .5s ease-in-out, top .5s ease-in-out, transform .5s ease-in-out;
+	overflow: hidden;
+
+	&.hide {
+		transform: translateY(-100%);
+	}
+	@include from-to(1025px, 1360px){
+		--between-margin: 15px;
+	}
+	@include to(1024px){
+		--between-margin: 20px;
+	}
+	@include to(575px){
+		--between-margin: 10px;
+	}
+    &>:not(.header__logo-wrap):nth-child(n+2) {
+        margin-left: var(--between-margin);
+    }
+
+	&__tel {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		color: var(--color-07222-f);
+		text-decoration: none;
+		svg {
+			margin-right: 20px;
+			width: 24px;
+			height: 24px;
+		}
+	}
+	&__menu-call {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		svg {
+			margin-left: 12px;
+		}
+	}
+	&__logo-wrap {
+		margin-left: auto;
+		margin-right: auto;
+		width: 184px;
+		transition: .35s ease-out;
+		svg {
+			width: 100%;
+			height: auto;
+		}
+	}
+	&.headroom--not-top &__logo-wrap {
+		width: 124px;
+	}
+}
+
+
+
+
+.mobile-callback-popup {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100%;
+	// height: fill-available;
+	// height: -moz-available;          /* WebKit-based browsers will ignore this. */
+	min-height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+	background-color: rgba(115,115,115, 0.5);
+	z-index: 61 !important;
+	display: flex;
+	flex-direction: column;
+	align-content: flex-end;
+	justify-content: flex-end;
+	padding: 10px;
+	font-size: 15px;
+	line-height: 100%;
+	opacity: 0;
+	visibility: hidden;
+	&>* {
+		text-decoration: none;
+		width: 100%;
+		height: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #F3EFE9;
+		border-radius: 10px;
+		color: var(--color-black);
+	}
+	&>:nth-child(n+2) {
+	  	margin-top: 10px;
+	}
+	&__close {
+		background-color: var(--color-new-blue);
+		color: var(--color-white);
+	}
+}

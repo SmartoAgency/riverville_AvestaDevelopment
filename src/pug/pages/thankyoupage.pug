@@ -1,0 +1,37 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'name=thankyoupage'
+    var id_page = 'id-page-name=thankyoupage'
+    var class_page = 'class-page-name=thankyoupage'
+    var breadcrumbsSubitem = [
+      {
+        label: 'About',
+        link: pagesLink[0].about
+      }
+    ]
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/libs.js')
+  script(defer src='./assets/scripts/index.js')
+  script(defer src='./assets/scripts/header.js')
+  script(defer src='./assets/scripts/name=thankyoupage.js')
+block content
+  .thankyoupage
+    .text-style-h-1.text-black Mesaj gönderildi
+    .text-style-h-3.text-black Yöneticilerimizden cevap bekleyiniz
+    a(href="/").button-30.button-30--red
+      span Ana Sayfaya
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug

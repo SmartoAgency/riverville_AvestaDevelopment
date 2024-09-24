@@ -1,0 +1,33 @@
+-
+  const stickyItems = [
+    'Сусіди, які мають з вами спільні цінності',
+    'Безпека для наймолодших мешканців',
+    'Дружня атмосфера в школі та за її межами – діти будуть в захваті від різноманіття активностей та дозвілля',
+    'Можливість організувати День народження чи бізнес-зустріч на території комплексу',
+  ]
+    //- А про всі клопоти дбає керуюча компанія
+    //- Дізнатися більше
+
+.home-sticky-block
+  .home-sticky-block-wrapper 
+    .home-sticky-block__title-wrap
+      .home-sticky-block__title.text-style-1920-h-2 
+        span Ми створюємо простір, 
+        span.color-14427-c сповнений натхнення та спокою:
+    .home-sticky-block__content
+      each val,index in stickyItems
+        - 
+          const src = `./assets/images/home/home-sticky-screen/${index + 1}.jpg`
+        .home-sticky-block__item
+          .home-sticky-block__item-img-wrap
+            .home-sticky-block__item-img
+              img(src=src, alt="", srcset="")
+          .home-sticky-block__item-text.text-style-1920-h-4 #{val}
+      .home-sticky-block__item
+        .home-sticky-block__item-img-wrap
+          .home-sticky-block__item-img
+            img(src="./assets/images/home/home-sticky-screen/5.jpg", alt="", srcset="")
+        .home-sticky-block__item-text.text-style-1920-h-4
+          div  А про всі клопоти дбає керуюча компанія
+          button(type="button").button-30.button-30--light 
+            span Дізнатися більше 

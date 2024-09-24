@@ -1,0 +1,40 @@
+-
+  const aboutItems = [{title: "Кава",
+    text: "Зустрітися на бізнес-каву у ресторані чи посмакувати ароматним круасаном у кав\'ярні на першому поверсі ",},
+    {title: "Краса",
+    text: "Зробити б\'юті-процедури у сусідньому будинку",},
+    {title: "Відпочинок",
+    text: "Пограти з дитиною в пінг-понг чи позасмагати біля власного басейну",},
+    {title: "Краєвид",
+    text: "Відпочити та насолодитися видом на р. Уж із власної видової тераси",},
+    {title: "Шопінг",
+    text: "А ввечері всією сім\'єю піти на шопінг, адже торгівельний центр розташований на території комплексу",},]
+.home-about-screen
+    .home-about-screen__top-gradient
+    .home-about-screen__bottom-gradient
+    .home-about-screen__top-content
+      .home-about-screen__top-decor
+        <svg width="61" height="18" viewBox="0 0 61 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
+        </svg>
+      .home-about-screen__title.text-style-1920-h-1 Про комплекс
+      .home-about-screen__subtitle.text-style-1920-h-4 ЖК RIVERVILLE – простір, який забезпечує усе необхідне для максимально комфортного життя сучасної родини
+    .home-about-screen__bg 
+      img(src="./assets/images/home/home-about-screen/home-about-screen-bg.jpg", alt="", srcset="")
+    .home-about-screen__decor 
+    .home-about-screen__items
+      each item, index in aboutItems
+        - const imgSrc = `./assets/images/home/home-about-screen/${index+1}.png`
+        .home-about-screen__item
+          .home-about-screen__item-img
+            img(loading="lazy" src=imgSrc, alt="", srcset="")
+          <svg width="61" height="40" viewBox="0 0 61 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.45156 34.3668C5.1047 31.821 8.86854 30.237 12.5217 29.6146C19.1084 28.5397 23.9239 31.3684 29.0715 34.3103C34.4958 37.4784 40.6951 41.0991 49.2191 39.6848C52.7615 39.119 55.8058 37.8178 58.518 35.7812L60.3999 34.5366V28.2003L55.5844 31.3684L55.4184 31.4816C53.3704 33.0091 51.101 33.9708 48.3888 34.4234C41.6914 35.4983 36.8206 32.6696 31.673 29.6712C26.2486 26.5031 20.1601 22.9389 11.6914 24.2967C7.87223 24.919 4.10839 26.3899 0.399902 28.6529V35.0457L1.39621 34.4234L1.45156 34.3668Z" fill="#07222F"/>
+          </svg>
+          div.home-about-screen__item-title.text-style-1920-h-4  #{item.title}
+          div.home-about-screen__item-text.text-style-1920-body #{item.text}
+      .home-about-screen__item
+    .home-about-screen__bottom-content
+      .home-about-screen__subtitle.text-style-1920-h-4 Для когось – ідеальний день, а для мешканців ЖК RIVERVILLE – приємна буденність
+      button(type="button").button-30
+        span Дізнатися більше 

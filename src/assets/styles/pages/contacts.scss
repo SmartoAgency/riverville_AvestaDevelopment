@@ -1,0 +1,20 @@
+.contact-front-screen {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: calc(var(--header-h) + 20px);
+    margin-bottom: -150px;
+}
+.tablet {
+    .contact-front-screen {
+        margin-bottom: -80px;
+    }
+}
+
+.mobile {
+    .contact-front-screen {
+        margin-bottom: -60px;
+    }
+}

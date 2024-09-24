@@ -1,0 +1,100 @@
+.home-about-screen {
+    background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%), linear-gradient(0, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
+    text-align: center;
+    padding-top: var(--section-v-offset);
+    --between-v-offset: 40px;
+    position: relative;
+    &__bottom-content {
+        max-width: 755px;
+        margin: auto;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: calc(var(--section-v-offset) * 0.66);
+        button {
+            margin-top: var(--between-v-offset);
+        }
+    }
+    &__top-content {
+        position: relative;
+        z-index: 2;
+        max-width: 920px;
+        margin: auto;
+        margin-bottom: -10%;
+    }
+    &__bottom-gradient {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35%;
+        z-index: 2;
+        background: linear-gradient(0deg, #E4E4EC 0%, rgba(228, 228, 236, 0) 100%);
+    }
+    &__top-gradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 25%;
+        z-index: 2;
+        background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0) 100%);
+    }
+    &__top-decor {
+        margin-bottom: var(--between-v-offset);
+    }
+    &__title {
+        margin-bottom: var(--between-v-offset);
+
+    }
+    &__subtitle {
+
+    }
+    &__bg {
+        height: 77vw;
+    }
+    &__decor {
+
+    }
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: -20%;
+        @include row-flex();
+        position: relative;
+        z-index: 2;
+    }
+    &__item {
+        @include size(4.8);
+        @include shift(0);
+        svg {
+            margin-bottom: 20px;
+        }
+        &-title {
+            margin-bottom: 12px;
+        }
+        &-text {
+            padding-left: pxWidthInVw(60);
+            padding-right: pxWidthInVw(60);
+        }
+        &-img {
+            padding-bottom: 100%;
+            position: relative;
+            filter: grayscale(100%);
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

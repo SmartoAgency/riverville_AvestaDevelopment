@@ -1,0 +1,31 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'project'
+    var id_page = 'home'
+    var class_page = 'home '
+
+block meta
+  title= 'RIVERVILLE'
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/home.bundle.js')
+block content
+  include ../includes/home/home-front-screen.pug
+  include ../includes/home/home-about-screen.pug
+  include ../includes/home/home-location-screen.pug
+  include ../includes/home/home-sticky-block.pug
+  include ../includes/home/home-advantages-block.pug
+  include ../includes/home/home-incredible-block.pug
+
+
+
+block footer
+
+block header
+  include ../includes/header.pug

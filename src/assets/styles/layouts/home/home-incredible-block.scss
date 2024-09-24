@@ -1,0 +1,46 @@
+.home-incredible-block {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(12, 1fr);
+    &__item {
+        padding: pxWidthInVw(40);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        &-decor {
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 100%;
+        }
+        &-text {
+        }
+        &-title {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            column-gap: 20px;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        &.dark {
+            background-color: var(--color-bg-colour);
+        }
+        &.medium {
+            background: var(--White, #EFF3F7);
+        }
+        &.light {
+            background-color: #fff;
+        }
+        &:not(.small) {
+            grid-row: span 2; /* Item takes 2 columns */
+        }
+        &.small &-title {
+            margin-bottom: 48px;
+        }
+    }
+}
