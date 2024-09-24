@@ -1,25 +1,68 @@
-.container.contacts
-  .contacts__h1.text-style-h-1.text-new-blue.text-uppercase Контакти
-  .contacts__left
-    .contacts__group
-      .contacts__title Локація:
-      .contacts__text м. Дніпро, Запорізьке шосе, 32
-      a(target='_blank' href="#").button-30.button-30--bordered Відкрити Google Maps
-    .contacts__group
-      .contacts__title Відділ продажів:
-      a(href="tel:+380671953122").contacts__text +38 (067) 195-31-22
-      .contacts__text Графік роботи:
-      .contacts__text.contacts__text--no-b-margin Пн - Пт: 10-18
-      .contacts__text Сб: 10-16, Нд: 10-15
-    .contacts__group
-      .contacts__title Social
-      a(target='_blank' href="https://instagram.com/").contacts__text Instagram
-      a(target='_blank' href="https://facebook.com").contacts__text Facebook
-      a(target='_blank' href="https://youtube.com").contacts__text Youtube
-      a(target='_blank' href="https://t.me/").contacts__text Telegram
-    .contacts__group
-      .contacts__title Email:
-      a(href="mailto:som@som.com").contacts__text som@som.com
-  .contacts__right
-    include ../components/form/form.pug
-    +form('bottom-form')
+.contact-screen
+  .contact-screen__bg
+    img(src="./assets/images/home/contact-screen/bg.jpg", alt="", srcset="")
+  .contact-screen__content
+    .contact-screen__title.text-style-1920-h-1 Контакти
+    .contact-screen__table
+      div.contact-screen__table-item
+        .contact-screen__table-title.text-style-1920-body Наша адреса:
+        .contact-screen__table-text.text-style-1920-h-4 Ужгород вул. Баб'яка
+        a(href="#" target='_blank').button-30
+          span Прокласти маршрут
+      div.contact-screen__table-item
+        .contact-screen__table-title.text-style-1920-body Соц. мережі:
+        a(href="http://telegram.org", target="_blank", rel="noopener noreferrer") 
+          <svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" width="64" height="64" rx="32" fill="#5DA8DA"/>
+            <rect x="1" y="0.5" width="63" height="63" rx="31.5" stroke="#ADCADE" stroke-opacity="0.3"/>
+            <path d="M29.9174 34.8632L29.5204 39.8888C30.0884 39.8888 30.3344 39.6692 30.6294 39.4055L33.2925 37.115L38.8106 40.7519C39.8226 41.2595 40.5357 40.9922 40.8087 39.914L44.4308 24.6393L44.4318 24.6384C44.7528 23.292 43.8907 22.7655 42.9047 23.0958L21.6142 30.4316C20.1612 30.9392 20.1832 31.6682 21.3672 31.9985L26.8103 33.5222L39.4536 26.4023C40.0486 26.0477 40.5897 26.2439 40.1446 26.5985L29.9174 34.8632Z" fill="white"/>
+          </svg>
+        a(href="http://viber.org", target="_blank", rel="noopener noreferrer") 
+          <svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" width="64" height="64" rx="32" fill="#7062EA"/>
+            <rect x="1" y="0.5" width="63" height="63" rx="31.5" stroke="#ADCADE" stroke-opacity="0.3"/>
+            <path d="M41.0408 22.3475C40.462 21.812 38.1468 20.0482 32.9375 20.0168C32.9375 20.0168 26.8144 19.6388 23.829 22.4734C22.1535 24.2057 21.5747 26.6939 21.5138 29.8121C21.4529 32.9302 21.3615 38.757 26.8144 40.3633V42.7885C26.8144 42.7885 26.7839 43.7648 27.3932 43.9538C28.1548 44.2058 28.5813 43.4499 29.3124 42.6625C29.7084 42.2215 30.2568 41.5916 30.6528 41.0877C34.3693 41.4026 37.2329 40.6782 37.568 40.5522C38.3295 40.3003 42.5639 39.7333 43.2646 33.9066C43.9957 27.8593 42.96 24.0483 41.0408 22.3475ZM41.6805 33.4341C41.1017 38.316 37.6594 38.631 37.0196 38.8199C36.7455 38.9144 34.2475 39.5444 31.0793 39.3554C31.0793 39.3554 28.7336 42.2845 27.972 43.0719C27.8502 43.1979 27.7283 43.2294 27.6369 43.2294C27.5151 43.1979 27.4846 43.0404 27.4846 42.82C27.4846 42.505 27.5151 38.7885 27.5151 38.7885C22.9151 37.4656 23.1893 32.4892 23.2197 29.875C23.2807 27.2609 23.7376 25.1506 25.1389 23.7018C27.6674 21.3396 32.8766 21.686 32.8766 21.686C37.2633 21.7175 39.3653 23.0719 39.8527 23.5443C41.4368 24.9931 42.2593 28.4262 41.6805 33.4341Z" fill="white"/>
+            <path d="M35.0693 29.6867C35.0084 28.4898 34.4298 27.8599 33.303 27.7969" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M36.5933 30.1899C36.6238 29.0875 36.2887 28.1425 35.6489 27.4181C34.9787 26.6622 34.0648 26.2527 32.9071 26.1582" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38.1164 30.8202C38.1164 28.8989 37.5376 27.387 36.4409 26.2846C35.3442 25.1822 33.9733 24.6152 32.3282 24.6152" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M33.364 33.7488C33.364 33.7488 33.7905 33.7803 34.0038 33.4968L34.4303 32.9299C34.6435 32.6464 35.1309 32.4574 35.6488 32.7409C35.923 32.8984 36.4104 33.2134 36.715 33.4653C37.0501 33.7173 37.7203 34.2842 37.7203 34.2842C38.0554 34.5677 38.1163 34.9771 37.9031 35.4181C37.6898 35.8275 37.3852 36.2055 36.9892 36.552C36.6845 36.8354 36.3799 36.9614 36.0753 37.0244H35.9534C35.8316 37.0244 35.6792 36.9929 35.5574 36.9614C35.1004 36.8354 34.3389 36.489 33.0289 35.7645C32.2064 35.2921 31.5058 34.7882 30.927 34.3157C30.6223 34.0638 30.2872 33.7803 29.9826 33.4338L29.8608 33.3078C29.5257 32.9614 29.2515 32.6464 29.0078 32.3315C28.5508 31.733 28.0634 31.0086 27.6065 30.1582C26.9058 28.8354 26.5707 28.048 26.4489 27.544C26.4184 27.4181 26.3879 27.2921 26.3879 27.1346V27.0086C26.4184 26.6937 26.5707 26.3787 26.8449 26.0637C27.18 25.6858 27.5455 25.3708 27.9416 25.1188C28.3681 24.8984 28.7641 24.9614 29.0383 25.3078C29.0383 25.3078 29.5866 26.0007 29.8303 26.3472C30.0435 26.6622 30.3482 27.1661 30.531 27.4496C30.8051 27.9535 30.6223 28.4889 30.3786 28.7094L29.8303 29.1504C29.5561 29.3708 29.5866 29.8118 29.5866 29.8118C29.5866 29.8118 30.3482 32.9299 33.364 33.7488Z" fill="white"/>
+          </svg>
+        a(href="http://facebook.com", target="_blank", rel="noopener noreferrer") 
+          <svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32.5" cy="32" r="32" fill="url(#paint0_linear_236_180)"/>
+            <circle cx="32.5" cy="32" r="31.5" stroke="#ADCADE" stroke-opacity="0.3"/>
+            <g clip-path="url(#clip0_236_180)">
+            <path d="M20.6528 37.546L26.4475 28.2787C26.6655 27.9298 26.9529 27.6302 27.2915 27.3989C27.6301 27.1676 28.0126 27.0096 28.4149 26.9348C28.8171 26.8601 29.2304 26.8702 29.6286 26.9646C30.0267 27.059 30.4012 27.2356 30.7282 27.4832L35.3393 30.9684C35.5452 31.1238 35.7956 31.2073 36.0528 31.2064C36.3099 31.2055 36.5598 31.1202 36.7646 30.9634L42.9884 26.2005C43.8169 25.5641 44.9018 26.5684 44.3495 27.4583L38.5498 36.7207C38.3319 37.0696 38.0445 37.3692 37.7059 37.6005C37.3672 37.8318 36.9847 37.9898 36.5825 38.0645C36.1802 38.1393 35.767 38.1292 35.3688 38.0348C34.9707 37.9404 34.5962 37.7638 34.2692 37.5162L29.658 34.031C29.4522 33.8756 29.2017 33.7921 28.9446 33.793C28.6874 33.7939 28.4376 33.8792 28.2328 34.036L22.009 38.7989C21.1805 39.4353 20.0955 38.436 20.6528 37.546Z" fill="white"/>
+            </g>
+            <defs>
+            <linearGradient id="paint0_linear_236_180" x1="64.5" y1="-3.8147e-06" x2="0.500004" y2="64" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#59B8F8"/>
+            <stop offset="1" stop-color="#3977F7"/>
+            </linearGradient>
+            <clipPath id="clip0_236_180">
+            <rect width="24" height="24" fill="white" transform="translate(20.5 20)"/>
+            </clipPath>
+            </defs>
+          </svg>
+      div.contact-screen__table-item
+        .contact-screen__table-title.text-style-1920-body Відділ інвестицій:
+        a(href="tel:+38 031 265 92 34").contact-screen__table-text.text-style-1920-h-4 +38 031 265 92 34
+      div.contact-screen__table-item
+        .contact-screen__table-title.text-style-1920-body E-mail:
+        a(href="mailto:hello@riverville.com.ua" data-email="data-email").contact-screen__table-text.text-style-1920-h-4 hello@riverville.com.ua
+    form.contact-screen-form(data-contact-screen-form)
+      .text-white.text-style-1920-h-2.contact-screen-form__title Зворотній дзвінок
+      .text-white.text-style-1920-body.contact-screen-form__subtitle Якщо у вас виникли питання або потрібна консультація наші менеджери допоможуть вам у вирішенні любих запитань
+      .contact-screen-form__group(data-status="field--inactive" data-field-input="data-field-input" data-field-name="data-field-name")
+        .contact-screen-form__group-message(data-input-message="data-input-message")
+        .contact-screen-form__group-title Ім'я:
+        input.contact-screen-form__input(type="text" placeholder="Введіть ваше імʼя" name="name")
+      .contact-screen-form__group(data-status="field--inactive" data-field-input="data-field-input" data-lenis-prevent  data-field-phone="data-field-phone")
+        .contact-screen-form__group-message(data-input-message="data-input-message")
+        .contact-screen-form__group-title Телефон:
+        input.contact-screen-form__input(type="tel" placeholder="Телефон" name="phone")
+      .contact-screen-form__group
+        .contact-screen-form__group-title Коментар:
+        textarea.contact-screen-form__input(type="email" placeholder="Введіть коментар" name="email")
+      button(type="submit" data-btn-submit="data-btn-submit").button-30.contact-screen-form__button
+        span(data-btn-submit-text) Надіслати повідомлення

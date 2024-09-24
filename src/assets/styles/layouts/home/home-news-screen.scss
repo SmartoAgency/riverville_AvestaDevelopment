@@ -1,0 +1,26 @@
+.home-news-screen {
+    background-color: var(--color-ffffff);
+    &__title {
+        width: 100%;
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    &__content {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: var(--color-ffffff);
+        position: relative;
+        z-index: 2;
+        .news-card {
+            width: 33.30%;
+            margin-left: -1px;
+        }
+        &>.button-30 {
+            margin-top: 60px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}

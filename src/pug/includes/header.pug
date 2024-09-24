@@ -1,5 +1,5 @@
 header(class="header "+header_class)
-    button(type="button" data-form-popup-call).button-30.button-30--transparent-bordered 
+    button(type="button" data-popup-call).button-30.button-30--transparent-bordered 
         span Замовити дзвінок
     a(href="tel: 0443232145" class="text-style-1920-links header__tel")
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +8,7 @@ header(class="header "+header_class)
         span (044) 32-32-145
     a(href="/" class="header__logo-wrap")
         include ../components/logo.svg
-    button(type="button" class="button-primary")
+    button(type="button" class="button-primary" data-popup-call)
         <div class="button-primary__effect">
             <div class="card1"></div>
             <div class="card2"></div>
@@ -16,7 +16,7 @@ header(class="header "+header_class)
         </div>
         <div class="button-primary__move"></div>
         span Обрати квартиру
-    button.header__menu-call.text-style-1920-links(data-menu-call) 
+    button.header__menu-call.text-style-1920-links(data-menu-call data-popup-call) 
         span Меню
         <svg width="40" height="10" viewBox="0 0 40 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="3" width="3" height="40" transform="rotate(-90 0 3)" fill="black"/>

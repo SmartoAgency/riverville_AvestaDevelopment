@@ -1,0 +1,54 @@
+.home-gallery-screen
+  .home-gallery-screen__title.text-style-1920-h-1 Галерея
+  .home-gallery-screen__slider
+    .swiper-container(data-home-gallery-screen)
+      .home-gallery-screen__slider-bottom-gradient
+      .swiper-pagination.text-style-1920-links
+        span(data-home-gallery-screen-pagination-current) 
+        span /
+        span(data-home-gallery-screen-pagination-all) 
+      .swiper-navigation
+        <svg width="101" height="200" viewBox="0 0 101 200" fill="none" xmlns="http://www.w3.org/2000/svg" data-home-gallery-screen-prev>
+          <g clip-path="url(#clip0_232_172)">
+          <g filter="url(#filter0_b_232_172)">
+          <path d="M0.738037 -0.293945L100.738 99.7061L0.738037 199.706L-99.262 99.7061L0.738037 -0.293945Z" fill="#07222F" fill-opacity="0.5"/>
+          </g>
+          <path d="M23 100L47 100M23 100L35 88M23 100L35 112" stroke="white" stroke-width="2"/>
+          </g>
+          <defs>
+          <filter id="filter0_b_232_172" x="-127.262" y="-28.2939" width="256" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feGaussianBlur in="BackgroundImageFix" stdDeviation="14"/>
+          <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_232_172"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_232_172" result="shape"/>
+          </filter>
+          <clipPath id="clip0_232_172">
+          <rect width="101" height="200" fill="white"/>
+          </clipPath>
+          </defs>
+        </svg>
+        <svg width="101" height="200" viewBox="0 0 101 200" fill="none" xmlns="http://www.w3.org/2000/svg" data-home-gallery-screen-next>
+          <g clip-path="url(#clip0_249_842)">
+          <g filter="url(#filter0_b_249_842)">
+          <path d="M100.262 -0.293945L0.262209 99.7061L100.262 199.706L200.262 99.7061L100.262 -0.293945Z" fill="#07222F" fill-opacity="0.5"/>
+          </g>
+          <path d="M78 100L54 100M78 100L66 88M78 100L66 112" stroke="white" stroke-width="2"/>
+          </g>
+          <defs>
+          <filter id="filter0_b_249_842" x="-27.7378" y="-28.2939" width="256" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feGaussianBlur in="BackgroundImageFix" stdDeviation="14"/>
+          <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_249_842"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_249_842" result="shape"/>
+          </filter>
+          <clipPath id="clip0_249_842">
+          <rect width="101" height="200" fill="white" transform="matrix(-1 0 0 1 101 0)"/>
+          </clipPath>
+          </defs>
+        </svg>
+      .swiper-wrapper
+        each val, index in [1, 2, 3, 4, 5, 6, 7]
+          -
+            const src = `./assets/images/home/home-gallery-screen/img-${index}.jpg`
+          .swiper-slide
+            img(src=src, alt="", srcset="" loading="lazy")

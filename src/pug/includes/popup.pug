@@ -1,0 +1,21 @@
+.popup(data-popup data-lenis-prevent)
+  .popup__content
+    <svg data-popup-close class="popup__close" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M30 30L2 2M2 30L30 2L2 30Z" stroke="#212721" stroke-width="5"/>
+    </svg>
+    form.contact-screen-form(data-popupn-form)
+      .text-white.text-style-1920-h-2.contact-screen-form__title Зворотній дзвінок
+      .text-white.text-style-1920-body.contact-screen-form__subtitle Якщо у вас виникли питання або потрібна консультація наші менеджери допоможуть вам у вирішенні любих запитань
+      .contact-screen-form__group(data-status="field--inactive" data-field-input="data-field-input" data-field-name="data-field-name")
+        .contact-screen-form__group-message(data-input-message="data-input-message")
+        .contact-screen-form__group-title Ім'я:
+        input.contact-screen-form__input(type="text" placeholder="Введіть ваше імʼя" name="name")
+      .contact-screen-form__group(data-status="field--inactive" data-field-input="data-field-input" data-lenis-prevent  data-field-phone="data-field-phone")
+        .contact-screen-form__group-message(data-input-message="data-input-message")
+        .contact-screen-form__group-title Телефон:
+        input.contact-screen-form__input(type="tel" placeholder="Телефон" name="phone")
+      .contact-screen-form__group
+        .contact-screen-form__group-title Коментар:
+        textarea.contact-screen-form__input(type="email" placeholder="Введіть коментар" name="email")
+      button(type="submit" data-btn-submit="data-btn-submit").button-30.contact-screen-form__button
+        span(data-btn-submit-text) Надіслати повідомлення

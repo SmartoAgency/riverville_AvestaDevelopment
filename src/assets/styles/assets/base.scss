@@ -57,10 +57,13 @@ body {
 	font-size: 14px;
 	color: var(--color-07222-f);
 	background-color: var(--color-bg-colour);
+	&.popup-open {
+		overflow: hidden;
+	}
 }
 
 body input, body textarea {
-	border: #666 1px solid;
+	border: none;
 	outline: none;
 }
 

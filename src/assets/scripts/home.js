@@ -1,8 +1,9 @@
-import Swiper from 'swiper';
+import Swiper, { Navigation } from 'swiper';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Headroom from 'headroom.js';
 import { lenis } from './modules/scroll/leniscroll';
+import { useState } from './modules/helpers/helpers';
 
 
 const header = document.querySelector('.header');
@@ -12,6 +13,12 @@ headroom.init();
 
 gsap.registerPlugin(ScrollTrigger);
 
+
+document.querySelectorAll('.home-front-screen__arrow').forEach((el) => {
+    el.addEventListener('click', () => {
+        document.querySelector('.home-about-screen').scrollIntoView({ behavior: 'smooth' });    
+    });
+});
 
 function screen1() {
     const videoBtn = document.querySelector('.home-front-screen__video-btn');
@@ -38,6 +45,18 @@ function screen1() {
             videoElement.removeAttribute('controls');
         }
     });
+
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '.home-front-screen',
+            onLeave() {
+                videoElement.pause();
+            },
+            onEnterBack() {
+                videoElement.play();
+            }
+        }
+    })
 }
 screen1();
 
@@ -58,9 +77,95 @@ function applyScrollTriggerAnimation(selectors) {
     });
 }
 
-applyScrollTriggerAnimation('.home-incredible-block__item, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items');
+applyScrollTriggerAnimation('.home-sticky-block__item, .home-video-block__decor, .home-incredible-block__item, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items');
 
 
 const advblock2 = new Swiper('[data-home-advantages-block2]', {
     slidesPerView: 3.1,
 })
+
+
+const [ galleryClosed, setGalleryClosed, subscribeGalleryClosed ] = useState(true);
+
+
+subscribeGalleryClosed((value) => {
+    const gallery = document.querySelector('[data-home-gallery-screen]');
+    gallery.classList.toggle('closed', value);
+});
+
+setGalleryClosed(true);
+
+const gallery = new Swiper('[data-home-gallery-screen]', {
+    modules: [Navigation],
+    navigation: {
+        nextEl: '[data-home-gallery-screen-next]',
+        prevEl: '[data-home-gallery-screen-prev]',
+    },
+    on: {
+        init(instance) {
+            document.querySelector('[data-home-gallery-screen-pagination-all]').textContent = instance.slides.length;
+            document.querySelector('[data-home-gallery-screen-pagination-current]').textContent = instance.realIndex + 1;
+        },
+        slideChange(instance) {
+            document.querySelector('[data-home-gallery-screen-pagination-current]').textContent = instance.realIndex + 1;
+        }
+    },
+});
+
+
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '[data-home-gallery-screen]',
+        start: '80% bottom',
+        onEnter() {
+            setGalleryClosed(false);
+        },
+        onLeaveBack() {
+            setGalleryClosed(true);
+        }
+    },
+});
+
+
+
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '[data-wave1-block]',
+        pin: '[data-wave1-block-content]',
+        // end: '0% top',
+        // endTrigger: '.home-news-screen',
+        scrub: 1,
+        markers: true,
+    }
+})
+    .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.5, ease: 'none' })
+    .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.5, ease: 'none' }, '<')
+
+
+    gsap.timeline({
+    scrollTrigger: {
+        trigger: '[data-wave2-block]',
+        pin: '[data-wave2-block-content]',
+        end: '100% bottom',
+        // endTrigger: '.home-news-screen',
+        scrub: 1,
+        markers: true,
+    }
+})
+    .fromTo('[data-wave2-block-top]', { y: window.screen.height * -0.5 }, { y: 0, ease: 'none', duration: 0.75  })
+    .fromTo('[data-wave2-block-bottom]', { y: window.screen.height * 0.5 }, { y: 0, ease: 'none', duration: 0.75  }, '<')
+    .to('[data-wave2-block-bottom]', { y: 0, ease: 'none', duration: 0.25 })
+
+
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '.home-news-screen',
+        start: '10% 50%',
+        end: '20% 50%',
+        markers: true,
+        scrub: 1,
+    }
+})
+    .fromTo('.home-news-screen__content', 
+        {opacity: 0 }, 
+        { opacity: 1, clearProps: 'all'})

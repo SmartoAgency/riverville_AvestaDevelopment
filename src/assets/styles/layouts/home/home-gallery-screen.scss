@@ -1,0 +1,91 @@
+.home-gallery-screen {
+    --transition: .75s ease-out;
+    margin-top: var(--section-v-offset);
+    &__title {
+        margin-bottom: 80px;
+        text-align: center;
+    }
+    .swiper-navigation {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        z-index: 2;
+        pointer-events: none;
+        svg {
+            pointer-events: all;
+            cursor: pointer;
+            transition: transform 0.3s ease-out;
+        }
+    }
+    .swiper-slide {
+        transition: var(--transition);
+        padding-bottom: Min(62.5%, 100vh);
+        &.swiper-slide-active {
+            transform-origin: bottom;
+        }
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .swiper-container.closed {
+        .swiper-navigation {
+            svg:first-child {
+                transform: translateX(-100%);
+            }
+            svg:last-child {
+                transform: translateX(100%);
+            }
+        }
+        .swiper-slide:not(.swiper-slide-active) {
+            opacity: 0;
+        }
+        .swiper-slide-prev {
+            transform: scale(0.9) translateX(10%)
+        }
+        .swiper-slide-next {
+            transform: scale(0.9) translateX(-10%)
+        }
+        .swiper-slide-active {
+            transform: scale(0.8);
+        }
+        .home-gallery-screen__slider-bottom-gradient {
+            transform: translateY(100%);
+        }
+        .swiper-pagination {
+            opacity: 0;
+        }
+    }
+    &__slider-bottom-gradient {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(0deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
+        z-index: 2;
+        transition: var(--transition);
+    }
+    .swiper-pagination {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+    }
+
+    .swiper-button-disabled {
+        opacity: 0;
+    }
+}

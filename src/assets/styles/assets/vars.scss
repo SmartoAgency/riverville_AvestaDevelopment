@@ -43,7 +43,7 @@ $color-000000: rgba(0,0,0,1);
 	color: rgba(228,228,236,1);
 }
 .color-b-1-c-6-c-9 {
-	color: rgba(177,198,201,1);
+	color: #b1c6c9;
 }
 .color-5-d-85-a-3 {
 	color: rgba(93,133,163,1);
@@ -212,6 +212,7 @@ $gold: #CFA46E;
 }
 @mixin text-style-1920-button() {
 	font-size: 16px;
+	font-size: pxWidthInVw(16);
 	font-family: Century Gothic;
 	font-weight: 400;
 	font-style: normal;

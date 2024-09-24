@@ -11,7 +11,8 @@ import { useState } from './helpers/helpers';
  * form handlers start
  */
 const forms = [
-    '[data-form="data-form"]',
+    '[data-popupn-form]',
+    '[data-contact-screen-form]'
   ];
   console.log('ffff');
   forms.forEach((form) => {
