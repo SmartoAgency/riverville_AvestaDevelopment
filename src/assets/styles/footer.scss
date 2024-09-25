@@ -2,32 +2,49 @@
   padding-left: var(--page-side-fields);
   padding-right: var(--page-side-fields);
   
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
   font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 140%; /* 19.6px */
-text-transform: uppercase;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 19.6px */
   text-transform: uppercase;
+    text-transform: uppercase;
   color: #696865;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   /* identical to box height, or 17px */
 
   letter-spacing: -0.03em;
   color: var(--color-gray-body);
   position: relative;
+  @media screen and (max-width:600px){
+    margin-bottom: -5px;
+  }
 
   .delimiter {
     margin-bottom: 40px;
   }
   .dev-logo {
-    position: absolute;
-    right: var(--page-side-fields);
-    bottom: -5px;
+    // position: absolute;
+    // right: var(--page-side-fields);
+    // bottom: -5px;
     width: 52px;
     height: 57px;
   }
   p~p {
     margin-top: 2px;
+  }
+  &-up-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    @media screen and (max-width:600px){
+      span {
+        display: none;
+      }
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-export default function splitToLinesAndFadeUp(selector) {
+export default function splitToLinesAndFadeUp(selector, gsap) {
     document.querySelectorAll(selector).forEach(text => {
         let mathM = text.innerHTML.match(/<\s*(\w+\b)(?:(?!<\s*\/\s*\1\b)[\s\S])*<\s*\/\s*\1\s*>|\S+/g);
         if (mathM === null) return;
@@ -28,6 +28,4 @@ export default function splitToLinesAndFadeUp(selector) {
           //   tl.progress(0).play();
           // });
       });
-
-
 }

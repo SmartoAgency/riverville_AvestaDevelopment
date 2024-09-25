@@ -3,6 +3,9 @@
     border: 1px solid var(--B1C6C9, #B1C6C9);
     &__content {
         padding: 40px 50px;
+        @media screen and (max-width:600px){
+            padding: 20px;
+        }
     }
     &__image {
         

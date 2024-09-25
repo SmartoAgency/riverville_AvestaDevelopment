@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "work builder",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "prod": "gulp styles && gulp _styles && gulp scripts --production"
+  },
   "browserslist": [
     "last 3 version"
   ],

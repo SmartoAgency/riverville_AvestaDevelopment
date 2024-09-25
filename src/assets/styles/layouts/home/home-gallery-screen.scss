@@ -19,6 +19,13 @@
             pointer-events: all;
             cursor: pointer;
             transition: transform 0.3s ease-out;
+            @include to(1024px){
+                width: 50px;
+                height: auto;
+            }
+            @media screen and (max-width:600px){
+                width: 36px;
+            }
         }
     }
     .swiper-slide {
@@ -73,6 +80,10 @@
         background: linear-gradient(0deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
         z-index: 2;
         transition: var(--transition);
+        pointer-events: none;
+        @media screen and (max-width:600px){
+            height: 40%;
+        }
     }
     .swiper-pagination {
         position: absolute;

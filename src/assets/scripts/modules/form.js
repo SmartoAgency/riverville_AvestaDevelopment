@@ -43,10 +43,12 @@ const forms = [
                 text-transform: uppercase;
                 z-index: 2;
                 padding: 8px;
-                color: #7b9d45;
+                padding-left: 40px;
+                padding-right: 40px;
+                color: rgba(7,34,47,1);
               ">
               
-                <div style="text-align: center; margin-bottom: 10px"  class="text-uppercase">
+                <div style="padding-left: 40px; padding-right: 40px; text-align: center; margin-bottom: 10px; color: rgba(7,34,47,1);"  class="text-uppercase text-style-1920-h-4">
                   ЗАЯВКУ НА ЗДІЙСНЕНЯ МРІЇ ПРИЙНЯТО! СКОРО З ВАМИ ЗВ'ЯЖЕТЬСЯ ВАШ ПЕРСОНАЛЬНИЙ ПОРАДНИК 
                 </div>
                 <button data-form-popup-close type="button" onclick="this.closest('[data-success]').remove()" class="button-30 button-30--blue">Закрити</button>

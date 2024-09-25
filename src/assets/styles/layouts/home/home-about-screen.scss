@@ -15,6 +15,14 @@
         align-items: center;
         justify-content: flex-start;
         margin-top: calc(var(--section-v-offset) * 0.66);
+        @include to(1024px){
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+        @media screen and (max-width:600px){
+            padding-left: 20px;
+            padding-right: 20px;
+        }
         button {
             margin-top: var(--between-v-offset);
         }
@@ -69,10 +77,19 @@
         @include row-flex();
         position: relative;
         z-index: 2;
+        @include to(1024px){
+            justify-content: center;
+        }
     }
     &__item {
         @include size(4.8);
         @include shift(0);
+        @include to(1024px){
+            @include size(8);
+        }
+        @media screen and (max-width:600px){
+            @include size(12);
+        }
         svg {
             margin-bottom: 20px;
         }

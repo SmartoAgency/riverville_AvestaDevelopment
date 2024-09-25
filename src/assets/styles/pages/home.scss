@@ -15,6 +15,11 @@
     margin-bottom: var(--section-v-offset);
     padding-left: pxWidthInVw(460);
     padding-right: pxWidthInVw(460);
+    display: none;
+    @include to(1024px){
+        padding-left: 20px;
+        padding-right: 20px;
+    }
     &__title  {
         text-align: center;
         padding-left: var(--page-side-fields);
@@ -62,7 +67,7 @@
 .home-wave2-block {
     height: 180vh;
     background-color: var(--color-ffffff);
-    padding-top: var(--section-v-offset);
+    // padding-top: var(--section-v-offset);
     &__content {
         width: 100vw;
         height: 100vh;
@@ -81,8 +86,7 @@
     background: rgba(255, 255, 255, 0.60);
     @media screen and (max-width:600px){
         padding: 40px 20px;
-        border-radius: 16px;
-        max-width: calc(100% - 40px);
+        // max-width: calc(100% - 40px);
     }
     &__title {
         margin-bottom: 8px;
@@ -137,7 +141,9 @@
 .contact-screen {
     position: relative;
     z-index: 2;
-    height: 100vw;
+    @include from(1025px){
+        height: 100vw;
+    }
     &__title {
         text-align: center;
         padding-left: var(--page-side-fields);
@@ -152,6 +158,9 @@
         .contact-screen__table,
         .contact-screen-form {
             width: 50%;
+            @include to(1024px){
+                width: 100%;
+            }
         }
     }
     &__bg {
@@ -161,6 +170,14 @@
         width: 100%;
         height: 100%;
         z-index: -1;
+        img {
+            @include to(1024px){
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: bottom;
+            }
+        }
     }
     &__table {
         display: flex;
@@ -179,6 +196,11 @@
             align-items: flex-start;
             align-content: flex-start;
             gap: 8px;
+            @media screen and (max-width:600px){
+                padding: 20px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.6);
+            }
             .contact-screen__table-title {
                 width: 100%;
             }
@@ -189,10 +211,19 @@
             }
         }
         &-item:nth-child(odd) {
-            border-right: none;
+            @include from(601px){
+                border-right: none;
+            }
         }
         &-item:nth-child(n+3) {
-            margin-top: -1px;
+            @include from(601px){
+                margin-top: -1px;
+            }
+        }
+        &-item:nth-child(n+2) {
+            @media screen and (max-width:600px){
+                margin-top: -1px;
+            }
         }
     }
     a {
@@ -246,6 +277,12 @@
         width: 50%;
         margin-left: auto;
         height: 100%;
+        @include to(1024px){
+            width: 75%;
+        }
+        @media screen and (max-width:600px){
+            width: 100%;
+        }
         .contact-screen-form {
             height: 100%;
             display: flex;

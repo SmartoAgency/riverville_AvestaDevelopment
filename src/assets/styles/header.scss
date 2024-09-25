@@ -21,6 +21,9 @@
     line-height: 100%;
 	transition: background-color .5s ease-in-out, top .5s ease-in-out, transform .5s ease-in-out;
 	overflow: hidden;
+	@media screen and (max-width:600px){
+		padding-top: 5px;
+	}
 
 	&.hide {
 		transform: translateY(-100%);
@@ -37,6 +40,12 @@
     &>:not(.header__logo-wrap):nth-child(n+2) {
         margin-left: var(--between-margin);
     }
+	.button-primary,
+	.button-30 {
+		@media screen and (max-width:600px){
+			display: none;
+		}
+	}
 
 	&__tel {
 		display: flex;
@@ -44,6 +53,11 @@
 		justify-content: flex-start;
 		color: var(--color-07222-f);
 		text-decoration: none;
+		@media screen and (max-width:1024px){
+			span {
+				display: none;
+			}
+		}
 		svg {
 			margin-right: 20px;
 			width: 24px;
@@ -54,6 +68,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
+		@media screen and (max-width:1024px){
+			span {
+				display: none;
+			}
+		}
 		svg {
 			margin-left: 12px;
 		}
@@ -63,6 +82,16 @@
 		margin-right: auto;
 		width: 184px;
 		transition: .35s ease-out;
+		@include to(1024px){
+			width: 124px;
+		}
+		@media screen and (max-width:600px){
+			order: -1;
+			width: 85px;
+			margin-left: 0;
+			margin-right: auto;
+
+		}
 		svg {
 			width: 100%;
 			height: auto;
@@ -70,6 +99,12 @@
 	}
 	&.headroom--not-top &__logo-wrap {
 		width: 124px;
+		@include to(1024px){
+			width: 84px;
+		}
+		@media screen and (max-width:600px){
+			width: 70px;
+		}
 	}
 }
 

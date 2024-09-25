@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/all';
 import Headroom from 'headroom.js';
 import { lenis } from './modules/scroll/leniscroll';
 import { useState } from './modules/helpers/helpers';
+import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
 
 
 const header = document.querySelector('.header');
@@ -17,6 +18,11 @@ gsap.registerPlugin(ScrollTrigger);
 document.querySelectorAll('.home-front-screen__arrow').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.home-about-screen').scrollIntoView({ behavior: 'smooth' });    
+    });
+});
+document.querySelectorAll('[data-up-arrow]').forEach((el) => {
+    el.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
 
@@ -77,11 +83,25 @@ function applyScrollTriggerAnimation(selectors) {
     });
 }
 
-applyScrollTriggerAnimation('.home-sticky-block__item, .home-video-block__decor, .home-incredible-block__item, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items');
+applyScrollTriggerAnimation('.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-incredible-block__item, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items');
 
 
 const advblock2 = new Swiper('[data-home-advantages-block2]', {
     slidesPerView: 3.1,
+    breakpoints: {
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 1,
+        },
+        // when window width is >= 480px
+        600: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 3.1,
+        },
+        // when window width is >= 640px
+    }
 })
 
 
@@ -135,7 +155,7 @@ gsap.timeline({
         // end: '0% top',
         // endTrigger: '.home-news-screen',
         scrub: 1,
-        markers: true,
+        markers: false,
     }
 })
     .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.5, ease: 'none' })
@@ -149,12 +169,24 @@ gsap.timeline({
         end: '100% bottom',
         // endTrigger: '.home-news-screen',
         scrub: 1,
-        markers: true,
+        markers: false,
     }
 })
-    .fromTo('[data-wave2-block-top]', { y: window.screen.height * -0.5 }, { y: 0, ease: 'none', duration: 0.75  })
-    .fromTo('[data-wave2-block-bottom]', { y: window.screen.height * 0.5 }, { y: 0, ease: 'none', duration: 0.75  }, '<')
-    .to('[data-wave2-block-bottom]', { y: 0, ease: 'none', duration: 0.25 })
+    .fromTo(
+        '[data-wave2-block-top]', 
+        { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.5 }, 
+        { y: 0, ease: 'none', duration: 0.75  }
+    )
+    .fromTo(
+        '[data-wave2-block-bottom]', 
+        { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.5 }, 
+        { y: 0, ease: 'none', duration: 0.75  }, 
+        '<'
+    )
+    .to(
+        '[data-wave2-block-bottom]', 
+        { y: 0, ease: 'none', duration: 0.25 }
+    )
 
 
 gsap.timeline({
@@ -162,10 +194,13 @@ gsap.timeline({
         trigger: '.home-news-screen',
         start: '10% 50%',
         end: '20% 50%',
-        markers: true,
+        markers: false,
         scrub: 1,
     }
 })
     .fromTo('.home-news-screen__content', 
         {opacity: 0 }, 
-        { opacity: 1, clearProps: 'all'})
+        { opacity: 1, clearProps: 'all'});
+
+
+        splitToLinesAndFadeUp('.home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-advantages-block__title, .home-gallery-screen__title, .home-construction-screen__title', gsap);

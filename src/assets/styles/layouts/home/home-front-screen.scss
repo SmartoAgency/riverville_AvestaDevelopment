@@ -3,6 +3,13 @@
     padding: calc(var(--header-h) * 1.25 + 50px) var(--page-side-fields) 40px var(--page-side-fields);
     height: 75.46875vw;
     background: var(--BG-colour, #E4E4EC);
+    @media screen and (max-width:1024px){
+        height: 125vw;
+    }
+    @include to(600px){
+        height: 100vh;
+        padding-bottom: 20px;
+    }
 
     &__bottom-gradient {
         position: absolute;
@@ -75,10 +82,17 @@
     &__arrow {
         margin-top: auto;
         cursor: pointer;
+        @media screen and (max-width:600px){
+            margin-right: auto;
+        }
 
         svg {
             -webkit-animation: bounce-top 2s infinite both;
             animation: bounce-top 2s infinite both;
+            @media screen and (max-width:600px){
+                width: 24px;
+                height: auto;
+            }
         }
     }
 
@@ -106,34 +120,9 @@
         z-index: 5;
         transition: height 1s cubic-bezier(0.55, 0.1, 0, 1.01),
             width 1s cubic-bezier(0.55, 0.1, 0, 1.01);
-
-        // @include tabletLarge {
-        //     bottom: var(--p80);
-        // }
-
-        // @include tablet {
-        //     bottom: 5%;
-        //     width: 369px;
-        //     height: 206.971px;
-        // }
-
-        // @include mobile {
-        //     width: calc(100% - 40px);
-        //     height: 178px;
-        //     left: 20px;
-        //     bottom: 5%;
-        // }
-
-        // @include mobile {
-        //     border-radius: 4px;
-        //     padding: 12px;
-        //     gap: 12px;
-        //     width: 120px;
-        //     height: 48px;
-        //     left: 50%;
-        //     bottom: 5%;
-        //     transform: translateX(-50%);
-        // }
+        @media screen and (max-width:600px){
+            width: 25vw;
+        }
 
         &.active {
             height: calc(100vh - var(--header-h) * 2);
@@ -143,11 +132,12 @@
 
             @include to(1024px) {
                 height: 40vh;
-                width: 100%;
+                width: 80vw;
             }
 
             .home-front-screen__video-btn {
                 width: 48px;
+                height: 48px;
                 right: 20px;
                 bottom: calc(100% - 65px);
                 transition: all 1.5s cubic-bezier(0.55, 0.1, 0, 1.01);
@@ -188,13 +178,14 @@
             right: 20px;
             cursor: pointer;
             transition: all 2s cubic-bezier(0.1, 0.1, 0, 1.01);
-
+            @media screen and (max-width:600px){
+                width: 28px;
+                height: 28px;
+                right: 8px;
+                bottom: 8px;
+            }
             &-text {
                 display: none;
-
-                // @include mobile {
-                //     display: block;
-                // }
             }
 
             svg {

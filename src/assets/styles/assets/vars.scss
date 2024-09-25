@@ -73,20 +73,25 @@ $gold: #CFA46E;
 	--logo-w: 155px;
 	--sliceFigure: 239px;
 	--sliceFigure-big: 541px;
-	--page-side-fields: 60px;
+	--page-side-fields: 40px;
 	--section-v-offset: 150px;
 	--button-color: #001A58;
 }
 
 @media screen and (max-width: 1440px) {
 	:root {
-		--header-h: 90px;
+		--header-h: 86px;
 		--logo-w: 120px;
 		--sliceFigure-big: 362px;
 		--section-v-offset: 100px;
 	}
 }
 
+@media screen and (max-width:1024px){
+	:root {
+		--page-side-fields: 20px;
+	}
+}
 
 
 @media screen and (max-width: 992px) {
@@ -100,8 +105,8 @@ $gold: #CFA46E;
 @media screen and (max-width: 576px) {
 	:root {
 		--header-h: 70px;
-		--sliceFigure: 100px;
-		--sliceFigure-big: 100px;
+		--section-v-offset: 50px;
+		--page-side-fields: 10px;
 	}
 }
 
@@ -137,6 +142,12 @@ $gold: #CFA46E;
 	letter-spacing: -0.06em;
 	text-decoration: none;
 	text-transform: none;
+	@media screen and (max-width:1024px){
+		font-size: 48px;
+	}
+	@media screen and (max-width:1024px){
+		font-size: 28px;
+	}
 }
 .text-style-1920-h-1 {
 	@include text-style-1920-h-1;
@@ -151,6 +162,12 @@ $gold: #CFA46E;
 	letter-spacing: -0.06em;
 	text-decoration: none;
 	text-transform: uppercase;
+	@media screen and (max-width:1024px){
+		font-size: 32px;
+	}
+	@media screen and (max-width:600px){
+		font-size: 24px;
+	}
 }
 .text-style-1920-h-2 {
 	@include text-style-1920-h-2;
@@ -165,6 +182,12 @@ $gold: #CFA46E;
 	letter-spacing: -0.06em;
 	text-decoration: none;
 	text-transform: none;
+	@media screen and (max-width:1024px){
+		font-size: 26px;
+	}
+	@media screen and (max-width:600px){
+		font-size: 20px;
+	}
 }
 .text-style-1920-h-3 {
 	@include text-style-1920-h-3;
@@ -179,6 +202,12 @@ $gold: #CFA46E;
 	letter-spacing: -0.06em;
 	text-decoration: none;
 	text-transform: none;
+	@media screen and (max-width:1024px){
+		font-size: 20px;
+	}
+	@media screen and (max-width:600px){
+		font-size: 16px;
+	}
 }
 .text-style-1920-h-4 {
 	@include text-style-1920-h-4;
@@ -193,6 +222,12 @@ $gold: #CFA46E;
 	letter-spacing: -0.04em;
 	text-decoration: none;
 	text-transform: uppercase;
+	@media screen and (max-width:1024px){
+		font-size: 18px;
+	}
+	@media screen and (max-width:600px){
+		font-size: 14px;
+	}
 }
 .text-style-1920-links {
 	@include text-style-1920-links;
@@ -206,6 +241,9 @@ $gold: #CFA46E;
 	letter-spacing: -0.06em;
 	text-decoration: none;
 	text-transform: none;
+	@media screen and (max-width:1024px){
+		font-size: 14px;
+	}
 }
 .text-style-1920-body {
 	@include text-style-1920-body;
@@ -220,6 +258,9 @@ $gold: #CFA46E;
 	letter-spacing: -0.04em;
 	text-decoration: none;
 	text-transform: uppercase;
+	@media screen and (max-width:1024px){
+		font-size: 14px;
+	}
 }
 .text-style-1920-button {
 	@include text-style-1920-button;

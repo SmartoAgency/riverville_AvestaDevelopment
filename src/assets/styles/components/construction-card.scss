@@ -11,6 +11,9 @@
         text-transform: uppercase;
         color: var(--color-ffffff);
         border: 1px solid rgba(255, 255, 255, 0.40);
+        @media screen and (max-width:600px){
+            padding: 12px;
+        }
     }
     &__img-wrapper {
         
@@ -18,6 +21,9 @@
     &__img {
         padding-bottom: 50%;
         position: relative;
+        @media screen and (max-width:600px){
+            padding-bottom: 75%;
+        }
         img {
             position: absolute;
             top: 0;
@@ -38,5 +44,8 @@
         padding: 30px 40px;
         color: var(--color-ffffff);
         background: linear-gradient(0deg, #07222F 0%, rgba(7, 34, 47, 0.00) 100%);
+        @media screen and (max-width:600px){
+            padding: 20px;
+        }
     }
 }

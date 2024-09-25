@@ -16,7 +16,12 @@
             margin-right: auto;
         }
         .construction-card {
-            width: 50%;
+            @include from(1025px){
+                width: 50%;
+            }
+            @include to(1024px){
+                width: 100%;
+            }
         }
     }
 }

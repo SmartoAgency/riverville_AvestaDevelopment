@@ -16,6 +16,10 @@
         .news-card {
             width: 33.30%;
             margin-left: -1px;
+            @include to(1024px){
+                width: 100%;
+                margin-left: initial;
+            }
         }
         &>.button-30 {
             margin-top: 60px;

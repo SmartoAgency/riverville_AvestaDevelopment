@@ -2,6 +2,13 @@
     display: grid;
     grid-template-columns: repeat(4, 25%);
     grid-template-rows: repeat(12, 1fr);
+    @include to(1024px){
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (max-width:600px){
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+    }
     &__item {
         padding: pxWidthInVw(40);
         display: flex;
@@ -10,12 +17,22 @@
         justify-content: flex-start;
         align-content: flex-start;
         flex-wrap: wrap;
+        @media screen and (max-width:600px){
+            padding: 20px;
+        }
         &-decor {
             margin-top: auto;
             margin-bottom: auto;
             width: 100%;
+            @media screen and (max-width:600px){
+                margin-top: 40px;
+                margin-bottom: 40px;
+            }
         }
         &-text {
+            @media screen and (max-width:600px){
+                margin-top: auto;
+            }
         }
         &-title {
             display: flex;
@@ -37,7 +54,9 @@
             background-color: #fff;
         }
         &:not(.small) {
-            grid-row: span 2; /* Item takes 2 columns */
+            @include from(1025px){
+                grid-row: span 2; /* Item takes 2 columns */
+            }
         }
         &.small &-title {
             margin-bottom: 48px;
