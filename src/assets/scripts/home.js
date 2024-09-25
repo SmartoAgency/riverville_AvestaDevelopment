@@ -148,45 +148,45 @@ gsap.timeline({
 
 
 
-gsap.timeline({
-    scrollTrigger: {
-        trigger: '[data-wave1-block]',
-        pin: '[data-wave1-block-content]',
-        // end: '0% top',
-        // endTrigger: '.home-news-screen',
-        scrub: 1,
-        markers: false,
-    }
-})
-    .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.5, ease: 'none' })
-    .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.5, ease: 'none' }, '<')
+// gsap.timeline({
+//     scrollTrigger: {
+//         trigger: '[data-wave1-block]',
+//         pin: '[data-wave1-block-content]',
+//         // end: '0% top',
+//         // endTrigger: '.home-news-screen',
+//         scrub: 1,
+//         markers: false,
+//     }
+// })
+//     .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.5, ease: 'none' })
+//     .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.5, ease: 'none' }, '<')
 
 
-    gsap.timeline({
-    scrollTrigger: {
-        trigger: '[data-wave2-block]',
-        pin: '[data-wave2-block-content]',
-        end: '100% bottom',
-        // endTrigger: '.home-news-screen',
-        scrub: 1,
-        markers: false,
-    }
-})
-    .fromTo(
-        '[data-wave2-block-top]', 
-        { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.5 }, 
-        { y: 0, ease: 'none', duration: 0.75  }
-    )
-    .fromTo(
-        '[data-wave2-block-bottom]', 
-        { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.5 }, 
-        { y: 0, ease: 'none', duration: 0.75  }, 
-        '<'
-    )
-    .to(
-        '[data-wave2-block-bottom]', 
-        { y: 0, ease: 'none', duration: 0.25 }
-    )
+//     gsap.timeline({
+//     scrollTrigger: {
+//         trigger: '[data-wave2-block]',
+//         pin: '[data-wave2-block-content]',
+//         end: '100% bottom',
+//         // endTrigger: '.home-news-screen',
+//         scrub: 1,
+//         markers: false,
+//     }
+// })
+//     .fromTo(
+//         '[data-wave2-block-top]', 
+//         { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.5 }, 
+//         { y: 0, ease: 'none', duration: 0.75  }
+//     )
+//     .fromTo(
+//         '[data-wave2-block-bottom]', 
+//         { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.5 }, 
+//         { y: 0, ease: 'none', duration: 0.75  }, 
+//         '<'
+//     )
+//     .to(
+//         '[data-wave2-block-bottom]', 
+//         { y: 0, ease: 'none', duration: 0.25 }
+//     )
 
 
 gsap.timeline({

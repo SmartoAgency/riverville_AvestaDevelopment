@@ -1,6 +1,7 @@
 .home-gallery-screen {
     --transition: .75s ease-out;
     margin-top: var(--section-v-offset);
+    margin-bottom: var(--section-v-offset);
     &__title {
         margin-bottom: 80px;
         text-align: center;

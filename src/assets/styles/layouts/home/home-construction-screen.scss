@@ -1,6 +1,7 @@
 .home-construction-screen {
     margin-top: var(--section-v-offset);
     margin-bottom: var(--section-v-offset);
+    display: none;
     &__title {
         text-align: center;
         padding-left: var(--page-side-fields);

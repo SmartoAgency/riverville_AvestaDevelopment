@@ -52,6 +52,7 @@
 .home-wave1-block {
     height: 180vh;
     background-color: var(--color-ffffff);
+    display: none;
     &__content {
         width: 100vw;
         height: 100vh;
@@ -68,6 +69,7 @@
     height: 180vh;
     background-color: var(--color-ffffff);
     // padding-top: var(--section-v-offset);
+    display: none;
     &__content {
         width: 100vw;
         height: 100vh;
