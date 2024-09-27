@@ -88,6 +88,12 @@ applyScrollTriggerAnimation('.contact-screen__table-item, .contact-screen .conta
 
 const advblock2 = new Swiper('[data-home-advantages-block2]', {
     slidesPerView: 3.1,
+    
+    modules: [Navigation],
+    navigation: {
+        nextEl: '[data-home-advantages-block2-next]',
+        prevEl: '[data-home-advantages-block2-prev]',
+    },
     breakpoints: {
         // when window width is >= 320px
         320: {

@@ -20,7 +20,14 @@
       .home-about-screen__title.text-style-1920-h-1 Про комплекс
       .home-about-screen__subtitle.text-style-1920-h-4 RIVERVILLE – простір, який забезпечує усе необхідне для максимально комфортного життя сучасної родини
     .home-about-screen__bg 
-      img(src="./assets/images/home/home-about-screen/home-about-screen-bg.jpg", alt="", srcset="" loading="lazy")
+      //-home-about-screen-bg@075x
+      <picture>
+        <source srcset="./assets/images/home/home-about-screen/home-about-screen-bg.jpg" media="(min-width: 1440px)">
+        <source srcset="./assets/images/home/home-about-screen/home-about-screen-bg@075x.jpg" media="(min-width: 767px) and (max-width: 1439px)">
+        <source srcset="./assets/images/home/home-about-screen/home-about-screen-bg@075x.jpg" media="(max-width: 767px)">
+        <img src="#", alt="", srcset="" loading="lazy"/>
+      </picture>
+      //- img(src="./assets/images/home/home-about-screen/home-about-screen-bg.jpg", alt="", srcset="" loading="lazy")
     .home-about-screen__decor 
     .home-about-screen__items
       each item, index in aboutItems

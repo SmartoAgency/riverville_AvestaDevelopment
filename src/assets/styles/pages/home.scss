@@ -163,6 +163,12 @@
             @include to(1024px){
                 width: 100%;
             }
+            .contact-screen-form__title,
+            .contact-screen-form__subtitle {
+                @include to(600px){
+                    text-align: center;
+                }
+            }
         }
     }
     &__bg {
@@ -202,6 +208,8 @@
                 padding: 20px;
                 width: 100%;
                 background: rgba(255, 255, 255, 0.6);
+                justify-content: center;
+                text-align: center;
             }
             .contact-screen__table-title {
                 width: 100%;

@@ -9,7 +9,7 @@
     .home-front-screen__top-gradient
     .home-front-screen__bottom-gradient
     <div class="home-front-screen__video">
-      <video loop autoplay muted playsinline poster="./assets/images/home/home-front-screen-bg.jpg">
+      <video loop autoplay muted playsinline poster="./assets/images/home/home-front-screen-bg@075x_mobile.jpg" loading="lazy">
         //- <source src="https://gfe-wp.smartorange.com.ua/wp-content/themes/3d/assets/images/homepage/hero-video-mobile.mp4" type="video/mp4" media="(max-width:768px)">
         <source src="./assets/images/home/front-screen-video.mp4" type="video/mp4">
       </video>
@@ -24,4 +24,10 @@
       </div>
     </div>
     .home-front-screen__bg
-      img(src="./assets/images/home/home-front-screen-bg.jpg", alt="", srcset="" loading="lazy")
+      <picture>
+        <source srcset="./assets/images/home/home-front-screen-bg.jpg" media="(min-width: 1440px)">
+        <source srcset="./assets/images/home/home-front-screen-bg@075x.jpg" media="(min-width: 767px) and (max-width: 1439px)">
+        <source srcset="./assets/images/home/home-front-screen-bg@075x_mobile.jpg" media="(max-width: 767px)">
+        //- <img src="./assets/images/home/home-front-screen-bg@075x.jpg" alt="" loading="lazy">
+        <img src="#" alt="" loading="lazy">
+      </picture>

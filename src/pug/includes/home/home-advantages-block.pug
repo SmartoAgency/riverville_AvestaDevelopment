@@ -13,11 +13,26 @@
   .home-advantages-block__title.text-style-1920-h-1
     span Переваги проекту
   .home-advantages-block__bg
-    img(src="./assets/images/home/home-advantages-block/home-advantages-block-bg.jpg", alt="", srcset="" loading="lazy")
+    <picture>
+      <source srcset="./assets/images/home/home-advantages-block/home-advantages-block-bg.jpg" media="(min-width: 1440px)">
+      <source srcset="./assets/images/home/home-advantages-block/home-advantages-block-bg@075x.jpg" media="(min-width: 767px) and (max-width: 1439px)">
+      <source srcset="./assets/images/home/home-advantages-block/home-advantages-block-bg@075x.jpg" media="(max-width: 767px)">
+      <img src="#", alt="", srcset="" loading="lazy"/>
+    </picture>
   .home-advantages-block__bottom-gradient
   .home-advantages-block__top-gradient
 .home-advantages-block2
   .swiper-container(data-home-advantages-block2)
+    .home-advantages-block2__navigation
+      <svg data-home-advantages-block2-prev width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24.0004 36.0215L48.0003 35.9774M24.0004 36.0215L36.0224 47.9994M24.0004 36.0215L35.9783 23.9994" stroke="#07222F" stroke-width="2"/>
+      </svg>
+
+      <svg data-home-advantages-block2-next  width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M47 35L23 35M47 35L35 23M47 35L35 47" stroke="#07222F" stroke-width="2"/>
+      </svg>
+
+
     .swiper-wrapper
       each val, index in block2Items
         -

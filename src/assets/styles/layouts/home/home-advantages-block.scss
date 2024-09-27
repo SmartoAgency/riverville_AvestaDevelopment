@@ -52,12 +52,40 @@
     margin-top: -1px;
     padding-left: 20px;
     padding-bottom: var(--section-v-offset);
+    @media screen and (max-width:600px){
+        padding-right: 20px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &__navigation {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 75px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 3;
+        @include from(601px){
+            display: none;
+        }
+        svg {
+            height: 100%;
+            width: auto;
+            background: white;
+            border-radius: 50%;
+            &.swiper-button-disabled {
+                opacity: 0.5;
+            }
+        }
+    }
     .swiper-container {
         @include from(1025px){
             overflow: visible;
         }
         @media screen and (max-width:600px){
             padding-top: 30px;
+            padding-bottom: 25px;
         }
         cursor: grab;
         &:active {
