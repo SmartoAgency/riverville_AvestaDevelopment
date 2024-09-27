@@ -33,6 +33,10 @@
         max-width: 920px;
         margin: auto;
         margin-bottom: -10%;
+        @include to(600px){
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+        }
     }
     &__bottom-gradient {
         position: absolute;

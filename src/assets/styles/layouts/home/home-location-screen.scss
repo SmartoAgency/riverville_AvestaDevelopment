@@ -54,6 +54,10 @@
         @include from(1025px){
             margin-bottom: -20vh;
         }
+        @include to(600px){
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+        }
     }
     &__slogan {
         position: absolute;

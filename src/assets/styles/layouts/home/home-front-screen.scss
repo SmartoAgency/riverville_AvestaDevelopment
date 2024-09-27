@@ -77,6 +77,10 @@
 
     &__title {
         margin-bottom: auto;
+        @include to(600px){
+            // padding-left: 15%;
+            // padding-right: 15%;
+        }
     }
 
     &__arrow {
@@ -111,7 +115,7 @@
         position: absolute;
         // bottom: var(--p80);
         width: 21.14vw;
-        height: 21.11vh;
+        height: 12vw;
         top: 100vh;
         transform: translateY(calc(-100% - 20px)) translateX(-20px);
         border-radius: 8px;
@@ -121,18 +125,21 @@
         transition: height 1s cubic-bezier(0.55, 0.1, 0, 1.01),
             width 1s cubic-bezier(0.55, 0.1, 0, 1.01);
         @media screen and (max-width:600px){
-            width: 25vw;
+            width: 35vw;
+            height: 17.5vw;
         }
 
         &.active {
             height: calc(100vh - var(--header-h) * 2);
-            width: calc(80vw - var(--p80) * 2);
+            width: calc(90vw - var(--p80) * 2);
             transition: height 0.7s cubic-bezier(0.55, 0.1, 0, 1.01),
                 width 0.5s cubic-bezier(0.55, 0.1, 0, 1.01);
 
+                max-width: 90vw;
+
             @include to(1024px) {
-                height: 40vh;
-                width: 80vw;
+                height: 45vw;
+                width: 90vw;
             }
 
             .home-front-screen__video-btn {
@@ -141,6 +148,10 @@
                 right: 20px;
                 bottom: calc(100% - 65px);
                 transition: all 1.5s cubic-bezier(0.55, 0.1, 0, 1.01);
+                @include to(600px){
+                    right: 10px;
+                    bottom: calc(100% - 55px);
+                }
 
                 .open {
                     display: none;
