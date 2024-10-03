@@ -5,11 +5,36 @@ const config = {
   mode: process.argv.includes('--production') ? 'production' : 'development',
   entry: {
     'immediate-loading': './src/assets/scripts/immediate-loading.js',
-    'home': './src/assets/scripts/home.js',
+    home: './src/assets/scripts/home.js',
     index: './src/assets/scripts/index-app.js',
   },
   output: {
     filename: '[name].bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+      {
+        test: /\.mjs$/,
+        include: /node_modules\/(@studio-freight\/lenis)/,
+        type: 'javascript/auto',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
   },
   optimization: {
     splitChunks: {
@@ -30,9 +55,9 @@ const config = {
       sourceMap: true,
       uglifyOptions: {
         compress: {
-          drop_console: process.argv.includes('--production')
-        }
-      }
+          drop_console: process.argv.includes('--production'),
+        },
+      },
     }),
   ],
 };

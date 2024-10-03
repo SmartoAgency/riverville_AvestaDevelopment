@@ -1,141 +1,140 @@
 .home-advantages-block {
+  position: relative;
+  height: 200vh;
+  padding-top: 100vh;
+  margin-top: -100vh;
+  &__title {
     position: relative;
-    height: 200vh;
-    padding-top: 100vh;
-    margin-top: -100vh;
-    &__title {
-        position: relative;
-        z-index: 3;
-        text-align: center;
-        padding-left: var(--page-side-fields);
-        padding-right: var(--page-side-fields);
-        padding-top: var(--section-v-offset);
+    z-index: 3;
+    text-align: center;
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
+    padding-top: var(--section-v-offset);
+  }
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
-    &__bg {
+  }
+  &__top-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #e4e4ec 0%, rgba(228, 228, 236, 0) 100%);
+    z-index: 2;
+  }
+  &__bottom-gradient {
+    background: linear-gradient(0deg, #e4e4ec 0%, rgba(228, 228, 236, 0) 100%);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20vh;
+  }
+}
+
+.home-advantages-block2 {
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-bg-colour);
+  margin-top: -1px;
+  padding-left: 20px;
+  padding-bottom: var(--section-v-offset);
+  @media screen and (max-width: 600px) {
+    padding-right: 20px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &__navigation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+    @include from(601px) {
+      display: none;
+    }
+    svg {
+      height: 100%;
+      width: auto;
+      background: white;
+      border-radius: 50%;
+      &.swiper-button-disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+  .swiper {
+    @include from(1025px) {
+      overflow: visible;
+    }
+    @media screen and (max-width: 600px) {
+      padding-top: 30px;
+      padding-bottom: 25px;
+    }
+    cursor: grab;
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  &__item {
+    position: relative;
+    &-number {
+      width: 100px;
+      height: 100px;
+      background-color: var(--color-bg-colour);
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media screen and (max-width: 600px) {
+        width: 48px;
+        height: 48px;
+      }
+    }
+    &-img {
+      padding-bottom: 100%;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        z-index: -1;
-        img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
+      }
     }
-    &__top-gradient {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
-        z-index: 2;
+    &-text {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: pxWidthInVw(100);
+      text-align: center;
     }
-    &__bottom-gradient {
-        background: linear-gradient(0deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 20vh;
-    }
-}
-
-
-.home-advantages-block2 {
-    position: relative;
-    z-index: 2;
-    background-color: var(--color-bg-colour);
-    margin-top: -1px;
-    padding-left: 20px;
-    padding-bottom: var(--section-v-offset);
-    @media screen and (max-width:600px){
-        padding-right: 20px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-    &__navigation {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 75px;
-        display: flex;
-        justify-content: space-between;
-        z-index: 3;
-        @include from(601px){
-            display: none;
-        }
-        svg {
-            height: 100%;
-            width: auto;
-            background: white;
-            border-radius: 50%;
-            &.swiper-button-disabled {
-                opacity: 0.5;
-            }
-        }
-    }
-    .swiper-container {
-        @include from(1025px){
-            overflow: visible;
-        }
-        @media screen and (max-width:600px){
-            padding-top: 30px;
-            padding-bottom: 25px;
-        }
-        cursor: grab;
-        &:active {
-            cursor: grabbing;
-        }
-    }
-    &__item {
-        position: relative;
-        &-number {
-            width: 100px;
-            height: 100px;
-            background-color: var(--color-bg-colour);
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            @media screen and (max-width:600px){
-                width: 48px;
-                height: 48px;
-            }
-        }
-        &-img {
-            padding-bottom: 100%;
-            position: relative;
-            border-radius: 50%;
-            overflow: hidden;
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-        &-text {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: pxWidthInVw(100);
-            text-align: center;
-        }
-    }
+  }
 }

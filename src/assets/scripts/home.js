@@ -1,11 +1,11 @@
-import Swiper, { Navigation } from 'swiper';
+import Swiper, { Mousewheel, Navigation } from 'swiper';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Headroom from 'headroom.js';
 import { lenis } from './modules/scroll/leniscroll';
 import { useState } from './modules/helpers/helpers';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
-
+import { speed } from 'jquery';
 
 const header = document.querySelector('.header');
 
@@ -14,145 +14,189 @@ headroom.init();
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-document.querySelectorAll('.home-front-screen__arrow').forEach((el) => {
-    el.addEventListener('click', () => {
-        document.querySelector('.home-about-screen').scrollIntoView({ behavior: 'smooth' });    
-    });
+document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelector('.home-about-screen').scrollIntoView({ behavior: 'smooth' });
+  });
 });
-document.querySelectorAll('[data-up-arrow]').forEach((el) => {
-    el.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+document.querySelectorAll('[data-up-arrow]').forEach(el => {
+  el.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
 
 function screen1() {
-    const videoBtn = document.querySelector('.home-front-screen__video-btn');
-    const videoWrapper = document.querySelector('.home-front-screen__video');
-    const videoElement = document.querySelector('.home-front-screen__video video');
-    const header = document.querySelector('header');
+  const videoBtn = document.querySelector('.home-front-screen__video-btn');
+  const videoWrapper = document.querySelector('.home-front-screen__video');
+  const videoElement = document.querySelector('.home-front-screen__video video');
+  const header = document.querySelector('header');
 
-    if (document.documentElement.clientWidth > 680) {
-        window.addEventListener('click', () => {
-            videoElement.play();
-        });
-    }
-
-    videoBtn.addEventListener('click', () => {
-        if (videoElement.muted) {
-            videoWrapper.classList.add('active');
-            header.classList.add('hidden-for-video');
-            videoElement.muted = false;
-            videoElement.setAttribute('controls', 'true');
-        } else {
-            videoWrapper.classList.remove('active');
-            header.classList.remove('hidden-for-video');
-            videoElement.muted = true;
-            videoElement.removeAttribute('controls');
-        }
+  if (document.documentElement.clientWidth > 680) {
+    window.addEventListener('click', () => {
+      videoElement.play();
     });
+  }
 
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: '.home-front-screen',
-            onLeave() {
-                videoElement.pause();
-            },
-            onEnterBack() {
-                videoElement.play();
-            }
-        }
-    })
+  videoBtn.addEventListener('click', () => {
+    if (videoElement.muted) {
+      videoWrapper.classList.add('active');
+      header.classList.add('hidden-for-video');
+      videoElement.muted = false;
+      videoElement.setAttribute('controls', 'true');
+    } else {
+      videoWrapper.classList.remove('active');
+      header.classList.remove('hidden-for-video');
+      videoElement.muted = true;
+      videoElement.removeAttribute('controls');
+    }
+  });
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '.home-front-screen',
+      onLeave() {
+        videoElement.pause();
+      },
+      onEnterBack() {
+        videoElement.play();
+      },
+    },
+  });
 }
 screen1();
 
 function applyScrollTriggerAnimation(selectors) {
-    document.querySelectorAll(selectors).forEach((el) => {
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: el,
-                start: '50% bottom',
-                // end: 'bottom center',
-                once: true,
-            },
-        })
-            .fromTo(Array.from(el.children),
-                { y: 25, autoAlpha: 0 },
-                { y: 0, autoAlpha: 1, clearProps: 'all', duration: 1.25, ease: 'power4.out', stagger: 0.1 },
-            );
-    });
+  document.querySelectorAll(selectors).forEach(el => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: '50% bottom',
+          // end: 'bottom center',
+          once: true,
+        },
+      })
+      .fromTo(
+        Array.from(el.children),
+        { y: 25, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, clearProps: 'all', duration: 1.25, ease: 'power4.out', stagger: 0.1 },
+      );
+  });
 }
 
-applyScrollTriggerAnimation('.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-incredible-block__item, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items');
+applyScrollTriggerAnimation(
+  '.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-incredible-block__item, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items',
+);
 
-
+Swiper.use([Mousewheel, Navigation]);
 const advblock2 = new Swiper('[data-home-advantages-block2]', {
-    slidesPerView: 3.1,
-    
-    modules: [Navigation],
-    navigation: {
-        nextEl: '[data-home-advantages-block2-next]',
-        prevEl: '[data-home-advantages-block2-prev]',
+  slidesPerView: 3.1,
+  modules: [Mousewheel],
+  speed: 1000,
+  mousewheel: {
+    enabled: true,
+  },
+  navigation: {
+    nextEl: '[data-home-advantages-block2-next]',
+    prevEl: '[data-home-advantages-block2-prev]',
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      mousewheel: {
+        enabled: false,
+      },
     },
-    breakpoints: {
-        // when window width is >= 320px
-        320: {
-            slidesPerView: 1,
-        },
-        // when window width is >= 480px
-        600: {
-            slidesPerView: 2,
-        },
-        1024: {
-            slidesPerView: 3.1,
-        },
-        // when window width is >= 640px
+    600: {
+      slidesPerView: 2,
+    },
+    1024: {
+      slidesPerView: 3.1,
+      mousewheel: {
+        enabled: true,
+      },
+    },
+  },
+});
+if (document.documentElement.clientWidth > 1024) {
+  const isSwiperCentered = swiperElement => {
+    const rect = swiperElement.getBoundingClientRect();
+    const elementCenter = rect.top + rect.height / 2;
+    const viewportCenter = window.innerHeight / 2;
+
+    const offset = 80;
+    return Math.abs(elementCenter - viewportCenter) <= offset;
+  };
+
+  const checkMousewheelConditions = () => {
+    const isCentered = isSwiperCentered(advblock2.el);
+
+    if (isCentered && !advblock2.isBeginning && !advblock2.isEnd) {
+      lenis.stop();
+      advblock2.mousewheel.enable();
+    } else {
+      setTimeout(() => {
+        lenis.start();
+      }, 700);
+      advblock2.mousewheel.disable();
     }
-})
+  };
 
+  window.addEventListener('scroll', () => {
+    checkMousewheelConditions();
+  });
 
-const [ galleryClosed, setGalleryClosed, subscribeGalleryClosed ] = useState(true);
+  window.addEventListener('resize', checkMousewheelConditions);
 
+  advblock2.on('slideChange', () => {
+    checkMousewheelConditions();
+  });
 
-subscribeGalleryClosed((value) => {
-    const gallery = document.querySelector('[data-home-gallery-screen]');
-    gallery.classList.toggle('closed', value);
+  checkMousewheelConditions();
+}
+
+const [galleryClosed, setGalleryClosed, subscribeGalleryClosed] = useState(true);
+
+subscribeGalleryClosed(value => {
+  const gallery = document.querySelector('[data-home-gallery-screen]');
+  gallery.classList.toggle('closed', value);
 });
 
 setGalleryClosed(true);
 
 const gallery = new Swiper('[data-home-gallery-screen]', {
-    modules: [Navigation],
-    navigation: {
-        nextEl: '[data-home-gallery-screen-next]',
-        prevEl: '[data-home-gallery-screen-prev]',
+  modules: [Navigation],
+  speed: 1000,
+  navigation: {
+    nextEl: '[data-home-gallery-screen-next]',
+    prevEl: '[data-home-gallery-screen-prev]',
+  },
+  on: {
+    init(instance) {
+      document.querySelector('[data-home-gallery-screen-pagination-all]').textContent =
+        instance.slides.length;
+      document.querySelector('[data-home-gallery-screen-pagination-current]').textContent =
+        instance.realIndex + 1;
     },
-    on: {
-        init(instance) {
-            document.querySelector('[data-home-gallery-screen-pagination-all]').textContent = instance.slides.length;
-            document.querySelector('[data-home-gallery-screen-pagination-current]').textContent = instance.realIndex + 1;
-        },
-        slideChange(instance) {
-            document.querySelector('[data-home-gallery-screen-pagination-current]').textContent = instance.realIndex + 1;
-        }
+    slideChange(instance) {
+      document.querySelector('[data-home-gallery-screen-pagination-current]').textContent =
+        instance.realIndex + 1;
     },
+  },
 });
-
 
 gsap.timeline({
-    scrollTrigger: {
-        trigger: '[data-home-gallery-screen]',
-        start: '80% bottom',
-        onEnter() {
-            setGalleryClosed(false);
-        },
-        onLeaveBack() {
-            setGalleryClosed(true);
-        }
+  scrollTrigger: {
+    trigger: '[data-home-gallery-screen]',
+    start: '80% bottom',
+    onEnter() {
+      setGalleryClosed(false);
     },
+    onLeaveBack() {
+      setGalleryClosed(true);
+    },
+  },
 });
-
-
 
 // gsap.timeline({
 //     scrollTrigger: {
@@ -167,7 +211,6 @@ gsap.timeline({
 //     .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.5, ease: 'none' })
 //     .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.5, ease: 'none' }, '<')
 
-
 //     gsap.timeline({
 //     scrollTrigger: {
 //         trigger: '[data-wave2-block]',
@@ -179,34 +222,34 @@ gsap.timeline({
 //     }
 // })
 //     .fromTo(
-//         '[data-wave2-block-top]', 
-//         { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.5 }, 
+//         '[data-wave2-block-top]',
+//         { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.5 },
 //         { y: 0, ease: 'none', duration: 0.75  }
 //     )
 //     .fromTo(
-//         '[data-wave2-block-bottom]', 
-//         { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.5 }, 
-//         { y: 0, ease: 'none', duration: 0.75  }, 
+//         '[data-wave2-block-bottom]',
+//         { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.5 },
+//         { y: 0, ease: 'none', duration: 0.75  },
 //         '<'
 //     )
 //     .to(
-//         '[data-wave2-block-bottom]', 
+//         '[data-wave2-block-bottom]',
 //         { y: 0, ease: 'none', duration: 0.25 }
 //     )
 
-
-gsap.timeline({
+gsap
+  .timeline({
     scrollTrigger: {
-        trigger: '.home-news-screen',
-        start: '10% 50%',
-        end: '20% 50%',
-        markers: false,
-        scrub: 1,
-    }
-})
-    .fromTo('.home-news-screen__content', 
-        {opacity: 0 }, 
-        { opacity: 1, clearProps: 'all'});
+      trigger: '.home-news-screen',
+      start: '10% 50%',
+      end: '20% 50%',
+      markers: false,
+      scrub: 1,
+    },
+  })
+  .fromTo('.home-news-screen__content', { opacity: 0 }, { opacity: 1, clearProps: 'all' });
 
-
-        splitToLinesAndFadeUp('.home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-advantages-block__title, .home-gallery-screen__title, .home-construction-screen__title', gsap);
+splitToLinesAndFadeUp(
+  '.home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-advantages-block__title, .home-gallery-screen__title, .home-construction-screen__title',
+  gsap,
+);
