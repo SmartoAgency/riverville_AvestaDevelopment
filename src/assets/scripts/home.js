@@ -164,8 +164,7 @@ subscribeGalleryClosed(value => {
 
 setGalleryClosed(true);
 
-const gallery = new Swiper('[data-home-gallery-screen]', {
-  modules: [Navigation],
+const gallery = new Swiper('[data-home-gallery-screen-swiper]', {
   speed: 1000,
   navigation: {
     nextEl: '[data-home-gallery-screen-next]',
