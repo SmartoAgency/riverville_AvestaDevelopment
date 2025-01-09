@@ -3,6 +3,9 @@
   height: 200vh;
   padding-top: 100vh;
   margin-top: -100vh;
+  @include to(600px){
+    margin-bottom: -50vw;
+  }
   &__title {
     position: relative;
     z-index: 3;
@@ -55,6 +58,7 @@
     padding-right: 20px;
     padding-left: 0;
     padding-right: 0;
+    background-color: transparent;
   }
   &__navigation {
     position: absolute;

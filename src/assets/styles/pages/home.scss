@@ -146,6 +146,12 @@
     @include from(1025px){
         height: 100vw;
     }
+    @include to(600px){
+        [target="_blank"] svg {
+            width: 44px;
+            height: 44px;
+        }
+    }
     &__title {
         text-align: center;
         padding-left: var(--page-side-fields);

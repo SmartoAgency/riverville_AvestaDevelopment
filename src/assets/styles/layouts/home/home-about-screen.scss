@@ -68,6 +68,15 @@
     }
     &__bg {
         height: 77vw;
+        height: 110vw;
+        @include to(600px){
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                object-position: 10%;
+            }
+        }
     }
     &__decor {
 
@@ -83,6 +92,7 @@
         z-index: 2;
         @include to(1024px){
             justify-content: center;
+            row-gap: 16px;
         }
     }
     &__item {

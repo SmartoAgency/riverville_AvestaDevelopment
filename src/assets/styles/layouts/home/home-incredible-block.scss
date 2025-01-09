@@ -6,8 +6,10 @@
         grid-template-columns: repeat(2, 1fr);
     }
     @media screen and (max-width:600px){
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(2, 50%);
+        // grid-template-columns: repeat(1, 1fr);
         grid-template-rows: auto;
+        padding-bottom: 50px;
     }
     &__item {
         padding: pxWidthInVw(40);
@@ -17,6 +19,11 @@
         justify-content: flex-start;
         align-content: flex-start;
         flex-wrap: wrap;
+        @include to(600px){
+            &:nth-child(even){
+                transform: translateY(50px);
+            }
+        }
         @media screen and (max-width:600px){
             padding: 20px;
         }

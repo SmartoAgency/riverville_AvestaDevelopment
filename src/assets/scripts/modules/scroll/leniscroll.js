@@ -7,7 +7,12 @@ function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)
 }
-  
+const date = new Date().getTime();
+
+lenis.on('scroll', (e) => {
+    // console.log(date);
+  });
+
 if (!document.documentElement.classList.contains('mobile')) {
     requestAnimationFrame(raf)
 }

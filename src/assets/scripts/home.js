@@ -132,10 +132,13 @@ if (document.documentElement.clientWidth > 1024) {
     const isCentered = isSwiperCentered(advblock2.el);
 
     if (isCentered && !advblock2.isBeginning && !advblock2.isEnd) {
+      console.log('stopped');
+      
       lenis.stop();
       advblock2.mousewheel.enable();
-    } else {
+    } else if (lenis.isStopped) {
       setTimeout(() => {
+        console.log('start', lenis);
         lenis.start();
       }, 700);
       advblock2.mousewheel.disable();
@@ -252,3 +255,24 @@ splitToLinesAndFadeUp(
   '.home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-advantages-block__title, .home-gallery-screen__title, .home-construction-screen__title',
   gsap,
 );
+
+
+
+function frontVideoDesktopAnimation() {
+  if (document.documentElement.clientWidth < 600) return;
+
+  console.log('f');
+  
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '.home-front-screen',
+    start: `${window.innerHeight} bottom`,
+    end: 'bottom bottom',
+    pin: '.home-front-screen__video-wrapper', 
+    markers: true,
+    }
+  })  
+}
+
+frontVideoDesktopAnimation();

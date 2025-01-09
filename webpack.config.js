@@ -13,27 +13,6 @@ const config = {
   },
   module: {
     rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-      {
-        test: /\.mjs$/,
-        include: /node_modules\/(@studio-freight\/lenis)/,
-        type: 'javascript/auto',
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
     ],
   },
   optimization: {
