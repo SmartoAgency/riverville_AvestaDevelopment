@@ -270,7 +270,7 @@ function frontVideoDesktopAnimation() {
     start: `${window.innerHeight} bottom`,
     end: 'bottom bottom',
     pin: '.home-front-screen__video-wrapper', 
-    markers: true,
+    markers: /localhost/.test(window.location.href),
     }
   })  
 }
