@@ -1,0 +1,48 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'ВІРТУАЛЬНІ ШОУРУМИ'
+    var id_page = 'id-page-vr-tours'
+    var class_page = 'class-page-vr-tours'
+    var breadcrumbsSubitem = [];
+    var homeVrToursCustomClass = 'home-vrtours--no-decor'
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/vr-tours.bundle.js')
+block content
+  .inner-page-head
+    include ../includes/breadcrumbs.pug
+    <svg class="inner-page-head__decor" preserveAspectRatio="xMidYMid slice" width="1920" height="141" viewBox="0 0 1920 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72.687 54.116L158.67 140.881L245.097 54.116L331.08 140.881L417.507 54.116L480 117.177V63.508L417.507 0L331.08 87.2117L245.097 0L158.67 87.2117L72.687 0L0 73.3473V127.463L72.687 54.116Z" fill="white"/>
+      <path d="M887.313 54.116L801.33 140.881L714.903 54.116L628.92 140.881L542.493 54.116L480 117.177V63.508L542.493 0L628.92 87.2117L714.903 0L801.33 87.2117L887.313 0L960 73.3473V127.463L887.313 54.116Z" fill="white"/>
+      <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
+      <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
+    </svg>
+    .inner-page-head__title #{title_page}
+  .vr-tours-tabs
+    .vr-tours-tabs__tab(data-vr-tour-tab="1D" data-title="Квартира 1D" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 1D
+    .vr-tours-tabs__tab(data-vr-tour-tab="2A" data-title="Квартира 2A" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 2A
+    .vr-tours-tabs__tab(data-vr-tour-tab="3А" data-title="Квартира 3А" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 3А
+    .vr-tours-tabs__tab(data-vr-tour-tab="1A" data-title="Квартира 1A" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 1A
+    .vr-tours-tabs__tab(data-vr-tour-tab="1Б" data-title="Квартира 1Б" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 1Б
+    .vr-tours-tabs__tab(data-vr-tour-tab="1Д" data-title="Квартира 1Д" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 1Д
+    .vr-tours-tabs__tab(data-vr-tour-tab="1В" data-title="Квартира 1В" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 1В
+    .vr-tours-tabs__tab(data-vr-tour-tab="1Г" data-title="Квартира 1Г" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 1Г
+    .vr-tours-tabs__tab(data-vr-tour-tab="2А" data-title="Квартира 2А" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 2А
+    .vr-tours-tabs__tab(data-vr-tour-tab="2Б" data-title="Квартира 2Б" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 2Б
+    .vr-tours-tabs__tab(data-vr-tour-tab="2В" data-title="Квартира 2В" data-description="Простора однокімнатна квартира з панорамним видом на центральний парк міста. Передпокій обладнаний вбудованими шафами. Сучасна вбиральня з якісною сантехнікою. Світла кухня, розділена на зону приготування, обідню зону та затишний куточок для відпочинку." data-url="https://www.youtube.com/embed/1w7OgIMMRc4") 2В
+  include ../includes/home/home-vrtours.pug
+  include ../includes/contact-screen.pug
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug

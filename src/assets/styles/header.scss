@@ -5,9 +5,9 @@
 	width: 100%;
 	z-index: 40;
 	transition: .45s ease-out;
-	padding: 15px var(--page-side-fields) 5px var(--page-side-fields);
+	padding: 15px var(--page-side-fields) 0 var(--page-side-fields);
 	background: rgba(217, 217, 226, 0.50);
-	backdrop-filter: blur(14px);
+	
 	background: transparent;
 	// background-color: #27314B;
     display: flex;
@@ -21,8 +21,19 @@
     line-height: 100%;
 	transition: background-color .5s ease-in-out, top .5s ease-in-out, transform .5s ease-in-out;
 	overflow: hidden;
+	@include from(1025px){
+		height: var(--header-h);
+	}
+	&:not(.headroom--top) {
+		-webkit-backdrop-filter: blur(14px);
+		backdrop-filter: blur(14px);
+	}
+	@include to(1024px){
+		padding-bottom: 15px;
+	}
 	@media screen and (max-width:600px){
 		padding-top: 5px;
+		padding-bottom: 6px;
 	}
 
 	&.hide {
@@ -35,15 +46,25 @@
 		--between-margin: 20px;
 	}
 	@include to(575px){
-		--between-margin: 10px;
+		--between-margin: 12px;
 	}
     &>:not(.header__logo-wrap):nth-child(n+2) {
         margin-left: var(--between-margin);
     }
-	.button-primary,
 	.button-30 {
 		@media screen and (max-width:600px){
 			display: none;
+		}
+	}
+
+	@include to(1024px){
+		.button-30 {
+			padding: 12px;
+		}
+	}
+	@include to(600px){
+		.button-primary span {
+			padding: 14px 16px;
 		}
 	}
 
@@ -53,11 +74,20 @@
 		justify-content: flex-start;
 		color: var(--color-07222-f);
 		text-decoration: none;
-		
+		@include from(1025px){
+			margin-right: auto !important;
+		}
+		@include to(1024px){
+			span {
+				display: none;
+			}
+		}
 		svg {
-			margin-right: 20px;
 			width: 24px;
 			height: 24px;
+			@include from(601px){
+				margin-right: 20px;
+			}
 		}
 	}
 	&__menu-call {
@@ -69,15 +99,26 @@
 				display: none;
 			}
 		}
+		@include to(600px){
+			width: 32px;
+		}
 		svg {
-			margin-left: 12px;
+			@include from(1025px){
+				margin-left: 12px;
+			}
 		}
 	}
 	&__logo-wrap {
 		margin-left: auto;
 		margin-right: auto;
-		width: 184px;
+		width: 128px;
 		transition: .35s ease-out;
+		@include from(1025px){
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 15px;	
+		}
 		@include to(1024px){
 			width: 124px;
 		}

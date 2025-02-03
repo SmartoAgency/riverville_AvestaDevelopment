@@ -10,7 +10,7 @@ include ../includes/mixins.pug
   ];
 block variable
 doctype html
-html(lang="ua")
+html(lang="ua" data-status="local")
   head
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
@@ -46,11 +46,6 @@ html(lang="ua")
     // START MENU
     include ../includes/menu.pug
     // END MENU
-
-    // -------
-    // -------
-    // -------
-    // -------
     .toast-wrapper(data-toast-wrapper)
     // START HEADER
     block header
@@ -58,8 +53,6 @@ html(lang="ua")
     .page__inner(data-scroll-container)
       .page__content
         block content
-
-      //.page__footer-wrapper
         // START FOOTER
       block footer
         // END FOOTER

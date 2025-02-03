@@ -15,24 +15,41 @@
         align-items: center;
         justify-content: flex-start;
         margin-top: calc(var(--section-v-offset) * 0.66);
-        @include to(1024px){
-            padding-left: 100px;
-            padding-right: 100px;
+        @include from-to(601px, 1024px){
+            // padding-left: 100px;
+            // padding-right: 100px;
+            position: absolute;
+            right: var(--page-side-fields);
+            width: 50%;
+            bottom: 150px;
+            margin: 0;
+            padding-left: 40px;
+            .home-about-screen__subtitle {
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
         @media screen and (max-width:600px){
             padding-left: 20px;
             padding-right: 20px;
+            margin-top: 60px;
         }
         button {
             margin-top: var(--between-v-offset);
+            @include to(600px){
+                margin-top: 20px;
+            }
         }
     }
     &__top-content {
         position: relative;
         z-index: 2;
-        max-width: 920px;
+        max-width: 1220px;
         margin: auto;
-        margin-bottom: -10%;
+        @include from(1025px){
+            margin-bottom: -10%;
+        }
+        
         @include to(600px){
             padding-left: var(--page-side-fields);
             padding-right: var(--page-side-fields);
@@ -46,6 +63,7 @@
         height: 35%;
         z-index: 2;
         background: linear-gradient(0deg, #E4E4EC 0%, rgba(228, 228, 236, 0) 100%);
+        
     }
     &__top-gradient {
         position: absolute;
@@ -60,16 +78,39 @@
         margin-bottom: var(--between-v-offset);
     }
     &__title {
-        margin-bottom: var(--between-v-offset);
+        // margin-bottom: var(--between-v-offset);
+        margin-bottom: 40px;
+        @include to(1024px){
+            @include text-style-768-h-1;
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+        }
+        @include to(600px){
+            @include text-style-375-h-1;
+        }
 
     }
     &__subtitle {
-
+        @include to(1024px){
+            @include text-style-768-h-4;
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+        }
+        @media screen and (max-width:600px){
+            @include text-style-375-h-4;
+            text-align: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
     &__bg {
         height: 77vw;
-        height: 110vw;
+        // height: 110vw;
+        @include to(1024px){
+            height: calc(100vw / 768 * 1080);
+        }
         @include to(600px){
+            height: calc(100vw / 375 * 528);
             img {
                 height: 100%;
                 width: 100%;
@@ -86,38 +127,74 @@
         flex-wrap: wrap;
         padding-left: 10px;
         padding-right: 10px;
-        margin-top: -20%;
+        // margin-top: -20%;
         @include row-flex();
         position: relative;
         z-index: 2;
         @include to(1024px){
-            justify-content: center;
+            justify-content: flex-start;
             row-gap: 16px;
+        }
+        @include from-to(601px, 1024px){
+            margin-top: -80px;
+        }
+        @include to(600px){
+            margin-top: -30px;
         }
     }
     &__item {
         @include size(4.8);
         @include shift(0);
         @include to(1024px){
-            @include size(8);
+            @include size(12);
         }
         @media screen and (max-width:600px){
-            @include size(12);
+            @include size(24);
+            display: grid;
+            grid-template-areas: 'img title'
+            'img text';
+            grid-template-columns: 1.2fr 1.8fr;
+            
+            column-gap: 32px;
+            &:nth-child(even) {
+                grid-template-areas: 'title img'
+                'text img';
+                grid-template-columns: 1.8fr 1.2fr;
+                padding-left: 8px;
+            }
         }
         svg {
             margin-bottom: 20px;
+            @include to(600px){
+                display: none;
+            }
         }
         &-title {
             margin-bottom: 12px;
+            @include to(600px){
+                grid-area: title;
+                text-align: left;
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
         &-text {
             padding-left: pxWidthInVw(60);
             padding-right: pxWidthInVw(60);
+            @include to(600px){
+                grid-area: text;
+                text-align: left;
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
         &-img {
             padding-bottom: 100%;
             position: relative;
             filter: grayscale(100%);
+            @include to(600px){
+                grid-area: img;
+            }
             img {
                 position: absolute;
                 top: 0;

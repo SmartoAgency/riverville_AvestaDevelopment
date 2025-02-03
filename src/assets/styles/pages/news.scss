@@ -1,0 +1,88 @@
+.news-container {
+    // @include row-flex();
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: calc(var(--section-v-offset) * 1.33);
+    overflow: hidden;
+    @include to(1024px){
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+    }
+    @include to(600px){
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &__title {
+        width: 100%;
+        margin-bottom: 60px;
+        text-align: center;
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+        margin-top: calc(var(--section-v-offset) * 1.33);
+        @include to(1024px){
+            @include text-style-768-h-1;
+        }
+        @include to(600px){
+            @include text-style-375-h-1;
+            margin-bottom: 40px;
+        }
+    }
+    .news-card {
+        width: 33.3333333%;
+        @include to(1024px){
+            width: 100%;
+        }
+    }
+    .construction-card {
+        // width: 50%;
+        @include from(1025px){
+            width: calc(50% - 1px);
+            &:nth-child(3) {
+                margin-left: auto;
+            }
+        }
+        @include to(1024px){
+            width: 100%;
+        }
+    }
+    .news-card:nth-child(3n - 1),
+    .news-card:nth-child(3n) {
+        margin-left: -1px;
+    }
+    .news-card:nth-child(n+3) {
+        margin-top: -1px;
+    }
+}
+
+.news-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: calc(var(--section-v-offset) * 0.66);
+}
+
+.tabs {
+    display: flex;
+    .tab:nth-child(n+2) {
+        margin-left: 1px;
+    }
+}
+.tab {
+    padding: 19px 30px;
+    cursor: pointer;
+    @include text-style-1920-button;
+    text-transform: uppercase;
+    background-color: var(--color-ffffff);
+    transition: .25s ease-out;
+    @include to(1024px){
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+    @include to(600px){
+        padding: 12px 20px;
+    }
+    &.active {
+        background: var(--07222F, #07222F);
+        color: #fff;
+    }
+}

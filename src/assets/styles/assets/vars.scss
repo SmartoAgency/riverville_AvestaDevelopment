@@ -69,7 +69,7 @@ $gold: #CFA46E;
 
 :root {
 	--in: cubic-bezier(0.13, 0.81, 0.23, 0.96);
-	--header-h: 86px;
+	--header-h: 90px;
 	--logo-w: 155px;
 	--sliceFigure: 239px;
 	--sliceFigure-big: 541px;
@@ -105,8 +105,8 @@ $gold: #CFA46E;
 @media screen and (max-width: 576px) {
 	:root {
 		--header-h: 70px;
-		--section-v-offset: 50px;
-		--page-side-fields: 10px;
+		--section-v-offset: 75px;
+		--page-side-fields: 12px;
 	}
 }
 
@@ -123,7 +123,7 @@ $gold: #CFA46E;
 }
 
 .mobile {
-	--page-side-fields: 10px;
+	--page-side-fields: 12px;
 	--section-v-offset: 50px;
 	--header-h: 55px;
 
@@ -152,9 +152,28 @@ $gold: #CFA46E;
 .text-style-1920-h-1 {
 	@include text-style-1920-h-1;
 }
+
+@mixin text-style-768-h-1 {
+	font-family: Century Gothic;
+	font-size: 64px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 100%; /* 64px */
+	letter-spacing: -3.84px;
+}
+
+@mixin text-style-375-h-1 {
+	font-family: "Century Gothic";
+	font-size: 40px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 100%; /* 40px */
+	letter-spacing: -2.4px;
+}
+
 @mixin text-style-1920-h-2() {
-	font-size: 72px;
-	font-size: pxWidthInVw(72);
+	font-size: 48px;
+	font-size: pxWidthInVw(48);
 	font-family: Century Gothic;
 	font-weight: 700;
 	font-style: normal;
@@ -163,18 +182,28 @@ $gold: #CFA46E;
 	text-decoration: none;
 	text-transform: uppercase;
 	@media screen and (max-width:1024px){
-		font-size: 32px;
+		font-size: 36px;
 	}
 	@media screen and (max-width:600px){
 		font-size: 24px;
 	}
+}
+
+@mixin text-style-375-h-2 {
+	font-family: "Century Gothic";
+font-size: 28px;
+font-style: normal;
+font-weight: 700;
+line-height: 100%; /* 28px */
+letter-spacing: -1.68px;
+text-transform: uppercase;
 }
 .text-style-1920-h-2 {
 	@include text-style-1920-h-2;
 }
 @mixin text-style-1920-h-3() {
 	font-size: 60px;
-	font-size: pxWidthInVw(60);
+	font-size: Min(pxWidthInVw(60), 60px);
 	font-family: Century Gothic;
 	font-weight: 400;
 	font-style: normal;
@@ -183,15 +212,29 @@ $gold: #CFA46E;
 	text-decoration: none;
 	text-transform: none;
 	@media screen and (max-width:1024px){
-		font-size: 26px;
+		font-size: 60px;
 	}
 	@media screen and (max-width:600px){
-		font-size: 20px;
+		font-size: 32px;
 	}
 }
 .text-style-1920-h-3 {
 	@include text-style-1920-h-3;
 }
+
+@mixin text-style-768-h-3 {
+	font-family: Century Gothic;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 100%; /* 48px */
+	letter-spacing: -2.88px;
+}
+
+.text-style-768-h-3 {
+	@include text-style-768-h-3;
+}
+
 @mixin text-style-1920-h-4() {
 	font-size: 32px;
 	font-size: pxWidthInVw(32);
@@ -203,15 +246,40 @@ $gold: #CFA46E;
 	text-decoration: none;
 	text-transform: none;
 	@media screen and (max-width:1024px){
-		font-size: 20px;
+		font-size: 32px;
 	}
 	@media screen and (max-width:600px){
 		font-size: 16px;
 	}
 }
+
+@mixin text-style-768-h-4 {
+	font-family: "Century Gothic";
+	font-size: 28px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 120%; /* 33.6px */
+	letter-spacing: -1.68px;
+}
+
+@mixin text-style-375-h-4 {
+	font-family: "Century Gothic";
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 120%; /* 21.6px */
+	letter-spacing: -1.08px;
+}
 .text-style-1920-h-4 {
 	@include text-style-1920-h-4;
+	@media screen and (max-width:1024px){
+		@include text-style-768-h-4;
+	}
+	@media screen and (max-width:600px){
+		@include text-style-375-h-4;
+	}
 }
+
 @mixin text-style-1920-links() {
 	font-size: 24px;
 	font-size: pxWidthInVw(24);
@@ -226,22 +294,25 @@ $gold: #CFA46E;
 		font-size: 18px;
 	}
 	@media screen and (max-width:600px){
-		font-size: 14px;
+		font-size: 32px;
 	}
 }
 .text-style-1920-links {
 	@include text-style-1920-links;
 }
 @mixin text-style-1920-body() {
-	font-size: pxWidthInVw(18);
+	font-size: Min(18px, pxWidthInVw(18));
 	font-family: Century Gothic;
 	font-weight: 400;
 	font-style: normal;
-	line-height: 120%;
+	line-height: 140%;
 	letter-spacing: -0.06em;
 	text-decoration: none;
 	text-transform: none;
 	@media screen and (max-width:1024px){
+		font-size: 18px;
+	}
+	@media screen and (max-width:600px){
 		font-size: 14px;
 	}
 }
@@ -259,6 +330,9 @@ $gold: #CFA46E;
 	text-decoration: none;
 	text-transform: uppercase;
 	@media screen and (max-width:1024px){
+		font-size: 16px;
+	}
+	@media screen and (max-width:600px){
 		font-size: 14px;
 	}
 }

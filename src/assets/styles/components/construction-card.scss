@@ -1,5 +1,6 @@
 .construction-card {
     position: relative;
+
     &__title {
 
     }
@@ -22,7 +23,7 @@
         padding-bottom: 50%;
         position: relative;
         @media screen and (max-width:600px){
-            padding-bottom: 75%;
+            padding-bottom: 64.6%;
         }
         img {
             position: absolute;
@@ -45,7 +46,16 @@
         color: var(--color-ffffff);
         background: linear-gradient(0deg, #07222F 0%, rgba(7, 34, 47, 0.00) 100%);
         @media screen and (max-width:600px){
-            padding: 20px;
+            padding: 16px 12px;
+        }
+    }
+    @media (hover: hover) {
+        overflow: hidden;
+        &__img {
+            transition: .25s ease-out;
+        }
+        &:hover &__img {
+            transform: scale(1.05);
         }
     }
 }

@@ -1,0 +1,104 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'Встигніть здійснити бажання про власне житло! Продаж квартир у нашому жк відкрито!'
+    var id_page = 'id-page-single-news'
+    var class_page = 'class-page-single-news'
+    var breadcrumbsSubitem = [
+      {
+        label: 'Новини та акції',
+        link: '/news'
+      }
+    ]
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/single-news.bundle.js')
+block content
+  .inner-page-head
+    include ../includes/breadcrumbs.pug
+    <svg class="inner-page-head__decor" preserveAspectRatio="xMidYMid slice" width="1920" height="141" viewBox="0 0 1920 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72.687 54.116L158.67 140.881L245.097 54.116L331.08 140.881L417.507 54.116L480 117.177V63.508L417.507 0L331.08 87.2117L245.097 0L158.67 87.2117L72.687 0L0 73.3473V127.463L72.687 54.116Z" fill="white"/>
+      <path d="M887.313 54.116L801.33 140.881L714.903 54.116L628.92 140.881L542.493 54.116L480 117.177V63.508L542.493 0L628.92 87.2117L714.903 0L801.33 87.2117L887.313 0L960 73.3473V127.463L887.313 54.116Z" fill="white"/>
+      <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
+      <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
+    </svg>
+    .inner-page-head__title.inner-page-head__title--small Встигніть здійснити бажання про власне житло! Продаж квартир у нашому жк відкрито!
+  .single-news-container
+    .single-news-container__content
+      div.text-style-1920-button.single-news-container__subtitle 25 жовтня 2024
+      .single-news-container__frame
+        iframe(src="https://riverville-wp.smarto.com.ua/3d", frameborder="0" allowfullscreen loading="lazy") 
+      .text-style-1920-h-4.single-news-container__title Яким буде Київ через 10 років? За версією нашої компанії, він буде найкомфортнішим містом у світі. 
+      .text-style-1920-body.single-news-container__text Саме такий BHAG ми собі поставили та до якого впевнено рухаємося з кожним новим проєктом. Про те, що вже зараз ми змінюємо обличчя Києва та створюємо проєкти майбутнього, говорить і редакція НВ. У новому номері вона разом з архітекторами, забудовниками та урбаністами склала рейтинг 10 знакових об’єктів столиці та включила до нього відразу два проєкти, які ми реалізуємо спільно з партнерами забудовника1 і забудовника 2 — ми хочемо розказати вам про ці проєкти та показати їхні сильні сторони.
+      .single-news-container__image
+        img(src="./assets/images/home/home-front-screen-bg.jpg", alt="", srcset="" loading="lazy")
+      .text-style-1920-h-4.single-news-container__title Наш проєкт відзначив за наш підхід до будівництва кварталів, насичену інфраструктуру та головну родзинку району — набережну завдовжки 1 км.
+      .text-style-1920-body.single-news-container__text Вона буде відкрита для всіх охочих і стане улюбленим місцем для відпочинку та прогулянок містян і мешканців району. Вона буде відкрита для всіх охочих і стане улюбленим місцем для відпочинку та прогулянок містян і мешканців району. Вона буде відкрита для всіх охочих і стане улюбленим місцем для відпочинку та прогулянок містян і мешканців району:
+      ul.text-style-1920-body.single-news-container__text
+        li «Гарна набережна, яка відкриється на нашому проєкті, стане окрасою Києва», — зазначає у статті НВ головний архітектор Архіматики Дмитро Васильєв.
+        li «Гарна набережна, яка відкриється на нашому проєкті
+        li «Гарна набережна нашого проєкту, стане окрасою Києва», — зазначає
+      .swiper-container.single-news-container__slider(data-single-news-slider)
+        .swiper-wrapper
+          .swiper-slide
+            .single-news-container__image
+              img(src="./assets/images/home/home-front-screen-bg.jpg", alt="", srcset="" loading="lazy")
+          .swiper-slide
+            .single-news-container__image
+              img(src="./assets/images/home/home-front-screen-bg.jpg", alt="", srcset="" loading="lazy")
+          .swiper-slide
+            .single-news-container__image
+              img(src="./assets/images/home/home-front-screen-bg.jpg", alt="", srcset="" loading="lazy")
+        .single-news-container__slider-nav-wrapper
+          .text-style-1920-body
+            span(data-single-news-slider-current) 01
+            span &nbsp;/&nbsp;
+            span(data-single-news-slider-all) 02
+          .single-news-container__slider-nav
+            <svg data-single-news-slider-prev width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60.5 30C60.5 46.5685 47.0685 60 30.5 60C13.9315 60 0.499997 46.5685 0.499999 30C0.5 13.4315 13.9315 -2.56454e-07 30.5 1.19201e-06C47.0685 2.64048e-06 60.5 13.4315 60.5 30Z" fill="#07222F"/>
+              <path d="M30.0769 25L25 30M25 30L30.0769 35M25 30C28.0085 30 32.4427 30 35 30" stroke="#EFF3F7" stroke-linecap="square"/>
+            </svg>
+            <svg data-single-news-slider-next width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60.5 30C60.5 13.4315 47.0685 -1.17422e-06 30.5 -2.62268e-06C13.9315 -4.07115e-06 0.500003 13.4315 0.500001 30C0.5 46.5685 13.9315 60 30.5 60C47.0685 60 60.5 46.5685 60.5 30Z" fill="#07222F"/>
+              <path d="M30.9231 25L36 30M36 30L30.9231 35M36 30C32.9915 30 28.5573 30 26 30" stroke="#EFF3F7" stroke-linecap="square"/>
+            </svg>
+        <button type="button" data-popup-call class="button-30 button-30--blue">
+          <span>Залишити заявку</span>
+        </button>
+
+
+  .news-container
+    .text-style-1920-h-1.news-container__title Останні звіти
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+  include ../includes/contact-screen.pug
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug

@@ -1,0 +1,273 @@
+.sticky-block {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: var(--section-v-offset);
+    @include to(1024px){
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+    }
+    &--tablet-no-top-offset {
+        @include to(1024px){
+            margin-top: 0;
+        }
+    }
+    &__title {
+        @include size(12);
+        @include shift(0);
+        @include size-md(24);
+        @include shift-md(0);
+        @include shift-padding-right(4);
+        position: sticky;
+        top: calc(var(--header-h) + 10px);
+        height: max-content;
+        @include to(1024px){
+            padding-left: 0;
+            padding-right: 0;
+            margin-bottom: 40px;
+            
+        }
+        p {
+            display: block;
+            margin-top: 28px;
+        }
+        .button-30 {
+            margin-top: 40px;
+        }
+    }
+    &--reverse &__title {
+        @include from(1025px){
+            @include shift-padding-left(1);
+        }
+    }
+    &__content {
+        @include row-flex;
+    }
+    &--reverse &__content {
+        flex-direction: row-reverse;
+    }
+    &__right {
+        @include size(12);
+        @include shift(0);
+        display: flex;
+        flex-direction: column;
+        @include size-md(24);
+        @include shift-md(0);
+        @include from(1025px){
+            &>:nth-child(n+2) {
+                margin-top: 40px;
+            }
+        }
+        @include from-to(601px, 1024px){
+            &>:nth-child(n+2) {
+                margin-top: 150px;
+            }
+        }
+        @for $i from 1 through 20 {
+            &>:nth-child(#{$i}) {
+                position: sticky;
+                top: calc(var(--header-h) + #{$i * 5}px);
+                @include to(1024px){
+                    top: calc(var(--header-h) + #{$i * 5}px + (36px * 5) + 20px);
+                }
+            }
+        }
+    }
+    &--big-title &__right {
+        @include to(1024px){
+            @for $i from 1 through 20 {
+                &>:nth-child(#{$i}) {
+                    top: calc(var(--header-h) + #{$i * 10}px + (36px * 7) + 30px);
+                }
+            }
+        }
+    }
+}
+
+.sticky-block-custom-card {
+    background-color: var(--color-14427-c);
+    padding: 106px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__decor {
+        margin-bottom: 40px;
+    }
+    &__title {
+        @include text-style-1920-h-3;
+        @include to(1024px){
+            @include text-style-768-h-3;
+        }
+        text-align: center;
+        color: var(--color-white);
+        margin-bottom: 40px; 
+    }
+}
+
+.sticky1-card {
+    position: relative;
+    &__img-wrap {
+        padding-bottom: min(70.3%, 80vh);
+        position: relative;
+    }
+    &__number {
+        @include text-style-1920-h-2;
+    }
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        color: var(--color-white);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%), linear-gradient(180deg, rgba(34, 26, 34, 0.00) 64.45%, rgba(34, 26, 34, 0.70) 82.4%, #221A22 100%);
+        background-blend-mode: color, multiply, normal;
+    }
+}
+
+
+
+.sticky2-card {
+    &:nth-child(even) &__inner {
+        flex-direction: row-reverse;
+    }
+    &__inner {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &__img-wrap {
+        width: 50%;
+    }
+    &__text {
+        width: 50%;
+        padding: 60px;
+        background-color: var(--color-white);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        @include to(1024px){
+            padding: 20px;
+        }
+        &--blue {
+            background-color: var(--color-5-d-85-a-3);
+            color: var(--color-white);
+        }
+        .button-30 {
+            margin-top: 32px;
+        }
+    }
+    &__img {
+        padding-bottom: 104%;
+        position: relative;
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+
+.sticky3-card {
+    position: relative;
+    &__img-wrap {
+        padding-bottom: min(70.3%, 80vh);
+        position: relative;
+    }
+    &__number {
+        @include text-style-1920-h-2;
+    }
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+    }
+    &__content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        color: var(--color-white);
+        padding: 40px;
+        display: flex;
+        justify-content: space-between;
+        background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%), linear-gradient(0deg, rgba(34, 26, 34, 0.00) 80.23%, rgba(34, 26, 34, 0.70) 90.21%, rgba(34, 26, 34, 0.90) 100%);
+        background-blend-mode: color, multiply, normal;
+        &-title {
+            width: 50%;
+            margin-left: auto;
+        }
+    }
+}
+.sticky4-card {
+    position: relative;
+    &__img-wrap {
+        padding-bottom: min(70.3%, 80vh);
+        position: relative;
+    }
+    &__number {
+        @include text-style-1920-h-2;
+    }
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+    }
+    &__content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        color: var(--color-white);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%), linear-gradient(0deg, rgba(34, 26, 34, 0.00) 80.23%, rgba(34, 26, 34, 0.70) 90.21%, rgba(34, 26, 34, 0.90) 100%);
+        background-blend-mode: color, multiply, normal;
+        &-title {
+            width: 50%;
+            margin-left: auto;
+        }
+    }
+}

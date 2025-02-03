@@ -265,3 +265,44 @@ input[type=number]::-webkit-outer-spin-button {
 		margin-left: 8px;
 	}
 }
+
+.section-bottom-margin {
+	margin-bottom: calc(var(--section-v-offset) * 1.33);
+}
+
+.section-top-margin {
+	margin-top: calc(var(--section-v-offset) * 1.33);
+}
+
+.show-on-desktop {
+	@include to(1024px){
+		display: none;
+	}
+}
+
+.show-on-tablet {
+	@include to(600px){
+		display: none;
+	}
+	@include from(1025px){
+		display: none;
+	}
+}
+
+.hide-on-mobile {
+	@include to(600px){
+		display: none !important;
+	}
+}
+
+.hide-on-tablet {
+	@include from-to(601px, 1024px){
+		display: none !important;
+	}
+}
+
+.hide-on-desktop {
+	@include from(1025px){
+		display: none !important;
+	}
+}

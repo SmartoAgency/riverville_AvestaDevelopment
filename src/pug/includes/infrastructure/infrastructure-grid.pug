@@ -1,0 +1,40 @@
+-
+  var gridCards = [
+    {
+      title: "Перегляд улюбленого фільму просто неба",
+      img: "./assets/images/infrastructure/grid/Card 2.jpg",
+    },
+    {
+      title: "Прогулянка набережною",
+      img: "./assets/images/infrastructure/grid/Card 3.jpg",
+      className: 'infrastructure-grid__card--reverse',
+    },
+    {
+      title: "Спільний час з дитиною на свіжому повітрі",
+      img: "./assets/images/infrastructure/grid/Card 4.jpg",
+      className: 'infrastructure-grid__card--reverse',
+    },
+    {
+      title: "Відпочинок у басейні чи заняття спортом на облаштованих майданчиках",
+      img: "./assets/images/infrastructure/grid/Card 5.jpg",
+    },
+    {
+      title: "Зустріч з друзями та смачне барбекю",
+      img: "./assets/images/infrastructure/grid/Card 6.jpg",
+      className: 'infrastructure-grid__card--reverse',
+    },
+  ]
+
+.infrastructure-grid
+  .infrastructure-grid__custom-card
+    <svg width="138" height="40" viewBox="0 0 138 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.8975 15.3651L45.6177 40L70.4654 15.3651L95.1856 40L120.033 15.3651L138 33.2698V18.0317L120.033 0L95.1856 24.7619L70.4654 0L45.6177 24.7619L20.8975 0L0 20.8254V36.1905L20.8975 15.3651Z" fill="#EFF3F7"/>
+    </svg>
+    .text-style-1920-h-3 Кожен мешканець знайде собі активності до душі:
+
+  each val in gridCards
+    div(class="infrastructure-grid__card "+val.className)
+      .infrastructure-grid__card-content
+        .infrastructure-grid__card-img
+          img(src=val.img alt="" loading="lazy")
+        .infrastructure-grid__card-title.text-style-1920-h-4 #{val.title}

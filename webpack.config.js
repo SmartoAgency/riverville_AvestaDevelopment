@@ -5,8 +5,17 @@ const config = {
   mode: process.argv.includes('--production') ? 'production' : 'development',
   entry: {
     'immediate-loading': './src/assets/scripts/immediate-loading.js',
+    'single-news': './src/assets/scripts/single-news.js',
+    'single-construction': './src/assets/scripts/single-construction.js',
+    'vr-tours': './src/assets/scripts/vr-tours.js',
     home: './src/assets/scripts/home.js',
+    news: './src/assets/scripts/news.js',
+    developer: './src/assets/scripts/developer.js',
     index: './src/assets/scripts/index-app.js',
+    gallery: './src/assets/scripts/gallery.js',
+    about: './src/assets/scripts/about.js',
+    infrastructure: './src/assets/scripts/infrastructure.js',
+    commercial: './src/assets/scripts/commercial.js',
   },
   output: {
     filename: '[name].bundle.js',

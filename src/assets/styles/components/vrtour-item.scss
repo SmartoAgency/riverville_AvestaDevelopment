@@ -1,0 +1,73 @@
+.vrtour-item {
+    @include row-flex();
+    &__frame {
+        @include size(17);
+        @include shift(0);
+        @include to(1024px){
+            margin-bottom: 40px;
+            width: calc(100% + 20px);
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+        @include to(600px){
+            margin-bottom: 20px;
+        }
+        &-wrapper {
+            position: relative;
+            padding-bottom: Min(67%, 80vh);
+            @include to(600px){
+                padding-bottom: 100vw;
+            }
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    &__text {
+        @include size(6);
+        @include shift-right(0);
+        @include shift-left(1);
+        @include size-md(24);
+        @include shift-md(0);
+        @include size-xs(24);
+        @include shift-xs(0);
+        @include from-to(601px, 1024px){
+            margin-top: 24px;
+        }
+        &-title {
+            margin-bottom: 40px;
+            @include to(1024px){
+                margin-bottom: 24px;
+            }
+            @include to(600px){
+                margin-bottom: 20px;
+                }
+            
+        }
+        &-offset {
+            @include shift-padding-left(4);
+            margin-bottom: 40px;
+            @include to(1024px){
+                margin-bottom: 24px;
+                @include shift-padding-left(3);
+            }
+            .button-30 {
+                margin-top: 40px;
+
+            }
+        }
+    }
+    &__text-decor {
+        width: 100%;
+        height: 30px;
+        background-color: var(--color-ffffff);
+        margin-bottom: 60px;
+        @include to(1024px){
+            margin-bottom: 24px;
+        }
+    }
+}

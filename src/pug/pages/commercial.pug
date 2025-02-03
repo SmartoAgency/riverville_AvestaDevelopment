@@ -1,0 +1,88 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'КОМЕРЦІЙНА НЕРУХОМІСТЬ'
+    var id_page = 'id-page-commercial'
+    var class_page = 'class-page-commercial'
+    var breadcrumbsSubitem = [
+    ];
+        var sticky1 = [
+        {
+            title1: "офіси",
+            title2: "01",
+            img: "./assets/images/commercial/sticky1/1.jpg"
+        },
+        {
+            title1: "Магазини",
+            title2: "02",
+            img: "./assets/images/commercial/sticky1/2.jpg"
+        },
+        {
+            title1: "Ресторани",
+            title2: "03",
+            img: "./assets/images/commercial/sticky1/3.jpg"
+        },
+        {
+            title1: "торговельно-розважальний центр",
+            title2: "04",
+            img: "./assets/images/commercial/sticky1/4.jpg"
+        },
+        {
+            title1: "Салони краси",
+            title2: "05",
+            img: "./assets/images/commercial/sticky1/5.jpg"
+        },
+        {
+            title1: "Студії",
+            title2: "06",
+            img: "./assets/images/commercial/sticky1/6.jpg"
+        },
+        {
+            title1: "Спортзал",
+            title2: "07",
+            img: "./assets/images/commercial/sticky1/7.jpg"
+        },
+    ];
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/commercial.bundle.js')
+block content
+  .inner-page-head
+    include ../includes/breadcrumbs.pug
+    <svg class="inner-page-head__decor" preserveAspectRatio="xMidYMid slice" width="1920" height="141" viewBox="0 0 1920 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72.687 54.116L158.67 140.881L245.097 54.116L331.08 140.881L417.507 54.116L480 117.177V63.508L417.507 0L331.08 87.2117L245.097 0L158.67 87.2117L72.687 0L0 73.3473V127.463L72.687 54.116Z" fill="white"/>
+      <path d="M887.313 54.116L801.33 140.881L714.903 54.116L628.92 140.881L542.493 54.116L480 117.177V63.508L542.493 0L628.92 87.2117L714.903 0L801.33 87.2117L887.313 0L960 73.3473V127.463L887.313 54.116Z" fill="white"/>
+      <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
+      <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
+    </svg>
+    .inner-page-head__title #{title_page}
+  .sticky-block.sticky-block--reverse.section-bottom-margin.sticky-block--tablet-no-top-offset.sticky-block--big-title(data-sticky-block)
+    .sticky-block__content
+      .sticky-block__title.text-style-1920-h-2 
+        div(data-split-lines-and-fade-up) ПРИМІЩЕННЯ ПІД БЕЗЛІЧ ПОТРЕБ
+        p.text-style-1920-h-4(data-split-lines-and-fade-up) Загальний архітектурний ансамбль поєднує на території житлового комплексу комерційні об'єкти: на першому й напівпідвальному поверхах та у ТРЦ
+        a(href="/3d").button-30.button-30--blue
+          span Обрати комерційне приміщення
+      .sticky-block__right.text-style-1920-h-2 
+        each val in sticky1
+          .sticky4-card
+            .sticky4-card__img-wrap
+              .sticky4-card__img
+                img(src=val.img, alt=''  loading="lazy")
+            .sticky4-card__content
+              span.text-style-1920-h-2 #{val.title1}
+              span.text-style-1920-h-2 #{val.title2}
+  include ../includes/contact-screen.pug
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug

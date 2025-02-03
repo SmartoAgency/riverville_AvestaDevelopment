@@ -1,16 +1,27 @@
 .home-construction-screen {
     margin-top: var(--section-v-offset);
     margin-bottom: var(--section-v-offset);
-    display: none;
+    // display: none;
     &__title {
         text-align: center;
         padding-left: var(--page-side-fields);
         padding-right: var(--page-side-fields);
         margin-bottom: 60px;
+        @include to(1024px){
+            @include text-style-768-h-1
+        }
+        @include to(600px){
+            @include text-style-375-h-1;
+            margin-bottom: 40px;
+        }
     }
     &__content {
         display: flex;
         flex-wrap: wrap;
+        @include to(600px){
+            padding-left: 2px;
+            padding-right: 2px;
+        }
         &>.button-30 {
             margin-top: 60px;
             margin-left: auto;
@@ -22,6 +33,14 @@
             }
             @include to(1024px){
                 width: 100%;
+            }
+        }
+        @include to(600px){
+            .construction-card~.construction-card {
+                margin-top: 2px;
+            }
+            &>.button-30 {
+                margin-top: 40px;
             }
         }
     }

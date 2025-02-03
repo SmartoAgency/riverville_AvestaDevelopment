@@ -1,0 +1,71 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'Новини та акції'
+    var id_page = 'id-page-news'
+    var class_page = 'class-page-news'
+    var breadcrumbsSubitem = [
+    ]
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/news.bundle.js')
+block content
+  .inner-page-head
+    include ../includes/breadcrumbs.pug
+    <svg class="inner-page-head__decor" preserveAspectRatio="xMidYMid slice" width="1920" height="141" viewBox="0 0 1920 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72.687 54.116L158.67 140.881L245.097 54.116L331.08 140.881L417.507 54.116L480 117.177V63.508L417.507 0L331.08 87.2117L245.097 0L158.67 87.2117L72.687 0L0 73.3473V127.463L72.687 54.116Z" fill="white"/>
+      <path d="M887.313 54.116L801.33 140.881L714.903 54.116L628.92 140.881L542.493 54.116L480 117.177V63.508L542.493 0L628.92 87.2117L714.903 0L801.33 87.2117L887.313 0L960 73.3473V127.463L887.313 54.116Z" fill="white"/>
+      <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
+      <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
+    </svg>
+    .inner-page-head__title Новини та акції
+  .news-tabs 
+    .tabs
+      .tab(data-tab="all") Показати усі
+      .tab(data-tab="news") Новини
+      .tab(data-tab="promotions") Акції
+  .news-container(data-news-container)
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+    .news-card(data-popup-call)
+      .news-card__image
+        img(src="./assets/images/home/home-news-screen/1.jpg", alt="", srcset="" loading="lazy")
+      .news-card__content
+        .news-card__date.text-style-1920-button 19/07/2024
+        .news-card__title.text-style-1920-h-4 Відкриття відділу продажів у RIVERVILLE, ЖК
+  include ../includes/contact-screen.pug
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug

@@ -16,10 +16,17 @@
   /* identical to box height, or 17px */
 
   letter-spacing: -0.03em;
-  color: var(--color-gray-body);
-  position: relative;
+  color: var(--color-white);
+  position: absolute;
+  left: 0;
+  bottom: 7px;
+  width: 100%;
+  z-index: 2;
   @media screen and (max-width:600px){
-    margin-bottom: -5px;
+    // margin-bottom: -5px;
+    padding-right: 0;
+    bottom: 0;
+    padding-bottom: 20px;
   }
 
   .delimiter {
@@ -31,15 +38,33 @@
     // bottom: -5px;
     width: 52px;
     height: 57px;
+    @include to(600px){
+      width: 41px;
+      height: 45px;
+      align-self: flex-end;
+      transform: translateY(20px);
+      svg {
+        width: 41px;
+        height: 45px;
+      }
+    }
   }
   p~p {
     margin-top: 2px;
+  }
+  p {
+    @include to(600px){
+      width: 185px;
+    }
   }
   &-up-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    [stroke] {
+      stroke: var(--color-white);
+    }
     @media screen and (max-width:600px){
       span {
         display: none;

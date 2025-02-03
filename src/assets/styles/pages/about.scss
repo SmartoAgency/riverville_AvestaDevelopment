@@ -1,0 +1,181 @@
+
+
+.about-block-with-render1 {
+    margin-top: calc(var(--section-v-offset) * 1.5);
+    margin-bottom: var(--section-v-offset);
+    position: relative;
+    @include from-to(601px, 1024px){
+        margin-top: calc(var(--section-v-offset) * 1.5 + 50px);
+    }
+    &__content {
+        max-width: 1063px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        z-index: 2;
+        @include to(1024px){
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+        }
+        @include from-to(601px, 1024px){
+            margin-top: -50px;
+        }
+    }
+    &__title {
+        text-align: center;
+        margin-bottom: 40px;
+        @include to(1024px){
+            margin-bottom: 20px;
+        }
+    }
+    &__bg {
+        width: 100vw;
+        height: calc(100vw / 1920 * 1327);
+        overflow: hidden;
+        @include to(1024px){
+            height: calc(100vw / 768 * 700);
+        }
+    }
+}
+
+.about-block-with-render2 {
+    position: relative;
+    width: 100vw;
+    height: calc(100vw / 1920 * 1080);
+    @include to(1024px){
+        height: calc(100vw / 768 * 700);
+    }
+    &__content {
+        max-width: 1063px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        // position: sticky;
+        // top: calc(var(--header-h) + 30px);
+        padding-bottom: 30px;
+        
+        width: 100%;
+        z-index: 2;
+        @include to(1024px){
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+        }
+    }
+    &__title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    &__bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
+.about-block-with-render3 {
+    position: relative;
+    margin-bottom: calc(var(--section-v-offset) * 1.5);
+    &__content {
+        max-width: 909px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        margin-bottom: -10vw;
+        @include to(1024px){
+            margin-bottom: -20vw;
+        }
+        .button-30 {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 40px;
+        }
+    }
+    &__title {
+        text-align: center;
+        margin-bottom: 40px;
+        @include to(1024px){
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+
+        }
+    }
+    &__bg {
+        width: 100vw;
+        height: calc(100vw / 1920 * 1232);
+        @include to(1024px){
+            height: calc(100vw / 768 * 700);
+        }
+    }
+}
+
+.about-img-text {
+    @include row-flex;
+    @include from(1025px){
+        padding: 40px;
+    }
+    @include to(1024px){
+        margin-top: calc(var(--section-v-offset) * 1.5);
+    }
+    &__img-wrap {
+        @include size(12);
+        @include shift(0);
+        @include size-md(24);
+        @include shift-md(0);
+        overflow: hidden;
+    }
+    &__img {
+        padding-bottom: Min(100%, 80vh);
+        position: relative;
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+    }
+    &__content {
+        @include size(12);
+        @include shift(0);
+        @include shift-padding-right(3);
+        
+        @include size-md(24);
+        @include shift-md(0);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        @include to(1024px){
+            padding-left: var(--page-side-fields);
+            padding-right: var(--page-side-fields);
+            text-align: center;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        &>:nth-child(n+2) {
+            margin-top: 60px;
+        }
+    }
+}
+
+.about-decor {
+    width: 100%;
+    height: auto;
+    @include from-to(601px, 1024px){
+        height: 100px;
+    }
+}

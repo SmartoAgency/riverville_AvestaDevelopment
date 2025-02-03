@@ -1,0 +1,32 @@
+.vr-tours-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    margin-top: calc(var(--section-v-offset) - 60px);
+    flex-wrap: wrap;
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
+    &__tab {
+        border: 1px solid var(--B1C6C9, #B1C6C9);
+        @include text-style-1920-button;
+        padding: 13px 28px;
+        cursor: pointer;
+        transition: .25s ease-out;
+        &.active {
+            background-color: var(--color-07222-f);
+            color: var(--color-white);
+            border-color: var(--color-07222-f);
+        }
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--color-07222-f);
+                color: var(--color-white);
+                border-color: var(--color-07222-f);
+            }
+        }
+    }
+    &__tab~&__tab  {
+        margin-left: -1px;
+    }
+}

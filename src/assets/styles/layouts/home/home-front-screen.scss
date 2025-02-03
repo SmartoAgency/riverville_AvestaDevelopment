@@ -1,16 +1,18 @@
 .home-front-screen {
   position: relative;
-  padding: calc(var(--header-h) * 1.25 + 50px) var(--page-side-fields) 40px var(--page-side-fields);
-  height: 75.46875vw;
+  padding: calc(var(--header-h) * 1.25 + 11.1vw) var(--page-side-fields) 40px var(--page-side-fields);
+  // height: 75.46875vw;
+  height: calc(100vw / 1920 * 1633);
   background: var(--BG-colour, #e4e4ec);
   @media screen and (max-width: 1024px) {
-    height: 125vw;
+    height: calc(100vw / 768 * 1609);
+    padding-top: calc(var(--header-h) * 1.25 + 8vw);
   }
   @include to(600px) {
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    height: calc(100vw / 375 * 847);
     padding-bottom: 20px;
     position: relative;
+    padding-top: calc(var(--header-h)* 1.25 + 17vw)
   }
 
   &__bottom-gradient {
@@ -26,6 +28,12 @@
       rgba(228, 228, 236, 0) 100%
     );
     z-index: 2;
+    @include to(1024px){
+      height: 20%;
+    }
+    @include to(600px){
+      height: 15%;
+    }
   }
 
   &__bg {
@@ -75,7 +83,7 @@
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    max-width: 830px;
+    max-width: 1050px;
     margin-left: auto;
     margin-right: auto;
     align-content: flex-start;
@@ -83,6 +91,10 @@
 
   &__title {
     margin-bottom: auto;
+    text-transform: uppercase;
+    @include from-to(601px, 1024px){
+      max-width: 570px;
+    }
     @include to(600px) {
       // padding-left: 15%;
       // padding-right: 15%;
@@ -94,6 +106,7 @@
     cursor: pointer;
     @media screen and (max-width: 600px) {
       margin-right: auto;
+      display: none;
       // position: absolute;
       // top: calc(var(--vh, 1vh) * 100);
       // transform: translateY(-100%);
@@ -118,6 +131,13 @@
     width: 100%;
     height: 300px;
     background: linear-gradient(180deg, #927476 0%, rgba(146, 116, 118, 0) 100%);
+    @include to(600px){
+      z-index: 2;
+      background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
+    }
+  }
+  .pin-spacer {
+    pointer-events: none;
   }
   &__video-wrapper {
     position: absolute;

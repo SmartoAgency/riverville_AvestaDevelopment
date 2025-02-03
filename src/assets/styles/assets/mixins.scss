@@ -62,6 +62,6 @@ $screen-height: 720;
 	@return #{$vwSize}vw;
 }
 @function pxInVh($px) {
-	$vwSize: $px / 1080 * 100;
+	$vwSize: $px / 967 * 100;
 	@return #{$vwSize}vh;
 }

@@ -1,0 +1,45 @@
+.home-vrtours {
+    padding-top: calc(var(--section-v-offset) * 1.5);
+    &--no-decor {
+        padding-top: 0;
+    }
+    &--no-decor>svg {
+        display: none;
+    }
+    &>svg {
+        width: 100%;
+        @include to(1024px){
+            height: 56px;
+        }
+        @include to(600px){
+            height: 27px;
+        }
+    }
+    &__title {
+        margin-bottom: 80px;
+        text-align: center;
+        margin-top: calc(var(--section-v-offset) * 1.5);
+        @include to(1024px){
+            margin-bottom: 60px;
+            @include text-style-768-h-1;
+        }
+        @include to(600px){
+            margin-bottom: 40px;
+            @include text-style-375-h-1;
+
+        }
+    }
+    &--no-decor &__title {
+        display: none;
+    }
+    &__content {
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+        margin-bottom: calc(var(--section-v-offset) * 1.5);
+    }
+    &>svg:last-child {
+        @include to(600px){
+            display: none;
+        }
+    }
+}

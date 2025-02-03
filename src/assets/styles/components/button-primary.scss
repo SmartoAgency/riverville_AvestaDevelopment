@@ -26,6 +26,9 @@
         z-index: 2;
         background: var(--07222F, #07222F);
         padding: 16px 28px;
+        @include from-to(601px, 1024px){
+            padding: 12px;
+        }
     }
 
     svg:last-child {
