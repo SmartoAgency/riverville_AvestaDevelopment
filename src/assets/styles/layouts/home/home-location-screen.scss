@@ -5,6 +5,9 @@
     margin-bottom: var(--section-v-offset);
     position: relative;
     margin-top: -1px;
+    @include to(600px){
+        margin-bottom: 45px;
+    }
     &__bg-wrapper {
         position: relative;
         width: 100%;
@@ -77,12 +80,9 @@
             margin-bottom: -20vw;
             left: auto;
             z-index: 2;
-
         }
         @include to(600px){
-            .text-style-1920-h-4 {
-                text-align: left;
-            }
+            margin-bottom: 0;
         }
     }
 

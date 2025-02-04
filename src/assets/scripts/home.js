@@ -292,7 +292,7 @@ function mobileIncredibleBlockSlider() {
   if (window.screen.width > 600) return;
   const incredibleBlock = document.querySelector('[data-incredible-block-mobile-slider]');
   const swiper = new Swiper(incredibleBlock, {
-    slidesPerView: 1.05,
+    slidesPerView: 1.15,
     navigation: {
       nextEl: '[data-incredible-block-mobile-next]',
       prevEl: '[data-incredible-block-mobile-prev]',
@@ -323,7 +323,7 @@ function homeParalax(container) {
     scale: 1.2,
     transformOrigin: 'bottom',
   }).to(container, {
-    y: -100,
+    y: window.screen.width < 600 ? -20 : -100,
     transformOrigin: 'bottom',
   }, '<');
 }

@@ -1,16 +1,16 @@
 -
     var links = [
-        { title: "ГОЛОВНА", href: '/'},
-        { title: "ОБРАТИ КВАРТИРУ", href: '/3d'},
-        { title: "КОМЕРЦІЙНА НЕРУХОМІСТЬ", href: '/commercial'},
-        { title: "ПРО КОМПЛЕКС", href: '/about'},
-        { title: "ІНФРАСТРУКТУРА", href: '/infrastructure'},
-        { title: "ГАЛЕРЕЯ", href: '/gallery'},
-        { title: "ВІРТУАЛЬНІ ШОУРУМИ", href: '/vr-tours'},
-        { title: "ЗАБУДОВНИК", href: '/developer'},
-        { title: "ХІД БУДІВНИЦТВА", href: '/construction'},
-        { title: "НОВИНИ ТА АКЦІЇ", href: '/news'},
-        { title: "КОНТАКТИ", href: '/contacts'},
+        { className: '', title: "ГОЛОВНА", href: '/'},
+        { className: '', title: "ОБРАТИ КВАРТИРУ", href: '/3d'},
+        { className: '', title: "ПРО КОМПЛЕКС", href: '/about'},
+        { className: '', title: "ІНФРАСТРУКТУРА", href: '/infrastructure'},
+        { className: 'tiny-mobile top-offset-mobile', title: "КОМЕРЦІЙНА НЕРУХОМІСТЬ", href: '/commercial'},
+        { className: 'tiny-mobile', title: "ГАЛЕРЕЯ", href: '/gallery'},
+        { className: 'tiny-mobile', title: "ВІРТУАЛЬНІ ШОУРУМИ", href: '/vr-tours'},
+        { className: 'tiny-mobile', title: "ЗАБУДОВНИК", href: '/developer'},
+        { className: 'tiny-mobile', title: "ХІД БУДІВНИЦТВА", href: '/construction'},
+        { className: 'tiny-mobile', title: "НОВИНИ ТА АКЦІЇ", href: '/news'},
+        { className: 'tiny-mobile', title: "КОНТАКТИ", href: '/contacts'},
     ]
 nav.menu(data-lenis-prevent data-menu)
     button(type="button" data-menu-close).menu__close
@@ -23,7 +23,7 @@ nav.menu(data-lenis-prevent data-menu)
             //- .menu__list-bg-1
             .menu__list-bg-image(style="background: url('./assets/images/menu/links-bg.gif') lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat").menu__list-bg-image
         each link in links
-            a.menu__link(href=link.href data-text=link.title)
+            a(class="menu__link "+link.className href=link.href data-text=link.title)
                 span #{link.title}
         <svg preserveAspectRatio="xMidYMid slice" class="menu__list-decor" width="210" height="967" viewBox="0 0 210 967" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_801_21)">

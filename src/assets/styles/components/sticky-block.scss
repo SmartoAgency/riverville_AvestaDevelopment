@@ -78,7 +78,7 @@
         }
         @include to(600px){
             &>:nth-child(n+2) {
-                margin-top: 100px;
+                margin-top: 80px;
             }
         }
         @for $i from 1 through 20 {

@@ -38,6 +38,10 @@
         @include from(1025px){
             overflow-y: auto;
         }
+        @include to(600px){
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
         position: relative;
         background: var(--BG-colour, #E4E4EC);
         @include from(1025px){
@@ -76,6 +80,9 @@
         }
         a~a {
             margin-top: 2.2vh;
+            @include to(600px){
+                margin-top: 20px;
+            }
         }
     }
     &__link {
@@ -94,6 +101,17 @@
         @include to(600px){
             font-size: 32px;
             width: 100%;
+            
+            &.tiny-mobile {
+                font-size: 18px;
+                letter-spacing: -1.08px;
+            }
+            &.tiny-mobile~&.tiny-mobile {
+                margin-top: 12px;
+            }
+            &.top-offset-mobile {
+                margin-top: 60px;
+            }
         }
         & span {
             -webkit-transition: .2s linear;
@@ -102,18 +120,18 @@
             opacity: 1
         }
         
-        &:after {
-            position: absolute;
-            bottom: 3vw;
-            content: attr(data-text);
-            left: 0;
-            white-space: nowrap;
-            -webkit-transition: .2s linear;
-            transition: .2s linear;
-            color: var(--color-14427-c);
-            opacity: 0
-        }
         @media (hover: hover) {
+            &:after {
+                position: absolute;
+                bottom: 3vw;
+                content: attr(data-text);
+                left: 0;
+                white-space: nowrap;
+                -webkit-transition: .2s linear;
+                transition: .2s linear;
+                color: var(--color-14427-c);
+                opacity: 0
+            }
             &:hover span {
                 -webkit-transform: translateY(3vw);
                 -ms-transform: translateY(3vw);
