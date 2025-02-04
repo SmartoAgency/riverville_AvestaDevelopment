@@ -13,6 +13,9 @@
         padding: 13px 28px;
         cursor: pointer;
         transition: .25s ease-out;
+        @include to(600px){
+            padding: 8px 20px;
+        }
         &.active {
             background-color: var(--color-07222-f);
             color: var(--color-white);

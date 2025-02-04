@@ -26,17 +26,31 @@
             margin-bottom: 40px;
             
         }
+        @include to(600px){
+            margin-bottom: 20px;
+        }
         p {
             display: block;
             margin-top: 28px;
+            @include to(600px){
+                margin-top: 20px;
+            }
         }
         .button-30 {
             margin-top: 40px;
+            @include to(600px){
+                margin-top: 20px;
+            }
         }
     }
     &--reverse &__title {
         @include from(1025px){
             @include shift-padding-left(1);
+        }
+    }
+    @include to(600px){
+        &--mobile-title-centered &__title {
+            text-align: center
         }
     }
     &__content {
@@ -62,12 +76,29 @@
                 margin-top: 150px;
             }
         }
+        @include to(600px){
+            &>:nth-child(n+2) {
+                margin-top: 100px;
+            }
+        }
         @for $i from 1 through 20 {
             &>:nth-child(#{$i}) {
                 position: sticky;
                 top: calc(var(--header-h) + #{$i * 5}px);
                 @include to(1024px){
                     top: calc(var(--header-h) + #{$i * 5}px + (36px * 5) + 20px);
+                }
+                @include to(600px){
+                    top: calc(var(--header-h) + #{$i * 5}px + (28px * 5) + 20px);
+                    &.sticky2-card {
+                        top: calc(var(--header-h) + #{$i * 5}px + (28px * 3) + 20px);
+                    }
+                    &.sticky3-card {
+                        top: calc(var(--header-h) + #{$i * 5}px + (28px * 7) + 20px);
+                    }
+                    &.sticky3-card--mobile-sticky-small-offset {
+                        top: calc(var(--header-h) + #{$i * 5}px + (28px) + 20px);
+                    }
                 }
             }
         }
@@ -77,6 +108,13 @@
             @for $i from 1 through 20 {
                 &>:nth-child(#{$i}) {
                     top: calc(var(--header-h) + #{$i * 10}px + (36px * 7) + 30px);
+                }
+            }
+        }
+        @include to(600px){
+            @for $i from 1 through 20 {
+                &>:nth-child(#{$i}) {
+                    top: calc(var(--header-h) + #{$i * 10}px + (28px * 8) + 30px);
                 }
             }
         }
@@ -90,17 +128,31 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @include to(600px){
+        padding: 36px 20px;
+    }
     &__decor {
         margin-bottom: 40px;
+        @include to(600px){
+            margin-bottom: 20px;
+            width: 49px;
+            height: auto;
+        }
     }
     &__title {
         @include text-style-1920-h-3;
         @include to(1024px){
             @include text-style-768-h-3;
         }
+        @include to(600px){
+            @include text-style-375-h-4;
+        }
         text-align: center;
         color: var(--color-white);
         margin-bottom: 40px; 
+        @include to(600px){
+            margin-bottom: 20px;
+        }
     }
 }
 
@@ -139,6 +191,9 @@
         justify-content: space-between;
         background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%), linear-gradient(180deg, rgba(34, 26, 34, 0.00) 64.45%, rgba(34, 26, 34, 0.70) 82.4%, #221A22 100%);
         background-blend-mode: color, multiply, normal;
+        @include to(600px){
+            padding: 20px;
+        }
     }
 }
 
@@ -151,12 +206,21 @@
     &__inner {
         display: flex;
         flex-wrap: wrap;
+        @include to(600px){
+            flex-direction: column;
+        }
     }
     &__img-wrap {
         width: 50%;
+        @include to(601px){
+            width: 100%;
+        }
     }
     &__text {
         width: 50%;
+        @include to(601px){
+            width: 100%;
+        }
         padding: 60px;
         background-color: var(--color-white);
         display: flex;
@@ -165,6 +229,10 @@
         align-items: flex-start;
         @include to(1024px){
             padding: 20px;
+        }
+        @include to(600px){
+            padding: 40px 20px;
+            text-align: center;
         }
         &--blue {
             background-color: var(--color-5-d-85-a-3);
@@ -177,6 +245,9 @@
     &__img {
         padding-bottom: 104%;
         position: relative;
+        @include to(600px){
+            padding-bottom: 85.47%;
+        }
         img {
             position: absolute;
             top: 0;
@@ -184,6 +255,29 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+    }
+    &__decor {
+        position: absolute;
+        bottom: 45px;
+        width: calc(100% - 70px);
+        height: auto;
+        left: 35px;
+        @include to(600px){
+            height: 38px;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+        }
+    }
+
+    @include to(600px){
+        &:last-child &__img-wrap {
+            display: none;
+        }
+        &:last-child &__text {
+            align-items: center;
         }
     }
 }
@@ -223,9 +317,15 @@
         justify-content: space-between;
         background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%), linear-gradient(0deg, rgba(34, 26, 34, 0.00) 80.23%, rgba(34, 26, 34, 0.70) 90.21%, rgba(34, 26, 34, 0.90) 100%);
         background-blend-mode: color, multiply, normal;
+        @include to(600px){
+            padding: 20px;
+        }
         &-title {
             width: 50%;
             margin-left: auto;
+            @include to(600px){
+                width: 65%;
+            }
         }
     }
 }
@@ -265,6 +365,9 @@
         justify-content: space-between;
         background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%), linear-gradient(0deg, rgba(34, 26, 34, 0.00) 80.23%, rgba(34, 26, 34, 0.70) 90.21%, rgba(34, 26, 34, 0.90) 100%);
         background-blend-mode: color, multiply, normal;
+        @include to(600px){
+            padding: 20px;
+        }
         &-title {
             width: 50%;
             margin-left: auto;

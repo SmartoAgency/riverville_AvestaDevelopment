@@ -95,6 +95,9 @@
         @include to(1024px){
             padding: 20px 28px;
         }
+        @include to(600px){
+            padding: 14px 40px;
+        }
     }
     &--small-white {
         background-color: var(--color-white);

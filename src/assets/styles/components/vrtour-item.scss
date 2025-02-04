@@ -10,7 +10,7 @@
             margin-right: -10px;
         }
         @include to(600px){
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
         &-wrapper {
             position: relative;
@@ -55,9 +55,15 @@
                 margin-bottom: 24px;
                 @include shift-padding-left(3);
             }
+            @include to(600px){
+                margin-bottom: 24px;
+                @include shift-padding-left(2);
+            }
             .button-30 {
                 margin-top: 40px;
-
+                @include to(600px){
+                    margin-top: 28px;
+                }
             }
         }
     }
@@ -68,6 +74,9 @@
         margin-bottom: 60px;
         @include to(1024px){
             margin-bottom: 24px;
+        }
+        @include to(600px){
+            display: none;
         }
     }
 }

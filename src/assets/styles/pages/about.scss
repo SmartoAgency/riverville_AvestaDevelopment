@@ -25,6 +25,12 @@
         @include from-to(601px, 1024px){
             margin-top: -50px;
         }
+        @include to(600px){
+            position: relative;
+            transform: none;
+            left: 0;
+            margin-bottom: -50px;
+        }
     }
     &__title {
         text-align: center;
@@ -40,6 +46,12 @@
         @include to(1024px){
             height: calc(100vw / 768 * 700);
         }
+        @include to(600px){
+            height: calc(100vw / 375 * 568);
+            img {
+                object-position: left;
+            }
+        }
     }
 }
 
@@ -49,6 +61,9 @@
     height: calc(100vw / 1920 * 1080);
     @include to(1024px){
         height: calc(100vw / 768 * 700);
+    }
+    @include to(600px){
+        height: auto;
     }
     &__content {
         max-width: 1063px;
@@ -73,12 +88,17 @@
         margin-bottom: 40px;
     }
     &__bg {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+        @include from(601px){
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        @include to(600px){
+            height: 100vw;
+        }
     }
 }
 
@@ -97,10 +117,17 @@
         @include to(1024px){
             margin-bottom: -20vw;
         }
+        @include to(600px){
+            margin-bottom: -10vw;
+        }
         .button-30 {
             margin-left: auto;
             margin-right: auto;
             margin-top: 40px;
+            
+            @include to(600px){
+                margin-top: 20px;
+            }
         }
     }
     &__title {
@@ -109,7 +136,9 @@
         @include to(1024px){
             padding-left: var(--page-side-fields);
             padding-right: var(--page-side-fields);
-
+        }
+        @include to(600px){
+            margin-bottom: 20px;
         }
     }
     &__bg {
@@ -117,6 +146,9 @@
         height: calc(100vw / 1920 * 1232);
         @include to(1024px){
             height: calc(100vw / 768 * 700);
+        }
+        @include to(600px){
+            height: calc(100vw / 375 * 422);
         }
     }
 }
@@ -168,6 +200,9 @@
         }
         &>:nth-child(n+2) {
             margin-top: 60px;
+            @include to(600px){
+                margin-top: 20px;
+            }
         }
     }
 }
@@ -177,5 +212,8 @@
     height: auto;
     @include from-to(601px, 1024px){
         height: 100px;
+    }
+    @include to(600px){
+        height: 50px;
     }
 }

@@ -8,6 +8,11 @@
     &--no-title &__title {
         display: none;
     }
+    &--no-title {
+        @include to(600px){
+            margin-top: 0;
+        }
+    }
     &__title {
         margin-bottom: 80px;
         text-align: center;
@@ -41,6 +46,11 @@
             }
             @media screen and (max-width:600px){
                 width: 60px;
+                path[stroke="white"] {
+                    transform-origin: center;
+                    transform-box: fill-box;
+                    transform: scale(1.4);
+                }
             }
         }
     }

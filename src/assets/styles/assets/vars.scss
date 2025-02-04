@@ -171,6 +171,16 @@ $gold: #CFA46E;
 	letter-spacing: -2.4px;
 }
 
+@mixin text-style-375-h-2 {
+	font-family: "Century Gothic";
+font-size: 28px;
+font-style: normal;
+font-weight: 700;
+line-height: 100%; /* 28px */
+letter-spacing: -1.68px;
+text-transform: uppercase;
+}
+
 @mixin text-style-1920-h-2() {
 	font-size: 48px;
 	font-size: pxWidthInVw(48);
@@ -185,22 +195,23 @@ $gold: #CFA46E;
 		font-size: 36px;
 	}
 	@media screen and (max-width:600px){
-		font-size: 24px;
+		font-size: 28px;
 	}
 }
 
-@mixin text-style-375-h-2 {
-	font-family: "Century Gothic";
-font-size: 28px;
-font-style: normal;
-font-weight: 700;
-line-height: 100%; /* 28px */
-letter-spacing: -1.68px;
-text-transform: uppercase;
-}
+
 .text-style-1920-h-2 {
 	@include text-style-1920-h-2;
 }
+
+@mixin text-style-375-h-3 {
+	font-size: 32px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 100%; /* 32px */
+	letter-spacing: -1.92px;
+}
+
 @mixin text-style-1920-h-3() {
 	font-size: 60px;
 	font-size: Min(pxWidthInVw(60), 60px);
@@ -216,6 +227,7 @@ text-transform: uppercase;
 	}
 	@media screen and (max-width:600px){
 		font-size: 32px;
+		@include text-style-375-h-3;
 	}
 }
 .text-style-1920-h-3 {

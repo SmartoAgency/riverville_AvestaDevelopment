@@ -26,6 +26,18 @@
                 margin-left: auto;
             }
         }
+        @include to(600px){
+            height: calc(100vw / 375 * 240);
+            padding: 20px;
+            .text-style-1920-h-3 {
+                @include text-style-375-h-3;
+                padding-right: 0;
+            }
+            svg {
+                height: 23px;
+                width: auto;
+            }
+        }
     }
     &__card {
         width: calc(100% / 3 - 4px);
@@ -83,6 +95,10 @@
             z-index: 2;
             @include to(1024px){
                 width: 70%;
+            }
+            @include to(600px){
+                width: 100%;
+                padding: 20px;
             }
         }
         &--reverse &-title {

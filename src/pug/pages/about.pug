@@ -31,19 +31,19 @@ block variable
     ];
     var sticky2 = [
       {
-        img: './assets/images/about/sticky2/Img.jpg',
+        img: './assets/images/about/sticky2/Img0.jpg',
         title: 'Сусіди, які мають з вами спільні цінності',
       },
       {
-        img: './assets/images/about/sticky2/Img-1.jpg',
+        img: './assets/images/about/sticky2/Img.jpg',
         title: 'Безпека для наймолодших мешканців',
       },
       {
-        img: './assets/images/about/sticky2/Img-2.jpg',
+        img: './assets/images/about/sticky2/Img-1.jpg',
         title: 'Дружня атмосфера в школі та за її межами – діти будуть в захваті від різноманіття активностей та дозвілля',
       },
       {
-        img: './assets/images/about/sticky2/Img-3.jpg',
+        img: './assets/images/about/sticky2/Img-2.jpg',
         title: 'Можливість організувати День народження чи бізнес-зустріч на території комплексу',
       }
     ]
@@ -118,7 +118,7 @@ block content
         <source srcset="./assets/images/about/about-block-with-render1@075x.jpg" media="(min-width: 321px) and (max-width: 1024px)">
         <img src="#" alt="" loading="lazy">
       </picture>
-  .sticky-block(data-sticky-block2)
+  .sticky-block.sticky-block--mobile-title-centered(data-sticky-block2)
     .sticky-block__content
       .sticky-block__title.text-style-1920-h-2 
           span Ми створюємо простір, 
@@ -130,12 +130,15 @@ block content
               .sticky2-card__img-wrap
                 .sticky2-card__img
                   img(src=val.img, alt="", srcset="" loading="lazy")
+                  <svg class="sticky2-card__decor" width="385" height="112" viewBox="0 0 385 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M58.301 43.0222L127.267 112L196.588 43.0222L265.554 112L334.875 43.0222L385 93.1555V50.4889L334.875 0L265.554 69.3333L196.588 0L127.267 69.3333L58.301 0L0 58.3111V101.333L58.301 43.0222Z" fill="#EFF3F7"/>
+                  </svg>
               .sticky2-card__text.text-style-1920-h-4 #{val.title}
         .sticky2-card
           .sticky2-card__inner
             .sticky2-card__img-wrap
               .sticky2-card__img
-                img(src='./assets/images/about/sticky2/Img-4.jpg', alt="", srcset="" loading="lazy")
+                img(src='./assets/images/about/sticky2/Img-3.jpg', alt="", srcset="" loading="lazy")
             .sticky2-card__text.sticky2-card__text--blue.text-style-1920-h-4 
               div А про всі клопоти подбає адміністрація Riverville
               a(href="/3d").button-30.button-30--small-white 
@@ -158,7 +161,8 @@ block content
     .about-block-with-render2__bg
       <picture>
         <source srcset="./assets/images/about/about-block-with-render2.jpg" media="(min-width: 1440px)">
-        <source srcset="./assets/images/about/about-block-with-render2@075x.jpg" media="(min-width: 321px) and (max-width: 1439px)">
+        <source srcset="./assets/images/about/about-block-with-render2@075x.jpg" media="(min-width: 601px) and (max-width: 1439px)">
+        <source srcset="./assets/images/about/about-block-with-render2-mobile.jpg" media="(max-width: 600px)">
         <img src="#" alt="" loading="lazy">
       </picture>
   .about-img-text
