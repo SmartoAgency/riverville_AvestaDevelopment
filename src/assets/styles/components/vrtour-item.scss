@@ -1,5 +1,10 @@
 .vrtour-item {
     @include row-flex();
+    @include to(600px){
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
     &__frame {
         @include size(17);
         @include shift(0);

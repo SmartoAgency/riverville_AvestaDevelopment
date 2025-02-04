@@ -45,6 +45,7 @@ useSetMenuEffect(val => {
         paused: true,
     });
     if (val) {
+        
         tl
             .add(() => {
                 menu.classList.toggle('active', val);
@@ -126,6 +127,10 @@ useSetMenuEffect(val => {
             },'<+0.5');
     }
     tl.play();
+    if (val) {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
     document.body.classList.toggle('popup-open', val);
 });
 

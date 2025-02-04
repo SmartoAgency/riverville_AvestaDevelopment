@@ -21,6 +21,13 @@
 	}
 }
 
+// body[class*="home"] .page__inner {
+// 	@media screen and (max-width:600px){
+// 		max-width: 100vw;
+// 		overflow: hidden;
+// 	}
+// }
+
 .container {
 	@include wrapper();
 	&~& {
