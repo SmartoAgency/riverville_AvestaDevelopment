@@ -5,6 +5,9 @@
     justify-content: center;
     margin-top: calc(var(--section-v-offset) * 1.5);
     --padding: 40px;
+    @include from-to(1025px, 1360px){
+        --padding: 30px;
+    }
     &__custom-card {
         width: calc(100% / 3 - 4px);
         background-color: var(--color-14427-c);

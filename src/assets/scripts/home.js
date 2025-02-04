@@ -20,11 +20,7 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
     document.querySelector('.home-about-screen').scrollIntoView({ behavior: 'smooth' });
   });
 });
-document.querySelectorAll('[data-up-arrow]').forEach(el => {
-  el.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
+
 
 function screen1() {
   const videoBtn = document.querySelector('.home-front-screen__video-btn');

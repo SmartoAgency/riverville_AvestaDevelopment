@@ -25,22 +25,36 @@ gsap.timeline({
     .fromTo('.infrastructure-block-with-render__bg img', {
         scale: 1
     }, {
-        scale: 1.2
+        scale: 1.2,
+        transformOrigin: 'bottom'
     }, '<')
 gsap.timeline({
     scrollTrigger: {
         trigger: '.infrastructure-block-with-render2__bg',
         scrub: true,
-        start: '50% 50%'
+        // start: '50% 50%'
     }
 })
     .fromTo('.infrastructure-block-with-render2__bg img', {
         scale: 1
     }, {
-        scale: 1.2
+        scale: 1.2,
+        transformOrigin: 'bottom'
     }, '<')
 
-
+gsap.timeline({
+        scrollTrigger: {
+            trigger: '.infrastructure-block-with-render3__bg',
+            scrub: true,
+            // start: '50% 50%'
+        }
+    })
+        .fromTo('.infrastructure-block-with-render3__bg img', {
+            scale: 1
+        }, {
+            scale: 1.2,
+            transformOrigin: 'bottom'
+        }, '<')
 
     function applyScrollTriggerAnimation(selectors) {
         document.querySelectorAll(selectors).forEach(el => {

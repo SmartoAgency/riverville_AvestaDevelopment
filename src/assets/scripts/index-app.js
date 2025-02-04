@@ -142,3 +142,10 @@ document.body.addEventListener('click', (evt) => {
         setMenuState(false);
     }
 });
+
+
+document.querySelectorAll('[data-up-arrow]').forEach(el => {
+    el.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
