@@ -4,6 +4,7 @@ import { lenis } from './modules/scroll/leniscroll';
 
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 
 gsap.timeline({

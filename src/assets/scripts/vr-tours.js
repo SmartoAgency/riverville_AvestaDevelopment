@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useState } from './modules/helpers/helpers';
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 const [ tab, setTab, useTabEffect] = useState(null);
 

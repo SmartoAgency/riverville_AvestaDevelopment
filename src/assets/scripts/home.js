@@ -14,6 +14,7 @@ const headroom = new Headroom(header, {});
 headroom.init();
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
   el.addEventListener('click', () => {

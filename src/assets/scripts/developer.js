@@ -5,6 +5,7 @@ import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
 
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 
 splitToLinesAndFadeUp(

@@ -14,6 +14,7 @@ const headroom = new Headroom(header, {});
 headroom.init();
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 function stickyBlocksAnimDesktop() {
     gsap.timeline({
