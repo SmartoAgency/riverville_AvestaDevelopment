@@ -5,6 +5,7 @@
         margin-right: auto;
         display: block;
         width: 100%;
+        height: auto;
         @include to(600px){
             height: 24px;
         }

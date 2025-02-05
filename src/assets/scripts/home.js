@@ -244,7 +244,13 @@ gsap
       scrub: 1,
     },
   })
-  .fromTo('.home-news-screen__content', { opacity: 0 }, { opacity: 1, clearProps: 'all' });
+  .fromTo('.home-news-screen__content', { 
+    opacity: 0,
+    y: 100,
+  }, { 
+    y: 0,
+    opacity: 1, clearProps: 'all' 
+  });
 
 splitToLinesAndFadeUp(
   '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-advantages-block__title, .home-gallery-screen__title, .home-construction-screen__title',
