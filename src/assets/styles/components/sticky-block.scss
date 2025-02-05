@@ -330,6 +330,15 @@
                 width: 65%;
             }
         }
+
+        @include to(600px){
+            &>:nth-child(1) {
+                width: 30%;
+            }
+            &>:nth-child(2) {
+                margin-right: auto;
+            }
+        }
     }
     &--no-gradient {
         .sticky3-card__content {
@@ -376,10 +385,18 @@
         background-blend-mode: color, multiply, normal;
         @include to(600px){
             padding: 20px;
+            background: linear-gradient(0deg, rgba(34, 26, 34, 0.20) 0%, rgba(34, 26, 34, 0.20) 100%)  136.24% 129.209% no-repeat;
+
         }
         &-title {
             width: 50%;
             margin-left: auto;
+            
+        }
+        @include to(600px){
+            &>:nth-child(1) {
+                width: 70%;
+            }
         }
     }
 }

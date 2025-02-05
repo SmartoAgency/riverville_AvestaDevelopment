@@ -71,7 +71,7 @@
     z-index: 3;
     // display: none;
     @include to(600px){
-        height: 250vh;
+        height: 180vh;
     }
     &__content {
         width: 100vw;
@@ -352,6 +352,10 @@
         transform-origin: center;
         transform-box: fill-box;
         transition: .25s ease-in-out;
+        @include to(600px){
+            width: 20px;
+            height: 20px;
+        }
     }
     @media (hover: hover) {
         .popup__close:hover {

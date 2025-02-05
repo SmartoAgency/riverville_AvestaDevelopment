@@ -136,6 +136,7 @@
     background: linear-gradient(180deg, #927476 0%, rgba(146, 116, 118, 0) 100%);
     @include to(600px){
       z-index: 2;
+      display: none;
       background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
     }
   }
@@ -185,6 +186,7 @@
         width 0.5s cubic-bezier(0.55, 0.1, 0, 1.01);
 
       max-width: 90vw !important;
+      max-height: 60vh !important;
 
       @include to(1024px) {
         height: 45vw;

@@ -12,6 +12,7 @@
   @include to(600px){
     margin-top: calc(var(--section-v-offset) * 1.5);
     margin-bottom: -70px;
+    overflow: hidden;
   }
   &__title {
     position: relative;
@@ -76,9 +77,10 @@
     height: 250vh;
   }
   @media screen and (max-width: 600px) {
-    padding-right: 20px;
+    // padding-right: 20px;
     padding-left: var(--page-side-fields);
     padding-right: 0;
+    padding-left: 0;
     background-color: transparent;
   }
   @include to(600px){

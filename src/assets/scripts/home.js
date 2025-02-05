@@ -106,7 +106,8 @@ const advblock2 = new Swiper('[data-home-advantages-block2]', {
   },
   breakpoints: {
     320: {
-      slidesPerView: 1,
+      slidesPerView: 1.2,
+      centeredSlides: true,
       // mousewheel: {
       //   enabled: false,
       // },
@@ -313,7 +314,7 @@ function mobileIncredibleBlockSlider() {
   });
 
   swiper.on('slideChange', (swiper) => {
-    document.querySelector('[data-incredible-block-mobile-current]').textContent = pad(swiper.realIndex);
+    document.querySelector('[data-incredible-block-mobile-current]').textContent = pad(swiper.realIndex + 1);
   });
 }
 

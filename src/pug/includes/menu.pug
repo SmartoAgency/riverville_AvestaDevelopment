@@ -20,9 +20,9 @@ nav.menu(data-lenis-prevent data-menu)
         </svg>
     .menu__list
         .menu__list-bg
-            .menu__list-bg-1
             //- .menu__list-bg-image(style="background: url('./assets/images/menu/links-bg.gif') lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat").menu__list-bg-image
             .menu__list-bg-image(style="background: url('./assets/images/menu/links-bg.gif') lightgray 0% 0%").menu__list-bg-image
+            .menu__list-bg-1
         each link in links
             if link.attr
                 a(data-menu-close class="menu__link "+link.className href=link.href data-text=link.title)
