@@ -2,8 +2,14 @@
     --transition: .75s ease-out;
     margin-top: var(--section-v-offset);
     margin-bottom: var(--section-v-offset);
+    
     @include to(1024px){
         margin-top: calc(var(--section-v-offset) * 1.5);
+    }
+    &--no-title {
+        @include from(1025px){
+            margin-top: 50px;
+        }
     }
     &--no-title &__title {
         display: none;
@@ -73,6 +79,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+    }
+    .swiper-container {
+        .swiper-slide-active {
+
+            transform-origin: top;
         }
     }
     .swiper-container.closed {

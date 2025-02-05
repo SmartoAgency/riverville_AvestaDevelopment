@@ -10,7 +10,7 @@
         { className: 'tiny-mobile', title: "ЗАБУДОВНИК", href: '/developer'},
         { className: 'tiny-mobile', title: "ХІД БУДІВНИЦТВА", href: '/construction'},
         { className: 'tiny-mobile', title: "НОВИНИ ТА АКЦІЇ", href: '/news'},
-        { className: 'tiny-mobile', title: "КОНТАКТИ", href: '/contacts'},
+        { attr: 'data-menu-close', className: 'tiny-mobile', title: "КОНТАКТИ", href: '#contact-screen'},
     ]
 nav.menu(data-lenis-prevent data-menu)
     button(type="button" data-menu-close).menu__close
@@ -20,11 +20,16 @@ nav.menu(data-lenis-prevent data-menu)
         </svg>
     .menu__list
         .menu__list-bg
-            //- .menu__list-bg-1
-            .menu__list-bg-image(style="background: url('./assets/images/menu/links-bg.gif') lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat").menu__list-bg-image
+            .menu__list-bg-1
+            //- .menu__list-bg-image(style="background: url('./assets/images/menu/links-bg.gif') lightgray 0% 0% / 40.00000059604645px 40.00000059604645px repeat").menu__list-bg-image
+            .menu__list-bg-image(style="background: url('./assets/images/menu/links-bg.gif') lightgray 0% 0%").menu__list-bg-image
         each link in links
-            a(class="menu__link "+link.className href=link.href data-text=link.title)
-                span #{link.title}
+            if link.attr
+                a(data-menu-close class="menu__link "+link.className href=link.href data-text=link.title)
+                    span #{link.title}
+            else 
+                a(class="menu__link "+link.className href=link.href data-text=link.title)
+                    span #{link.title}
         <svg preserveAspectRatio="xMidYMid slice" class="menu__list-decor" width="210" height="967" viewBox="0 0 210 967" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_801_21)">
             <path d="M164.914 958.587C144.634 929.362 132.016 899.251 127.059 870.026C118.497 817.332 141.029 778.808 164.463 737.627C189.699 694.232 218.541 644.638 207.275 576.446C202.768 548.107 192.403 523.753 176.18 502.055L166.266 487L115.793 487L141.029 525.524L141.93 526.852C154.098 543.236 161.759 561.391 165.364 583.089C173.927 636.668 151.394 675.635 127.51 716.815C102.273 760.21 73.8821 808.919 84.6977 876.668C89.6549 907.221 101.372 937.332 119.398 967L170.321 967L165.364 959.03L164.914 958.587Z" fill="white"/>

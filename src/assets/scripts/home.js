@@ -35,7 +35,8 @@ function screen1() {
     });
   }
 
-  videoBtn.addEventListener('click', () => {
+  videoBtn.closest('.home-front-screen__video').addEventListener('click', (evt) => {
+    evt.preventDefault();
     if (videoElement.muted) {
       videoWrapper.classList.add('active');
       header.classList.add('hidden-for-video');
@@ -338,3 +339,15 @@ function homeParalax(container) {
 document.querySelectorAll('.home-about-screen__bg, .home-location-screen__bg, .home-advantages-block__bg').forEach(el => {
   homeParalax(el);
 });
+
+
+
+gsap.timeline({
+  scrollTrigger: {
+    trigger: '.home-front-screen',
+    start: 'top top',
+    scrub: 1,
+  }
+})
+  .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all' })
+  .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all' }, '<');

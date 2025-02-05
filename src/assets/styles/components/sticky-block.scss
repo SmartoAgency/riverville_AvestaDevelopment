@@ -84,7 +84,7 @@
         @for $i from 1 through 20 {
             &>:nth-child(#{$i}) {
                 position: sticky;
-                top: calc(var(--header-h) + #{$i * 5}px);
+                top: calc(var(--header-h) + #{$i * 15}px);
                 @include to(1024px){
                     top: calc(var(--header-h) + #{$i * 5}px + (36px * 5) + 20px);
                 }
@@ -158,6 +158,7 @@
 
 .sticky1-card {
     position: relative;
+    border: 1px solid rgba(239, 243, 247, 0.20);
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;
@@ -200,6 +201,7 @@
 
 
 .sticky2-card {
+    border: 1px solid rgba(239, 243, 247, 0.20);
     &:nth-child(even) &__inner {
         flex-direction: row-reverse;
     }
@@ -285,6 +287,7 @@
 
 .sticky3-card {
     position: relative;
+    border: 1px solid rgba(239, 243, 247, 0.20);
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;
@@ -328,9 +331,15 @@
             }
         }
     }
+    &--no-gradient {
+        .sticky3-card__content {
+            background: none;
+        }
+    }
 }
 .sticky4-card {
     position: relative;
+    border: 1px solid rgba(239, 243, 247, 0.20);
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;

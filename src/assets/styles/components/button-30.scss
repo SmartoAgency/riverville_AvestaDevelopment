@@ -31,11 +31,14 @@
         left: 50%;
         width: 101%;
         height: 102%;
-        background: var(--color-bg-colour);
+        background-color: var(--color-white);
         z-index: 1;
         transition: .25s ease-out;
         transform: translate3d(-50%, -50%, 0px);
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    &--success-popup::after {
+        background-color: white;
     }
 
     @media (hover: hover) {

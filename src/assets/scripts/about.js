@@ -16,39 +16,6 @@ headroom.init();
 gsap.registerPlugin(ScrollTrigger);
 gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
-function stickyBlocksAnimDesktop() {
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: '[data-sticky-block]',
-            scrub: true
-        }
-    })
-        .fromTo('[data-sticky-block] .sticky1-card, [data-sticky-block] .sticky-block-custom-card', {
-            scale: 1,
-        }, {
-            scale: 1.05,
-            stagger: 1 / 5
-        });
-    
-    
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: '[data-sticky-block2]',
-            scrub: true,
-            end: 'bottom 50%'
-        }
-    })
-        .fromTo('[data-sticky-block2] .sticky2-card', {
-            scale: 1.1,
-        }, {
-            scale: 1,
-            stagger: 1 / 5
-        })
-}
-
-if (window.screen.width > 1024) {
-    stickyBlocksAnimDesktop();
-}
 
 function applyScrollTriggerAnimation(selectors) {
     document.querySelectorAll(selectors).forEach(el => {

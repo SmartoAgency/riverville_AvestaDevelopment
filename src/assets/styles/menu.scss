@@ -53,7 +53,7 @@
             top: 0;
             height: 100%;
             width:  100%;
-            background: var(--BG-colour, #E4E4EC);
+            // background: var(--BG-colour, #E4E4EC);
             
             &-1 {
                 position: absolute;
@@ -61,6 +61,7 @@
                 top: 0;
                 height: 100%;
                 width:  100%;
+                background-color: #E4E4EC;
             }
             &-image {
                 position: absolute;
@@ -270,6 +271,9 @@
         @include text-style-1920-links;
         color: var(--color-07222-f);
         z-index: 4;
+        @include from(1025px){
+            color: var(--color-white);
+        }
         @include to(600px){
             font-size: 16px;
             top: 20px;
@@ -277,6 +281,11 @@
         }
         svg {
             margin-left: 12px;
+            @include from(1025px){
+                [stroke] {
+                    stroke: var(--color-white);
+                }
+            }
             @include to(600px){
                 width: 24px;
                 height: 24px;

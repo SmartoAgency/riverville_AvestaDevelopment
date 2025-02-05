@@ -11,34 +11,73 @@
     top: 0;
     width: 100%;
     height: 100%;
+    @include to(1024px){
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    &__title {
+        @include from(1025px){
+            position: absolute;
+            left: 50%;
+            top: calc(var(--header-h) + 30px);
+            transform: translateX(-50%);
+        }
+        @include to(1024px){
+            font-size: 50px;
+        }
+        @include to(600px){
+            font-size: 32px;
+            text-align: center;
+        }
+    }
+    .link-wrap {
+        gap: 2px;
+        @include from(1025px){
+            position: absolute;
+            left: 50%;
+            bottom: 15vh;
+            transform: translateX(-50%);
+        }
+    }
     &__content {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        position: relative;
+        @include to(1024px){
+            position: relative;
+            position: relative;
+            height: 100%;
+            justify-content: space-between;
+            padding-top: 17vh;
+            padding-bottom: 10vh;
+            width: 100%;
+        }
+        @include to(600px){
+            padding-bottom: 20vh;
+        }
         z-index: 3;
     }
-    &:after {
-        content: '';
-        position: absolute;
-        // z-index: 2;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-bg-colour);
-        opacity: 0.5;
-    }
-    @include to(600px){
-        position: static;
-        margin-bottom: 0 !important;
-        padding: 90px 20px 20px 20px;
-        margin-top: 80px;
-        &>svg {
-            width: 225px;
-        }
-    }
+    // &:after {
+    //     content: '';
+    //     position: absolute;
+    //     // z-index: 2;
+    //     left: 0;
+    //     top: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-color: var(--color-bg-colour);
+    //     opacity: 0.5;
+    // }
+    // @include to(600px){
+    //     position: static;
+    //     margin-bottom: 0 !important;
+    //     padding: 90px 20px 20px 20px;
+    //     margin-top: 80px;
+    //     &>svg {
+    //         width: 225px;
+    //     }
+    // }
     &__bg {
         position: absolute;
         left: 0;
