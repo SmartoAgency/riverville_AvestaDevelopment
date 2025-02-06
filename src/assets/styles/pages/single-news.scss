@@ -40,6 +40,9 @@
             opacity: 0;
             pointer-events: none;
         }
+        .swiper-slide:not(.swiper-slide-active) {
+            cursor: pointer;
+        }
         &-nav {
             display: flex;
             gap: 4px;
@@ -50,6 +53,15 @@
                 @include to(600px){
                     width: 40px;
                     height: 40px;
+                }
+            }
+            @media (hover:hover) {
+                svg [fill] {
+                    transition: .25s ease-out;
+                }
+                svg:hover [fill] {
+                    fill: var(--color-14427-c);
+                    fill-opacity: 1;
                 }
             }
         }

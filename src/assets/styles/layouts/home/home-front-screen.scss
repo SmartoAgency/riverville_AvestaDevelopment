@@ -170,6 +170,7 @@
     z-index: 5;
     transition: height 1s cubic-bezier(0.55, 0.1, 0, 1.01),
       width 1s cubic-bezier(0.55, 0.1, 0, 1.01);
+      cursor: pointer;
     @media screen and (max-width: 600px) {
       width: 50vw;
       // height: 17.5vw;

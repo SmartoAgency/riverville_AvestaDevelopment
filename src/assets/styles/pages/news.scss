@@ -84,5 +84,13 @@
     &.active {
         background: var(--07222F, #07222F);
         color: #fff;
+        pointer-events: none;
+    }
+    @media (hover: hover) {
+        transition: .25s ease-out;
+        &:hover {
+            background-color: var(--color-14427-c);
+            color: #fff;
+        }
     }
 }

@@ -97,6 +97,28 @@
             animation: inherit;
         }
     }
+
+    @media (hover: hover) {
+        span:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-white);
+            z-index: -1;
+            transform-origin: top;
+            transition: .25s ease-out;
+            transform: scaleY(0);
+        }
+        &:hover span:after {
+            transform: scaleY(1);
+        }
+        &:hover span {
+            color: var(--color);
+        }
+    }
 }
 
 .desktop {

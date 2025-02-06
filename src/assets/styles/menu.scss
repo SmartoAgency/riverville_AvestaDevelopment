@@ -292,5 +292,15 @@
                 height: 24px;
             }
         }
+        @media (hover: hover) {
+            svg {
+                transform-origin: center;
+                transform-box: fill-box;
+                transition: .25s ease-in-out;
+            }
+            &:hover svg {
+                transform: rotate(90deg);
+            }
+        }
     }
 }

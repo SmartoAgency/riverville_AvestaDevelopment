@@ -102,6 +102,9 @@
                 }
             }
         }
+        p {
+            position: static !important;
+        }
     }
     &--big-title &__right {
         @include to(1024px){

@@ -59,6 +59,16 @@
                 }
             }
         }
+
+        @media (hover:hover) {
+            svg [fill-opacity] {
+                transition: .25s ease-out;
+            }
+            svg:hover [fill-opacity] {
+                fill: var(--color-14427-c);
+                fill-opacity: 1;
+            }
+        }
     }
     .swiper-slide {
         transition: var(--transition);

@@ -26,6 +26,15 @@
             object-fit: cover;
         }
     }
+    @media (hover: hover) {
+        &__image img {
+            transition: .25s ease-out;
+            transform-origin: center;
+        }
+        &:hover &__image img {
+            transform: scale(1.1);
+        }
+    }
     &__text {
         
         padding: 50px;

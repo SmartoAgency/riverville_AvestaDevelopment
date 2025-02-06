@@ -37,6 +37,10 @@
         transform: translate3d(-50%, -50%, 0px);
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
+    &--small-white::after,
+    &--white:after {
+        background: var(--color-07222-f);
+    }
     &--success-popup::after {
         background-color: white;
     }
@@ -47,6 +51,10 @@
         }
         &:hover {
             color: var(--color-07222-f);
+        }
+        &--small-white:hover,
+        &--white:hover {
+            color: var(--color-white);
         }
     }
     span {
