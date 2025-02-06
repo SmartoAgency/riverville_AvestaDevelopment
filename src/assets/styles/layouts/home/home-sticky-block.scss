@@ -7,10 +7,13 @@
         padding-right: var(--page-side-fields);
     }
     &-wrapper {
-        @include row-flex();
+        // @include row-flex();
+        display: flex;
+        flex-wrap: wrap;
+        // width: 100%;
     }
     &__title-wrap {
-        @include shift(0);
+        // @include shift(0);
         @include size(12);
         @include shift-padding-right(0.5);
         padding-left: var(--page-side-fields);
@@ -21,7 +24,7 @@
             margin-bottom: 12px;
         }
         @include size-xs(24);
-        @include shift-xs(0);
+        // @include shift-xs(0);
         @media screen and (max-width:600px){
             position: sticky;
             top: 63px;

@@ -1,5 +1,9 @@
 .vrtour-item {
-    @include row-flex();
+    max-width: 100vw;
+    overflow: hidden;
+    &__content {
+        @include row-flex();
+    }
     @include to(600px){
         margin-left: 0;
         margin-right: 0;

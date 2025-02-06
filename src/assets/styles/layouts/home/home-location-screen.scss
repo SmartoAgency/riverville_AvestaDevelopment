@@ -5,9 +5,9 @@
     margin-bottom: var(--section-v-offset);
     position: relative;
     margin-top: -1px;
+    overflow: hidden;
     @include to(600px){
         margin-bottom: 45px;
-        overflow: hidden;
     }
     
     &__bg-wrapper {

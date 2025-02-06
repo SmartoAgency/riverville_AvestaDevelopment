@@ -5,6 +5,7 @@ const slider = new Swiper('[data-single-news-slider]', {
     modules: [Navigation],
     spaceBetween: 8,
     slidesPerView: 1,
+    slideToClickedSlide: true,
     navigation: {
         prevEl: '[data-single-news-slider-prev]',
         nextEl: '[data-single-news-slider-next]',

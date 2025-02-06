@@ -17,6 +17,7 @@
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.3s, visibility 0.3s, pointer-events 0.3s;
+    overflow: hidden;
     @include to(1024px){
         grid-template-areas: 
         "list list"
@@ -96,9 +97,9 @@
         position: relative;
         z-index: 2;
         overflow: hidden;
+        width: max-content;
         @include to(1024px){
             font-size: 48px;
-            width: max-content;
         }
         @include to(600px){
             font-size: 32px;

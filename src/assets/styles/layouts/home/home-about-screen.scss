@@ -4,9 +4,9 @@
     padding-top: var(--section-v-offset);
     --between-v-offset: 40px;
     position: relative;
+    overflow: hidden;
     @include to(600px){
         max-width: 100vw;
-        overflow: hidden;
     }
     &__bottom-content {
         max-width: 755px;
