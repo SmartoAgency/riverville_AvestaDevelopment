@@ -101,6 +101,7 @@
     @include to(600px) {
       // padding-left: 15%;
       // padding-right: 15%;
+      max-width: 20ch;
     }
   }
 
@@ -151,6 +152,7 @@
     height: 100%;
     z-index: 7;
     pointer-events: none; 
+    display: none;
     &>* {
       pointer-events: all;
     }

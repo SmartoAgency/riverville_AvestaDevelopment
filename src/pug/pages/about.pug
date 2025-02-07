@@ -80,7 +80,7 @@ block content
               .sticky1-card__img
                 img(src=val.img, alt="", srcset="" loading="lazy")
             .sticky1-card__content
-              .sticky1-card__number #{index + 1}
+              .sticky1-card__number #{index < 9 ? '0'+(index + 1) : index + 1 }
               .sticky1-card__text.text-style-1920-h-4 #{val.title}
         .sticky-block-custom-card
           <svg class="sticky-block-custom-card__decor" width="96" height="28" viewBox="0 0 96 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,8 @@ block content
     .about-block-with-render1__bg
       <picture>
         <source srcset="./assets/images/about/about-block-with-render1.jpg" media="(min-width: 1025px)">
-        <source srcset="./assets/images/about/about-block-with-render1@075x.jpg" media="(min-width: 321px) and (max-width: 1024px)">
+        <source srcset="./assets/images/about/about-block-with-render1@075x.jpg" media="(min-width: 601px) and (max-width: 1024px)">
+        <source srcset="./assets/images/about/about-block-with-render1_mobile.jpg" media="(min-width: 321px) and (max-width: 600px)">
         <img src="#" alt="" loading="lazy">
       </picture>
   .sticky-block.sticky-block--mobile-title-centered(data-sticky-block2)

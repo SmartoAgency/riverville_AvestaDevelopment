@@ -136,6 +136,10 @@
                 margin-top: 20px;
             }
         }
+        @include to(600px){
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
     &__bg {
         position: relative;
