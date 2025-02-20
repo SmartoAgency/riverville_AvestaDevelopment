@@ -73,6 +73,9 @@
     .swiper-slide {
         transition: var(--transition);
         padding-bottom: Min(62.5%, 100vh);
+        @include from(1621px){
+            padding-bottom: min(62.5%, calc(100vh - var(--header-h)));
+        }
         @include to(1024px){
             padding-bottom: Min(115%, 100vh);
         }
