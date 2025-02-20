@@ -14,14 +14,21 @@ useTabEffect((currentTab) => {
 });
 
 useTabEffect((currentTab) => {
-    gsap.timeline()
-        .fromTo('.news-card', { opacity: 1 }, { opacity: 0, duration: 0.3, stagger: 0.1 })
-        .add(() => {
-            getNews(currentTab)
-                .then((response) => {
-                    setNews(response.data);
-                })
-        })
+    console.log('currentTab', currentTab);
+    const selectorToShow = currentTab === 'all' ? '.news-card' : `.news-card[data-type="${currentTab}"]`;
+    const selectorToHide = currentTab === 'all' ? '.news-card' : `.news-card:not([data-type="${currentTab}"])`;
+
+    if (currentTab === 'all') {
+        gsap.timeline()
+            .set(selectorToShow, { display: 'block' })
+            .fromTo(selectorToShow, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.1 })
+    } else {
+        gsap.timeline()
+            .fromTo(selectorToHide, { opacity: 1 }, { opacity: 0, duration: 0.3, stagger: 0.1 })
+            .set(selectorToHide, { display: 'none' })
+            .set(selectorToShow, { display: 'block' })
+            .fromTo(selectorToShow, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.1 })
+    }
 });
 
 useNewsEffect(data => {
