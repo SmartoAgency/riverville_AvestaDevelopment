@@ -11,7 +11,8 @@ const sendForm = async (data) => {
 };
 
 /*  */
-const lang = langDetect();
+// const lang = langDetect();
+const lang = 'uk';
 (async () => {
   await i18next.init({
     // lng: lang, // Текущий язык

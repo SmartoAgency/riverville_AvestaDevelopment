@@ -4,7 +4,6 @@ import * as yup from 'yup';
 // eslint-disable-next-line import/no-extraneous-depende
 import FormMonster from '../../../pug/components/form/form';
 import SexyInput from '../../../pug/components/input/input';
-import { useState } from './helpers/helpers';
 
 
 /*
@@ -103,7 +102,38 @@ const forms = [
 });
 
 
-const [fromPopup, setFormPopup, useSetPopupEffect ] = useState(false);
+function useState(initialValue) {
+  let value = initialValue;
+  const subscribers = [];
+
+  function setValue(newValue) {
+    value = newValue;
+    subscribers.forEach((subscriber) => subscriber(value));
+  }
+
+  function getState() {
+    return value;
+  }
+
+  function subscribe(callback) {
+    subscribers.push(callback);
+    return () => {
+      const index = subscribers.indexOf(callback);
+      if (index !== -1) {
+        subscribers.splice(index, 1);
+      }
+    };
+  }
+
+  return [getState, setValue, subscribe];
+}
+
+const formState = useState(false);
+
+// const [ fromPopup, setFormPopup, useSetPopupEffect ] = 
+const fromPopup = formState[0];
+const setFormPopup = formState[1];
+const useSetPopupEffect = formState[2];
 
 useSetPopupEffect(val => {
   if (val) {

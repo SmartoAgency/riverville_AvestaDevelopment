@@ -1,9 +1,35 @@
 import gsap from 'gsap/all';
 import './modules/form';
-import { useState } from './modules/helpers/helpers';
 
 
 //data-popup
+
+function useState(initialValue) {
+    let value = initialValue;
+    const subscribers = [];
+
+    function setValue(newValue) {
+        value = newValue;
+        subscribers.forEach((subscriber) => subscriber(value));
+    }
+
+    function getState() {
+        return value;
+    }
+
+    function subscribe(callback) {
+        subscribers.push(callback);
+        return () => {
+            const index = subscribers.indexOf(callback);
+            if (index !== -1) {
+                subscribers.splice(index, 1);
+            }
+        };
+    }
+
+    return [getState, setValue, subscribe];
+}
+
 
 const [formPopup, setFormPopup, useSetPopupEffect ] = useState(false);
 
