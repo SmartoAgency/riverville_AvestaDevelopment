@@ -46,11 +46,18 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    @include to(600px){
+      height: auto;
+      width: 100%;
+    }
 
     img {
       object-fit: cover;
       width: 100%;
       height: 100%;
+      @include to(600px){
+        object-fit: contain;
+      }
     }
   }
 
@@ -138,7 +145,9 @@
     @include to(600px){
       z-index: 2;
       display: none;
+      height: 318px;
       background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
+      // background: linear-gradient(180deg, #e4e3eb 0%, rgba(146, 116, 118, 0) 100%);
     }
   }
   .pin-spacer {
