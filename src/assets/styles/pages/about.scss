@@ -50,6 +50,19 @@
         width: 100vw;
         height: calc(100vw / 1920 * 1327);
         overflow: hidden;
+        @include from(1025px){
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: linear-gradient(357deg, rgba(228, 228, 236, 0.00) 19%, #E4E4EC 100%);
+                width: 100%;
+                height: 30%;
+                pointer-events: none;
+            }
+
+        }
         @include to(1024px){
             height: calc(100vw / 768 * 700);
         }
@@ -101,6 +114,19 @@
         margin-bottom: 40px;
     }
     &__bg {
+        @include from(1025px){
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: linear-gradient(357deg, rgba(228, 228, 236, 0.00) 19%, #E4E4EC 100%);
+                width: 100%;
+                height: 30%;
+                pointer-events: none;
+            }
+
+        }
         @include from(601px){
             position: absolute;
             left: 0;

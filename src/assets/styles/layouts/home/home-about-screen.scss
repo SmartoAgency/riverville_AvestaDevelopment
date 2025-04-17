@@ -51,7 +51,8 @@
         max-width: 1220px;
         margin: auto;
         @include from(1025px){
-            margin-bottom: -10%;
+            // margin-bottom: -10%;
+            margin-bottom: 150px;
         }
         
         @include to(600px){
@@ -108,7 +109,7 @@
         }
     }
     &__bg {
-        height: 77vw;
+        height: 62vw;
         // height: 110vw;
         @include to(1024px){
             height: calc(100vw / 768 * 1080);
