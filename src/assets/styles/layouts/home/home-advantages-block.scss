@@ -66,17 +66,18 @@
 .home-advantages-block2 {
   position: relative;
   z-index: 2;
-  background-color: var(--color-bg-colour);
+  // background-color: var(--color-bg-colour);
   margin-top: -1px;
   padding-left: 20px;
   padding-bottom: var(--section-v-offset);
   max-width: 100vw;
   overflow: hidden;
   @include from(1025px){
-    height: 400vh;
+    // height: 400vh;
+    margin-top: -20vh;
   }
   @include from(1921px){
-    height: 250vh;
+    // height: 250vh;
   }
   @media screen and (max-width: 600px) {
     // padding-right: 20px;
@@ -104,11 +105,23 @@
     margin-right: auto;
     margin-top: 20px;
     @include from(1025px) {
-      display: none;
+      // display: none;
+      width: 100%;
+      padding-left: var(--page-side-fields);
+      padding-right: var(--page-side-fields);
+      margin-top: 0;
     }
     svg {
       height: 100%;
       width: auto;
+      cursor: pointer;
+      @include from(1025px){
+        background-color: rgba(7, 34, 47, 0.7);
+        border-radius: 50%;
+        path {
+          fill: var(--color-bg-colour);
+        }
+      }
       &.swiper-button-disabled {
         opacity: 0.5;
       }
@@ -128,9 +141,10 @@
   }
   .swiper {
     @include from(1025px){
-      padding-top: calc(var(--header-h) + 30px);
+      // padding-top: calc(var(--header-h) + 30px);
+      padding-top: 50px;
       padding-bottom: 40px;
-      height: 100vh;
+      // height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;

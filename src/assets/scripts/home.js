@@ -130,25 +130,25 @@ advblock2.on('slideChange', (swiper) => {
   document.querySelector('[data-home-advantages-block2-current]').textContent = pad(swiper.realIndex + 1);
 });
 
-if (window.screen.width > 1024) {
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: '.home-advantages-block2',
-      pin: '.home-advantages-block2 .swiper',
-      start: 'top top',
-      end: 'bottom bottom',
-      onEnter: () => {
-        console.log(advblock2);
+// if (window.screen.width > 1024) {
+//   gsap.timeline({
+//     scrollTrigger: {
+//       trigger: '.home-advantages-block2',
+//       pin: '.home-advantages-block2 .swiper',
+//       start: 'top top',
+//       end: 'bottom bottom',
+//       onEnter: () => {
+//         console.log(advblock2);
         
-      },
-      onUpdate: self => {
-        advblock2.setProgress(self.progress);
-        console.log(self.progress);
+//       },
+//       onUpdate: self => {
+//         advblock2.setProgress(self.progress);
+//         console.log(self.progress);
         
-      }
-    }
-  })
-}
+//       }
+//     }
+//   })
+// }
 // if (document.documentElement.clientWidth > 1024) {
 //   const isSwiperCentered = swiperElement => {
 //     const rect = swiperElement.getBoundingClientRect();
