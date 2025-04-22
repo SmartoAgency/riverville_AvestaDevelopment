@@ -166,6 +166,9 @@
             @include to(1024px){
                 height: 40%;
             }
+            @include to(600px){
+                height: 15% !important;
+            }
         }
         img {
             width: 100%;

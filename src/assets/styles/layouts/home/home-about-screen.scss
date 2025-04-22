@@ -49,7 +49,9 @@
         position: relative;
         z-index: 2;
         // max-width: 1220px;
-        max-width: pxWidthInVw(1220);
+        @include from(1025px){
+            max-width: pxWidthInVw(1220);
+        }
         margin: auto;
         padding-left: var(--page-side-fields);
         padding-right: var(--page-side-fields);
