@@ -20,13 +20,13 @@ useTabEffect((currentTab) => {
 
     if (currentTab === 'all') {
         gsap.timeline()
-            .set(selectorToShow, { display: 'block' })
+            .set(selectorToShow, { display: '' })
             .fromTo(selectorToShow, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.1 })
     } else {
         gsap.timeline()
             .fromTo(selectorToHide, { opacity: 1 }, { opacity: 0, duration: 0.3, stagger: 0.1 })
             .set(selectorToHide, { display: 'none' })
-            .set(selectorToShow, { display: 'block' })
+            .set(selectorToShow, { display: '' })
             .fromTo(selectorToShow, { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.1 })
     }
 });

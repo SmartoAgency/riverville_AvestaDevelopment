@@ -1,6 +1,12 @@
 .home-news-screen {
     // background-color: var(--color-ffffff);
     position: relative;
+    height: 300vh;
+    @include from(601px){
+        // padding-left: var(--page-side-fields);
+        // padding-right: var(--page-side-fields);
+        
+    }
     z-index: 4;
     // display: none;
     &__title {
@@ -14,17 +20,34 @@
         }
         @include to(1024px){
             @include text-style-375-h-1;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
+    }
+    &__content-wrap {
+        position: relative;
+        min-height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-ffffff);
     }
     &__content {
         display: flex;
         flex-wrap: wrap;
         background-color: var(--color-ffffff);
+        // z-index: 2;
+        --gap: 20px;
+        gap: var(--gap);
+        align-items: center;
         position: relative;
-        z-index: 2;
+        z-index: 0;
+        @include to(600px){
+            --gap: 12px;
+        }
         .news-card {
-            width: 33.30%;
+            width: calc(50% - (var(--gap) / 2));
             margin-left: -1px;
             @include to(1024px){
                 width: 100%;
@@ -35,9 +58,38 @@
             margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
+            align-self: center;
             @include to(600px){
                 margin-top: 40px;
             }
+        }
+    }
+    &__wave1 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        // opacity: 0;
+        pointer-events: none;
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__wave2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        // opacity: 0;
+        pointer-events: none;
+        svg {
+            width: 100%;
+            height: 100%;
         }
     }
 }

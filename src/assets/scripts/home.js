@@ -130,129 +130,78 @@ advblock2.on('slideChange', (swiper) => {
   document.querySelector('[data-home-advantages-block2-current]').textContent = pad(swiper.realIndex + 1);
 });
 
-// if (window.screen.width > 1024) {
-//   gsap.timeline({
-//     scrollTrigger: {
-//       trigger: '.home-advantages-block2',
-//       pin: '.home-advantages-block2 .swiper',
-//       start: 'top top',
-//       end: 'bottom bottom',
-//       onEnter: () => {
-//         console.log(advblock2);
-        
-//       },
-//       onUpdate: self => {
-//         advblock2.setProgress(self.progress);
-//         console.log(self.progress);
-        
-//       }
-//     }
-//   })
-// }
-// if (document.documentElement.clientWidth > 1024) {
-//   const isSwiperCentered = swiperElement => {
-//     const rect = swiperElement.getBoundingClientRect();
-//     const elementCenter = rect.top + rect.height / 2;
-//     const viewportCenter = window.innerHeight / 2;
-
-//     const offset = 80;
-//     return Math.abs(elementCenter - viewportCenter) <= offset;
-//   };
-
-//   const checkMousewheelConditions = () => {
-//     const isCentered = isSwiperCentered(advblock2.el);
-
-//     if (isCentered && !advblock2.isBeginning && !advblock2.isEnd) {
-//       console.log('stopped');
-      
-//       advblock2.params.speed = 200;
-//       lenis.stop();
-//       advblock2.mousewheel.enable();
-//     } else if (lenis.isStopped) {
-//       setTimeout(() => {
-//         console.log('start', lenis);
-//         advblock2.params.speed = 1000;
-//         lenis.start();
-//       }, 700);
-//       advblock2.mousewheel.disable();
-//     }
-//   };
-
-//   window.addEventListener('scroll', () => {
-//     checkMousewheelConditions();
-//   });
-
-//   window.addEventListener('resize', checkMousewheelConditions);
-
-//   advblock2.on('slideChange', (swiper) => {
-//     checkMousewheelConditions();
-//     document.querySelector('[data-home-advantages-block2-current]').textContent = pad(swiper.realIndex + 1);
-//   });
-
-//   checkMousewheelConditions();
-// }
-
-
 gallerySlider(gsap, Swiper);
 
+
+function constructionScreenObserver() {
+  //.home-construction-screen intersection observer
+  const constructionScreen = document.querySelector('.home-construction-screen');
+  if (!constructionScreen) return;
+  console.log('constructionScreenObserver');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        ScrollTrigger.refresh();
+        console.log('Construction screen is visible');
+        
+      } else {
+      }
+    });
+  }, {
+    threshold: 0.1, // Adjust this value as needed
+  });
+  observer.observe(constructionScreen);
+
+}
+constructionScreenObserver();
+
 gsap.timeline({
+    defaults: {
+      ease: 'none',
+    },
     scrollTrigger: {
-        trigger: '[data-wave1-block]',
-        pin: '[data-wave1-block-content]',
-        // end: '0% top',
+        // trigger: '[data-wave1-block]',
+        trigger: '.home-news-screen',
+          start: '0% top',
+        // pin: '[data-wave1-block-content]',
+        end: '40% top',
         // endTrigger: '.home-news-screen',
         // start: 'top top',
         // end: '100% top',
-        scrub: 1,
-        markers: false,
+        scrub: 0,
+        // markers: true
     }
 })
     .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.75, ease: 'none' })
     .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.75, ease: 'none' }, '<')
 
     gsap.timeline({
+      defaults: {
+      ease: 'none',
+    },
     scrollTrigger: {
-        trigger: '[data-wave2-block]',
-        pin: '[data-wave2-block-content]',
+        trigger: '.home-news-screen',
+        // pin: '[data-wave2-block-content]',
+        // start: 'top top',
+        start: '60% bottom',
         end: '100% bottom',
         // endTrigger: '.home-news-screen',
-        scrub: 1,
-        markers: false,
+        scrub: 0,
+        // markers: true
     }
 })
     .fromTo(
         '[data-wave2-block-top]',
         { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.75 },
-        { y: 0, ease: 'none', duration: 0.75  }
+        { y: 0, ease: 'none'  }
     )
     .fromTo(
         '[data-wave2-block-bottom]',
         { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.75 },
-        { y: 0, ease: 'none', duration: 0.75  },
+        { y: 0, ease: 'none' },
         '<'
     )
-    .to(
-        '[data-wave2-block-bottom]',
-        { y: 0, ease: 'none', duration: 0.25 }
-    )
-
-gsap
-  .timeline({
-    scrollTrigger: {
-      trigger: '.home-news-screen',
-      start: '5% 50%',
-      end: '10% 50%',
-      markers: false,
-      scrub: 1,
-    },
-  })
-  .fromTo('.home-news-screen__content', { 
-    opacity: 0,
-    y: 100,
-  }, { 
-    y: 0,
-    opacity: 1, clearProps: 'all' 
-  });
 
 splitToLinesAndFadeUp(
   '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-advantages-block__title, .home-gallery-screen__title, .home-construction-screen__title',

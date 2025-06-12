@@ -1,19 +1,43 @@
 .construction-card {
     position: relative;
     cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    text-decoration: none;
     &__title {
-
+        margin-bottom: auto;
+        margin-top: 38px;
+        @include to(600px){
+            margin-top: 20px;
+        }
     }
     &__button {
-        padding: 20px 36px;
+        padding: pxWidthInVw(16) pxWidthInVw(28);
         display: flex;
-        gap: 20px;
+        align-items: center;
+        gap: pxWidthInVw(12);
         @include text-style-1920-button;
         text-transform: uppercase;
         color: var(--color-ffffff);
-        border: 1px solid rgba(255, 255, 255, 0.40);
+        background-color: var(--color-07222-f);
         @media screen and (max-width:600px){
-            padding: 12px;
+            padding: 20px;
+            background-color: transparent;
+            padding: 0;
+            margin-left: auto;
+            svg {
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
+                transform: rotate(-45deg);
+            }
+            svg [fill] {
+                fill: var(--color-07222-f);
+            }
+            span {
+                display: none;
+            }
         }
     }
     @media (hover: hover) {
@@ -45,10 +69,10 @@
         
     }
     &__img {
-        padding-bottom: 50%;
-        position: relative;
-        @media screen and (max-width:600px){
-            padding-bottom: 64.6%;
+        width: 50%;
+        &-wrap {
+            padding-bottom: 153%;
+            position: relative;
         }
         img {
             position: absolute;
@@ -62,24 +86,26 @@
     &__text {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 30px 40px;
-        color: var(--color-ffffff);
-        background: linear-gradient(0deg, #07222F 0%, rgba(7, 34, 47, 0.00) 100%);
+        flex-direction: column;
+        align-items: flex-start;
+        width: 50%;
+        padding: pxWidthInVw(40);
+        color: var(--color-07222-f);
+        background: var(--White, #EFF3F7);
+        // padding: ;
         @media screen and (max-width:600px){
             padding: 16px 12px;
         }
     }
+    &__date {
+        @include text-style-1920-button;
+    }
     @media (hover: hover) {
         overflow: hidden;
-        &__img {
+        &__img img {
             transition: .25s ease-out;
         }
-        &:hover &__img {
+        &:hover &__img img {
             transform: scale(1.05);
         }
     }

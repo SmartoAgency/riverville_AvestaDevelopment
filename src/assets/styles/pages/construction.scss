@@ -1,9 +1,12 @@
 .construction-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
+    --gap: 20px;
+    gap: var(--gap);
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
     .construction-card {
-        width: calc(50% - 1px);
+        width: calc(32.333% - (var(--gap) / 6));
         @include to(1024px){
             width: 100%;
         }

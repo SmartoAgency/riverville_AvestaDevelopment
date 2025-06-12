@@ -2,6 +2,8 @@
     margin-top: var(--section-v-offset);
     margin-bottom: var(--section-v-offset);
     // display: none;
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
     &__title {
         text-align: center;
         padding-left: var(--page-side-fields);
@@ -18,18 +20,26 @@
     &__content {
         display: flex;
         flex-wrap: wrap;
+        --gap: 20px;
+        gap: var(--gap);
         @include to(600px){
             padding-left: 2px;
             padding-right: 2px;
+            --gap: 12px;
         }
         &>.button-30 {
             margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
+            @include from(1025px){
+                margin-left: 40%;
+                margin-right: 40%;
+            }
+            justify-content: center;
         }
         .construction-card {
             @include from(1025px){
-                width: 50%;
+                width: calc(32.333% - (var(--gap) / 6));
             }
             @include to(1024px){
                 width: 100%;
