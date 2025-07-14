@@ -78,26 +78,52 @@ gsap.timeline({
     
     applyScrollTriggerAnimation('.infrastructure-grid__card-title');
 
+if (window.screen.width > 1024) {
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '.infrastructure-grid',
+            start: '0% bottom',
+            end: '40% bottom',
+            scrub: true,
+        }
+    })
+        .fromTo('.infrastructure-grid>:nth-child(-n+3)', 
+            { y: 50, autoAlpha: 0,  }, 
+            { y: 0, autoAlpha: 1, duration: 1.25, stagger: 0.15 })
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '.infrastructure-grid',
+            start: '50% bottom',
+            end: '90% bottom',
+            scrub: true,
+        }
+    })
+        .fromTo('.infrastructure-grid>:nth-child(n+4)', 
+            { y: 50, autoAlpha: 0,  }, 
+            { y: 0, autoAlpha: 1, duration: 1.25, stagger: -0.15 })
+}
 
-gsap.timeline({
-    scrollTrigger: {
-        trigger: '.infrastructure-grid',
-        start: '0% bottom',
-        end: '40% bottom',
-        scrub: true,
-    }
+
+
+function block4Paralax() {
+    const container = document.querySelector('.infrastructure-block-with-render4__bg');
+    const image = container.querySelector('img');
+
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: container,
+            scrub: true,
+            end: 'bottom bottom'
+        }
+    })
+        .fromTo(image, {
+            scale: 1.2
+        }, {
+            scale: 1,
+            transformOrigin: 'bottom'
+        }, '<')
+}
+
+window.addEventListener('load', block4Paralax, {
+    once: true,
 })
-    .fromTo('.infrastructure-grid>:nth-child(-n+3)', 
-        { y: 50, autoAlpha: 0,  }, 
-        { y: 0, autoAlpha: 1, duration: 1.25, stagger: 0.15 })
-gsap.timeline({
-    scrollTrigger: {
-        trigger: '.infrastructure-grid',
-        start: '50% bottom',
-        end: '90% bottom',
-        scrub: true,
-    }
-})
-    .fromTo('.infrastructure-grid>:nth-child(n+4)', 
-        { y: 50, autoAlpha: 0,  }, 
-        { y: 0, autoAlpha: 1, duration: 1.25, stagger: -0.15 })

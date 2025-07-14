@@ -99,6 +99,13 @@
         }
     }
     .swiper-container {
+        cursor: grab;
+        @include to(1024px){
+            transform: translateZ(0);
+        }
+        &:active {
+            cursor: grabbing;
+        }
         .swiper-slide-active {
 
             transform-origin: top;
@@ -164,5 +171,6 @@
 
     .swiper-button-disabled {
         opacity: 0;
+        pointer-events: none !important;
     }
 }

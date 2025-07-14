@@ -88,6 +88,9 @@
                 @include to(1024px){
                     top: calc(var(--header-h) + #{$i * 5}px + (36px * 5) + 20px);
                 }
+                @include from-to(960px, 1024px){
+                    top: calc(var(--header-h) + #{$i * 5}px + (36px * 5));
+                }
                 @include to(600px){
                     top: calc(var(--header-h) + #{$i * 5}px + (28px * 5) + 20px);
                     &.sticky2-card {
@@ -103,7 +106,16 @@
             }
         }
         p {
-            position: static !important;
+            @include to(1024px){
+                position: sticky !important;
+                top: calc(var(--header-h) + 95px) !important;
+            }
+            @include to(820px){
+                top: calc(var(--header-h) + 125px) !important;
+            }
+            @include to(600px){
+                top: calc(var(--header-h) + 160px) !important;
+            }
         }
     }
     &--big-title &__right {
@@ -165,6 +177,9 @@
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;
+        @include from-to(990px, 1024px){
+            padding-bottom: 42%;
+        }
     }
     &__number {
         @include text-style-1920-h-2;
@@ -294,6 +309,12 @@
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;
+        @include from-to(769px, 1024px){
+            padding-bottom: 55vh;
+            img {
+                object-position: center
+            }
+        }
     }
     &__number {
         @include text-style-1920-h-2;
@@ -355,6 +376,9 @@
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;
+        @include from-to(769px, 1024px){
+            padding-bottom: 46vh;
+        }
     }
     &__number {
         @include text-style-1920-h-2;

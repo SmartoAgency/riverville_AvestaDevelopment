@@ -72,6 +72,9 @@
                 height: 100%;
                 width: 100%;
                 background-blend-mode: lighten;
+                @include from-to(601px, 1024px){
+                    display: none !important;
+                }
             }
         }
         &-decor {
@@ -190,7 +193,7 @@
             padding-left: 50vw;
         }
         @include to(600px){
-            padding-left: 33vw;
+            padding-left: 27vw;
         }
         @include from(1025px){
             border-top: 3px solid var(--color-white);
@@ -235,7 +238,7 @@
                 left: 40px;
             }
             @include to(600px){
-                left: 12px;
+                left: -10px;
             }
         }
         .text-style-1920-body {
@@ -243,6 +246,9 @@
         }
         .text-style-1920-links {
             font-size: pxInVh(24);
+            @include to(600px){
+                font-size: 16px;
+            }
         }
         a {
             color: var(--color-07222-f);

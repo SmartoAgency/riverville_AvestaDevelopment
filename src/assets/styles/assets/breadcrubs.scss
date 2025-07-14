@@ -55,7 +55,7 @@
       text-overflow: ellipsis;
       max-width: 50ch;
       @include to(576px) {
-        max-width: 14ch;
+        max-width: 30ch;
       }
     }
   }

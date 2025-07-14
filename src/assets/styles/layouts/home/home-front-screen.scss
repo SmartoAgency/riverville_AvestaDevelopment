@@ -7,15 +7,19 @@
   @include from(1025px){
     overflow: hidden;
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 990px) {
     height: calc(100vw / 768 * 1609);
+  }
+  @include to(1024px){
     padding-top: calc(var(--header-h) * 1.25 + 8vw);
   }
   @include to(600px) {
     height: calc(100vw / 375 * 847);
     padding-bottom: 20px;
     position: relative;
-    padding-top: calc(var(--header-h)* 1.25 + 17vw)
+    padding-top: calc(var(--header-h)* 1.25 + 17vw);
+    width: 100vw;
+    overflow: hidden;
   }
 
   &__bottom-gradient {
@@ -105,9 +109,11 @@
   &__title {
     margin-bottom: auto;
     text-transform: uppercase;
-    @include from-to(601px, 1024px){
+    @include from-to(601px, 990px){
       max-width: 570px;
     }
+
+    // media
     @include to(600px) {
       // padding-left: 15%;
       // padding-right: 15%;
@@ -135,6 +141,9 @@
         width: 24px;
         height: auto;
       }
+    }
+    &:hover svg {
+      animation: none;
     }
   }
 

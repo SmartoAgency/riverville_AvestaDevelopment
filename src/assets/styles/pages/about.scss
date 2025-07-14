@@ -8,6 +8,7 @@
     overflow: hidden;
     @include from-to(601px, 1024px){
         margin-top: calc(var(--section-v-offset) * 1.5 + 50px);
+        padding-top: 13rem;
     }
     @media screen and (max-width:600px){
         overflow: hidden;
@@ -108,6 +109,9 @@
             padding-left: var(--page-side-fields);
             padding-right: var(--page-side-fields);
         }
+        @include from-to(601px, 1024px){
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(228, 228, 236, 1) 100%);
+        }
     }
     &__title {
         text-align: center;
@@ -159,6 +163,12 @@
         margin-bottom: -10vw;
         @include to(1024px){
             margin-bottom: -20vw;
+        }
+        @include from-to(601px, 1024px){
+            margin-bottom: -40vw;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(228, 228, 236, 1) 100%);
+            padding-bottom: 10vw;
+            padding-top: 10vw;
         }
         @include to(600px){
             margin-bottom: -10vw;

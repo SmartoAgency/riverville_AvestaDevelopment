@@ -18,6 +18,11 @@
             margin-left: -10px;
             margin-right: -10px;
         }
+        @include to(1024px){
+            margin-left: auto;
+            margin-right: auto;
+            width: calc(100% - 20px);
+        }
         @include to(600px){
             margin-bottom: 28px;
         }
@@ -25,7 +30,7 @@
             position: relative;
             padding-bottom: Min(67%, 80vh);
             @include to(600px){
-                padding-bottom: 100vw;
+                padding-bottom: calc(var(--vh, 1vh) * 70);
             }
             iframe {
                 position: absolute;

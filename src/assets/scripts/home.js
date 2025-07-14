@@ -94,6 +94,8 @@ const advblock2 = new Swiper('[data-home-advantages-block2]', {
   // modules: [Mousewheel],
   speed: 1000,
   enabled: true,
+  centeredSlides: true,
+  initialSlide: window.screen.width < 600 ? 0 : 1,
   sensitivity: 4,
   navigation: {
     nextEl: '[data-home-advantages-block2-next]',

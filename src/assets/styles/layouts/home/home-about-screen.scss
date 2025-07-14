@@ -5,6 +5,12 @@
     --between-v-offset: 40px;
     position: relative;
     overflow: hidden;
+    @include from-to(601px, 1024px){
+        z-index: 2;
+    }
+    @include to(1024px){
+        margin-top: -1px;
+    }
     @include to(600px){
         max-width: 100vw;
     }
@@ -116,7 +122,7 @@
     &__bg {
         height: 62vw;
         // height: 110vw;
-        @include to(1024px){
+        @include to(990px){
             height: calc(100vw / 768 * 1080);
         }
         @include to(600px){
@@ -155,7 +161,7 @@
     &__item {
         @include size(4.8);
         @include shift(0);
-        @include to(1024px){
+        @include to(990px){
             @include size(12);
         }
         @media screen and (max-width:600px){

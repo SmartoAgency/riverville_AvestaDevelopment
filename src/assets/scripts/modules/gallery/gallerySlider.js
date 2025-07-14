@@ -30,6 +30,12 @@ export default function gallerySlider(gsap, Swiper) {
         },
     });
 
+    if (window.screen.width <= 1024) {
+        setGalleryClosed(false);
+        return;
+
+    }
+
     gsap.timeline({
         scrollTrigger: {
             trigger: '[data-home-gallery-screen]',
