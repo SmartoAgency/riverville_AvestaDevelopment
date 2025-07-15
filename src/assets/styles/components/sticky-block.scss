@@ -14,16 +14,19 @@
     &__title {
         @include size(12);
         @include shift(0);
-        @include size-md(24);
-        @include shift-md(0);
+        // @include size-md(24);
+        // @include shift-md(0);
         @include shift-padding-right(4);
         position: sticky;
         top: calc(var(--header-h) + 10px);
         height: max-content;
-        @include to(1024px){
+        @include to(1023px){
             padding-left: 0;
             padding-right: 0;
             margin-bottom: 40px;
+            width: calc(100% - 20px);
+            margin-left: calc(0% + 10px);
+            margin-right: calc(0% + 10px);
             
         }
         @include to(600px){
@@ -64,14 +67,19 @@
         @include shift(0);
         display: flex;
         flex-direction: column;
-        @include size-md(24);
-        @include shift-md(0);
-        @include from(1025px){
+        // @include size-md(24);
+        // @include shift-md(0);
+        @include from(1024px){
             &>:nth-child(n+2) {
                 margin-top: 40px;
             }
         }
-        @include from-to(601px, 1024px){
+        @include to(1023px){
+            width: calc(100% - 20px);
+            margin-left: calc(0% + 10px);
+            margin-right: calc(0% + 10px);
+        }
+        @include from-to(601px, 1023px){
             &>:nth-child(n+2) {
                 margin-top: 150px;
             }
@@ -85,10 +93,10 @@
             &>:nth-child(#{$i}) {
                 position: sticky;
                 top: calc(var(--header-h) + #{$i * 15}px);
-                @include to(1024px){
+                @include to(1023px){
                     top: calc(var(--header-h) + #{$i * 5}px + (36px * 5) + 20px);
                 }
-                @include from-to(960px, 1024px){
+                @include from-to(960px, 1023px){
                     top: calc(var(--header-h) + #{$i * 5}px + (36px * 5));
                 }
                 @include to(600px){
@@ -119,7 +127,7 @@
         }
     }
     &--big-title &__right {
-        @include to(1024px){
+        @include to(1023px){
             @for $i from 1 through 20 {
                 &>:nth-child(#{$i}) {
                     top: calc(var(--header-h) + #{$i * 10}px + (36px * 7) + 30px);
@@ -177,7 +185,7 @@
     &__img-wrap {
         padding-bottom: min(70.3%, 80vh);
         position: relative;
-        @include from-to(990px, 1024px){
+        @include from-to(990px, 1023px){
             padding-bottom: 42%;
         }
     }

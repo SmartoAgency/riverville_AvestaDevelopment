@@ -25,7 +25,7 @@
         align-items: center;
         justify-content: flex-start;
         margin-top: calc(var(--section-v-offset) * 0.66);
-        @include from-to(601px, 1024px){
+        @include from-to(601px, 1023px){
             // padding-left: 100px;
             // padding-right: 100px;
             position: absolute;
