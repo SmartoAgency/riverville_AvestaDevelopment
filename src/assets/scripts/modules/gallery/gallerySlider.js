@@ -2,6 +2,7 @@ import { useState } from "../helpers/helpers";
 
 export default function gallerySlider(gsap, Swiper) {
     const [galleryClosed, setGalleryClosed, subscribeGalleryClosed] = useState(true);
+    let isInViewport = false;
 
     subscribeGalleryClosed(value => {
         const gallery = document.querySelector('[data-home-gallery-screen]');
@@ -48,4 +49,49 @@ export default function gallerySlider(gsap, Swiper) {
             },
         },
     });
+
+    trackVisibility('[data-home-gallery-screen]', (action, target) => {        
+        if (action === 'enter') {
+            isInViewport = true;
+        } else {
+            isInViewport = false;
+        }
+    });
+
+    document.addEventListener('keyup', (evt) => {        
+        if (!isInViewport) return;
+        switch (evt.key) {
+            case 'ArrowLeft':
+                gallery.slidePrev();
+                break;
+            case 'ArrowRight':
+                gallery.slideNext();
+                break;
+            default:
+                break;
+        }
+    })
+}
+
+
+function trackVisibility(targetSelector, callback) {
+    const target = document.querySelector(targetSelector);
+    if (!target) {
+        console.warn(`Елемент ${targetSelector} не знайдено.`);
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                callback('enter', entry.target);
+            } else {
+                callback('exit', entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1 // 10% елемента видно — вважається в зоні видимості
+    });
+
+    observer.observe(target);
 }

@@ -65,6 +65,13 @@ window.addEventListener('resize', () => {
 
 const [menuState, setMenuState, useSetMenuEffect] = useState(false);
 
+document.addEventListener('keyup', (evt) => {
+    if (evt.key === 'Escape' && menuState()) {
+        setMenuState(false);
+        setFormPopup(false);
+    }
+});
+
 useSetMenuEffect(val => {
     const menu = document.querySelector('[data-menu]');
     let tl = gsap.timeline({
