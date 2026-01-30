@@ -22,6 +22,16 @@ const config = {
   },
   module: {
     rules: [
+      {
+        test: /\.m?js$/,
+        include: /node_modules[\\/]@studio-freight[\\/]lenis/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
     ],
   },
   optimization: {

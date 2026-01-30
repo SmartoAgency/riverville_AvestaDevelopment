@@ -1,23 +1,24 @@
 .home-front-screen {
   position: relative;
-  padding: calc(var(--header-h) * 1.25 + 11.1vw) var(--page-side-fields) 40px var(--page-side-fields);
+  padding: calc(var(--header-h) * 1.25 + 11.1vw) var(--page-side-fields) 40px
+    var(--page-side-fields);
   // height: 75.46875vw;
   height: calc(100vw / 1920 * 1633);
   background: var(--BG-colour, #e4e4ec);
-  @include from(1025px){
+  @include from(1025px) {
     overflow: hidden;
   }
   @media screen and (max-width: 990px) {
     height: calc(100vw / 768 * 1609);
   }
-  @include to(1024px){
+  @include to(1024px) {
     padding-top: calc(var(--header-h) * 1.25 + 8vw);
   }
   @include to(600px) {
     height: calc(100vw / 375 * 847);
     padding-bottom: 20px;
     position: relative;
-    padding-top: calc(var(--header-h)* 1.25 + 17vw);
+    padding-top: calc(var(--header-h) * 1.25 + 17vw);
     width: 100vw;
     overflow: hidden;
   }
@@ -35,13 +36,13 @@
       rgba(228, 228, 236, 0) 100%
     );
     z-index: 2;
-    @include from(1025px){
+    @include from(1025px) {
       height: 25%;
     }
-    @include to(1024px){
+    @include to(1024px) {
       height: 20%;
     }
-    @include to(600px){
+    @include to(600px) {
       height: 15%;
     }
   }
@@ -53,7 +54,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    @include to(600px){
+    @include to(600px) {
       height: auto;
       width: 100%;
     }
@@ -62,7 +63,7 @@
       object-fit: cover;
       width: 100%;
       height: 100%;
-      @include to(600px){
+      @include to(600px) {
         object-fit: contain;
       }
     }
@@ -109,8 +110,10 @@
   &__title {
     margin-bottom: auto;
     text-transform: uppercase;
-    @include from-to(601px, 990px){
+    white-space: nowrap;
+    @include from-to(601px, 990px) {
       max-width: 570px;
+      white-space: unset;
     }
 
     // media
@@ -118,6 +121,7 @@
       // padding-left: 15%;
       // padding-right: 15%;
       max-width: 20ch;
+      white-space: unset;
     }
   }
 
@@ -154,11 +158,11 @@
     width: 100%;
     height: 300px;
     background: linear-gradient(180deg, #927476 0%, rgba(146, 116, 118, 0) 100%);
-    @include to(600px){
+    @include to(600px) {
       z-index: 2;
       display: none;
       height: 318px;
-      background: linear-gradient(180deg, #E4E4EC 0%, rgba(228, 228, 236, 0.00) 100%);
+      background: linear-gradient(180deg, #e4e4ec 0%, rgba(228, 228, 236, 0) 100%);
       // background: linear-gradient(180deg, #e4e3eb 0%, rgba(146, 116, 118, 0) 100%);
     }
   }
@@ -172,9 +176,9 @@
     width: 100%;
     height: 100%;
     z-index: 7;
-    pointer-events: none; 
+    pointer-events: none;
     display: none;
-    &>* {
+    & > * {
       pointer-events: all;
     }
   }
@@ -193,7 +197,7 @@
     z-index: 5;
     transition: height 1s cubic-bezier(0.55, 0.1, 0, 1.01),
       width 1s cubic-bezier(0.55, 0.1, 0, 1.01);
-      cursor: pointer;
+    cursor: pointer;
     @media screen and (max-width: 600px) {
       width: 50vw;
       // height: 17.5vw;

@@ -10,417 +10,432 @@
 @import '../layouts/home/home-construction-screen';
 @import '../layouts/home/home-news-screen';
 
+#iframe-sensor {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: transparent;
+  display: block;
+}
 
+/* Коли цей клас додано, сенсор зникає і айфрейм стає повністю активним */
+.home-module-screen__frame.is-active #iframe-sensor {
+  display: none;
+}
 .home-video-block {
+  position: relative;
+  margin-top: var(--section-v-offset);
+  margin-bottom: var(--section-v-offset);
+  padding-left: pxWidthInVw(460);
+  padding-right: pxWidthInVw(460);
+  // display: none;
+  @include to(1024px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  &__title {
+    text-align: center;
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
+    margin-bottom: 50px;
+    @include to(1024px) {
+      @include text-style-768-h-1;
+      margin-bottom: 60px;
+    }
+    @include to(600px) {
+      @include text-style-375-h-1;
+      margin-bottom: 40px;
+    }
+  }
+  &__decor {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    @include to(1024px) {
+      top: auto;
+      bottom: 0;
+      transform: translateY(50%);
+    }
+  }
+  &__frame {
     position: relative;
-    margin-top: var(--section-v-offset);
-    margin-bottom: var(--section-v-offset);
-    padding-left: pxWidthInVw(460);
-    padding-right: pxWidthInVw(460);
-    // display: none;
-    @include to(1024px){
-        padding-left: 20px;
-        padding-right: 20px;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    z-index: 2;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      
     }
-    &__title  {
-        text-align: center;
-        padding-left: var(--page-side-fields);
-        padding-right: var(--page-side-fields);
-        margin-bottom: 50px;
-        @include to(1024px){
-            @include text-style-768-h-1;
-            margin-bottom: 60px;
-        }
-        @include to(600px){
-            @include text-style-375-h-1;
-            margin-bottom: 40px;
-        }
-    }
-    &__decor {
-        position:  absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        transform: translateY(-50%);
-        @include to(1024px){
-            top: auto;
-            bottom: 0;
-            transform: translateY(50%);
-        }
-    }
-    &__frame  {
-        position: relative;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-        z-index: 2;
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    }
+  }
 }
 
 .home-wave1-block {
-    height: 130vh;
-    // background-color: var(--color-ffffff);
-    position: relative;
-    z-index: 3;
-    max-width: 100vw !important;
-    // overflow: hidden !important;
+  height: 130vh;
+  // background-color: var(--color-ffffff);
+  position: relative;
+  z-index: 3;
+  max-width: 100vw !important;
+  // overflow: hidden !important;
 
-    // display: none;
-    @include to(600px){
-        height: 180vh;
+  // display: none;
+  @include to(600px) {
+    height: 180vh;
+  }
+  &__content {
+    width: 100vw;
+    height: 100vh;
+    // overflow: hidden;
+    position: sticky;
+    top: 0;
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
-    &__content {
-        width: 100vw;
-        height: 100vh;
-        // overflow: hidden;
-            position: sticky;
-        top: 0;
-        svg {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-    }
+  }
 }
 
 .home-wave2-block {
-    height: 180vh;
-    background-color: var(--color-ffffff);
-    // padding-top: var(--section-v-offset);
-    // display: none;
-    max-width: 100vw !important;
+  height: 180vh;
+  background-color: var(--color-ffffff);
+  // padding-top: var(--section-v-offset);
+  // display: none;
+  max-width: 100vw !important;
+  // overflow: hidden;
+  &__content {
+    width: 100vw;
+    height: 100vh;
     // overflow: hidden;
-    &__content {
-        width: 100vw;
-        height: 100vh;
-        // overflow: hidden;
-        position: sticky;
-        top: 0;
-        svg {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+    position: sticky;
+    top: 0;
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
+  }
 }
 
 .contact-screen-form {
-    padding: pxWidthInVw(100);
+  padding: pxWidthInVw(100);
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  @include from-to(601px, 1024px) {
+    padding: 100px;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 40px 20px;
+    // max-width: calc(100% - 40px);
+  }
+  &__title {
+    margin-bottom: 8px;
+  }
+  &__subtitle {
+    margin-bottom: 40px;
+  }
+  &__group {
+    width: 100%;
+    &-title {
+      color: var(--color-07222-f);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    &-message {
+      color: red;
+      text-align: right;
+      margin-bottom: -1.2em;
+      font-family: $default-font;
+      max-width: 65%;
+      margin-left: auto;
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+  &__group ~ &__group {
+    margin-top: 16px;
     position: relative;
-    background: rgba(255, 255, 255, 0.60);
-    @include from-to(601px, 1024px){
-        padding: 100px;
+  }
+  &__input {
+    padding: 20px 24px;
+    width: 100%;
+    color: var(--color-5-d-85-a-3);
+    &::placeholder {
+      color: var(--color-5-d-85-a-3);
     }
-    @media screen and (max-width:600px){
-        padding: 40px 20px;
-        // max-width: calc(100% - 40px);
+    @media screen and (max-width: 600px) {
+      padding: 18px 20px;
     }
-    &__title {
-        margin-bottom: 8px;
+  }
+  textarea {
+    resize: none;
+    height: 120px;
+  }
+  .button-30 {
+    width: 100%;
+    justify-content: center;
+    border: none;
+    @include to(600px) {
+      margin-top: 20px;
     }
-    &__subtitle {
-        margin-bottom: 40px;
-    }
-    &__group {
-        width: 100%;
-        &-title {
-            color: var(--color-07222-f);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        &-message {
-            color: red;
-            text-align: right;
-            margin-bottom: -1.2em;
-            font-family: $default-font;
-            max-width: 65%;
-            margin-left: auto;
-            &:empty {
-                display: none;
-            }
-        }
-    }
-    &__group~&__group {
-        margin-top: 16px;
-    }
-    &__input {
-        padding: 20px 24px;
-        width: 100%;
-        color: var(--color-5-d-85-a-3);
-        &::placeholder{
-            color: var(--color-5-d-85-a-3);
-        }
-        @media screen and (max-width:600px){
-            padding: 18px 20px;
-        }
-    }
-    textarea {
-        resize: none;
-        height: 120px;
-    }
-    .button-30 {
-        width: 100%;
-        justify-content: center;
-        border: none;
-        @include to(600px){
-            margin-top: 20px;
-        }
-    }
+  }
 }
 
 .contact-screen {
-    position: relative;
-    z-index: 2;
-    
-    @include from(1025px){
-        height: 100vw;
+  position: relative;
+  z-index: 2;
+
+  @include from(1025px) {
+    height: 100vw;
+  }
+  @include to(1024px) {
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
+  }
+  @include to(600px) {
+    [target='_blank'] svg {
+      width: 44px;
+      height: 44px;
     }
-    @include to(1024px){
-        padding-left: var(--page-side-fields);
-        padding-right: var(--page-side-fields);
+  }
+  &__title {
+    text-align: center;
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
+    width: 100%;
+    margin-bottom: pxInVh(90);
+    @include to(1024px) {
+      @include text-style-768-h-1;
+      margin-bottom: 60px;
     }
-    @include to(600px){
-        [target="_blank"] svg {
-            width: 44px;
-            height: 44px;
-        }
+    @include to(1024px) {
+      @include text-style-375-h-1;
+      margin-bottom: 40px;
     }
-    &__title {
-        text-align: center;
-        padding-left: var(--page-side-fields);
-        padding-right: var(--page-side-fields);
+  }
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    .contact-screen__table,
+    .contact-screen-form {
+      width: 50%;
+      @include to(1024px) {
         width: 100%;
-        margin-bottom: pxInVh(90);
-        @include to(1024px){
-            @include text-style-768-h-1;
-            margin-bottom: 60px;
+      }
+      .contact-screen-form__title,
+      .contact-screen-form__subtitle {
+        @include to(600px) {
+          text-align: left;
         }
-        @include to(1024px){
-            @include text-style-375-h-1;
-            margin-bottom: 40px;
-        }
+      }
     }
-    &__content {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        .contact-screen__table,
-        .contact-screen-form {
-            width: 50%;
-            @include to(1024px){
-                width: 100%;
-            }
-            .contact-screen-form__title,
-            .contact-screen-form__subtitle {
-                @include to(600px){
-                    text-align: left;
-                }
-            }
-        }
-        @include to(1024px){
-            .contact-screen-form {
-                // margin-bottom: calc(100vw / 768 * 800);
-                margin-bottom: 92.166667vw;
-            }
-        }
+    @include to(1024px) {
+      .contact-screen-form {
+        // margin-bottom: calc(100vw / 768 * 800);
+        margin-bottom: 92.166667vw;
+      }
     }
-    &__bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        @include from(1025px){
-            top: auto;
-            bottom: 0;
-            height: 92%;
-        }
-        @include to(1024px){
-            top: auto;
-            bottom: 0;
-            height: calc(100vw / 768 * 1050);
-        }
-        &:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 45%;
-            background: linear-gradient(180deg, rgba(228,228,236,1) 35%, rgba(228,228,236,0) 100%);
-
-        }
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: bottom;
-            @include from(1025px){
-                object-position: top;
-            }
-        }
-    }
-    &__table {
-        display: flex;
-        flex-wrap: wrap;
-        &-text {
-            text-decoration: none;
-            color: var(--color-07222-f);
-            @include to(1024px){
-                width: 100%;
-            }
-        }
-        @media (hover: hover) {
-            &-text {
-                position: relative;
-            }
-            &-text[href*="mailto"]:after,
-            &-text[href*="tel"]:after {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 100%;
-                width: 100%;
-                height: 2px;
-                background-color: var(--color-07222-f);
-                transform-origin: left;
-                transform: scaleX(0);
-                transition: .25s ease-out;
-            }
-            &-text:hover:after {
-                transform: scaleX(1);
-            }
-        }
-        &-item {
-            width: 50%;
-            padding: 40px;
-            border: 1px solid var(--color-b-1-c-6-c-9);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            align-items: flex-start;
-            align-content: flex-start;
-            gap: 8px;
-            @include to(1024px){
-                width: 100%;
-                justify-content: center;
-                text-align: center;
-            }
-            @include from-to(601px, 1024px){
-                
-            }
-            @media screen and (max-width:600px){
-                padding: 20px;
-                width: 100%;
-                // background: rgba(255, 255, 255, 0.6);
-                justify-content: center;
-                text-align: center;
-            }
-            .contact-screen__table-title {
-                width: 100%;
-            }
-            .button-30 {
-                margin-top: 12px;
-                padding-left: 40px;
-                padding-right: 40px;
-            }
-        }
-        &-item:nth-child(odd) {
-            @include from(1025px){
-                border-right: none;
-            }
-        }
-        &-item:nth-child(n+3) {
-            @include from(1025px){
-                margin-top: -1px;
-            }
-        }
-        &-item:nth-child(n+2) {
-            @media screen and (max-width:1024px){
-                margin-top: -1px;
-            }
-        }
-    }
-    a {
-        path {
-            transform-origin: center;
-            transition: 0.3s ease-out;
-            transform-box: fill-box;
-        }
-    }
-    a:hover {
-        path {
-            transform: rotate(-10deg);
-        }
-    }
-}
-
-
-.popup {
-    position: fixed;
-    left: 0;
+  }
+  &__bg {
+    position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.60);
-    opacity: 0;
-    visibility: hidden;
-    transition: .25s ease-in-out;
-
-    &.active {
-        opacity: 1;
-        visibility: visible;
+    z-index: -1;
+    @include from(1025px) {
+      top: auto;
+      bottom: 0;
+      height: 92%;
     }
-
-    &__close {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        z-index: 4;
-        cursor: pointer;
-        transform-origin: center;
-        transform-box: fill-box;
-        transition: .25s ease-in-out;
-        @include to(600px){
-            width: 20px;
-            height: 20px;
-        }
+    @include to(1024px) {
+      top: auto;
+      bottom: 0;
+      height: calc(100vw / 768 * 1050);
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(228, 228, 236, 1) 35%, rgba(228, 228, 236, 0) 100%);
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: bottom;
+      @include from(1025px) {
+        object-position: top;
+      }
+    }
+  }
+  &__table {
+    display: flex;
+    flex-wrap: wrap;
+    &-text {
+      text-decoration: none;
+      color: var(--color-07222-f);
+      @include to(1024px) {
+        width: 100%;
+      }
     }
     @media (hover: hover) {
-        .popup__close:hover {
-            transform: rotate(180deg);
-        }
+      &-text {
+        position: relative;
+      }
+      &-text[href*='mailto']:after,
+      &-text[href*='tel']:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-07222-f);
+        transform-origin: left;
+        transform: scaleX(0);
+        transition: 0.25s ease-out;
+      }
+      &-text:hover:after {
+        transform: scaleX(1);
+      }
     }
-    &__content {
-        width: 50%;
-        margin-left: auto;
-        height: 100%;
-        @include to(1024px){
-            width: 75%;
-        }
-        @media screen and (max-width:600px){
-            width: 100%;
-        }
-        .contact-screen-form {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            background-color: var(--color-bg-colour);
-            @include from(1025px){
-                overflow-y: auto;
-                justify-content: flex-start;
-            }
-        }
+    &-item {
+      width: 50%;
+      padding: 40px;
+      border: 1px solid var(--color-b-1-c-6-c-9);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      align-content: flex-start;
+      gap: 8px;
+      @include to(1024px) {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+      @include from-to(601px, 1024px) {
+      }
+      @media screen and (max-width: 600px) {
+        padding: 20px;
+        width: 100%;
+        // background: rgba(255, 255, 255, 0.6);
+        justify-content: center;
+        text-align: center;
+      }
+      .contact-screen__table-title {
+        width: 100%;
+      }
+      .button-30 {
+        margin-top: 12px;
+        padding-left: 40px;
+        padding-right: 40px;
+      }
     }
+    &-item:nth-child(odd) {
+      @include from(1025px) {
+        border-right: none;
+      }
+    }
+    &-item:nth-child(n + 3) {
+      @include from(1025px) {
+        margin-top: -1px;
+      }
+    }
+    &-item:nth-child(n + 2) {
+      @media screen and (max-width: 1024px) {
+        margin-top: -1px;
+      }
+    }
+  }
+  a {
+    path {
+      transform-origin: center;
+      transition: 0.3s ease-out;
+      transform-box: fill-box;
+    }
+  }
+  a:hover {
+    path {
+      transform: rotate(-10deg);
+    }
+  }
+}
+
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s ease-in-out;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 4;
+    cursor: pointer;
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: 0.25s ease-in-out;
+    @include to(600px) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  @media (hover: hover) {
+    .popup__close:hover {
+      transform: rotate(180deg);
+    }
+  }
+  &__content {
+    width: 50%;
+    margin-left: auto;
+    height: 100%;
+    @include to(1024px) {
+      width: 75%;
+    }
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+    .contact-screen-form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: var(--color-bg-colour);
+      @include from(1025px) {
+        overflow-y: auto;
+        justify-content: flex-start;
+      }
+    }
+  }
 }
