@@ -177,7 +177,6 @@
     height: 100%;
     z-index: 7;
     pointer-events: none;
-    display: none;
     & > * {
       pointer-events: all;
     }
@@ -185,7 +184,7 @@
   &__video {
     // width: 406px;
     // height: 228px;
-    position: absolute;
+    position: fixed;
     // bottom: var(--p80);
     width: 21.14vw;
     height: 12vw;
@@ -207,7 +206,7 @@
     }
 
     &.active {
-      height: calc(100vh - var(--header-h) * 2) !important;
+      height: calc(100vh - var(--header-h) * 2);
       width: calc(90vw - var(--p80) * 2) !important;
       max-height: none !important;
       transition: height 0.7s cubic-bezier(0.55, 0.1, 0, 1.01),
