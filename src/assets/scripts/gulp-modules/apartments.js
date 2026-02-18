@@ -115,20 +115,52 @@ function FlatCard({ area, price, priceM2, img, number, build, section, floor, ro
  * @returns {number|string}
  */
 
-function getTypeOfApartments() {
-  const url = window.location.href.split('/');
-  return typeOfApartments = url[url.length - 2];
+function getCurrentPage() {
+  const url = window.location.href;
+  const urlParts = url.split('/');
+  if (url.includes('localhost')) {
+    return urlParts[urlParts.length - 1];
+  } else {
+    return urlParts[urlParts.length - 2];
+  }
 }
 
+/**
+ *
+ * @param {HTMLElement} flatsPage
+ * @returns {HTMLElement|null}
+ */
 function getActiveTab(flatsPage) {
-  const tabs = Array.from(flatsPage.querySelectorAll('[data-tab]'));
-  return tabs.find(tab => tab.classList.contains('flats-nav__tab--active'));
-  return activeTab ? activeTab.getAttribute('data-tab') : null;
+  return flatsPage.querySelector('[data-tab].flats-nav__tab--active');
+}
+
+/**
+ *
+ * @param {HTMLElement} flatsPage
+ * @param {HTMLElement} tab
+ */
+function setActiveTab(flatsPage, tab) {
+  const tabs = flatsPage.querySelectorAll('[data-tab]');
+  tabs.forEach(tab => {
+    tab.classList.remove('flats-nav__tab--active');
+  });
+
+  if (tab) {
+    tab.classList.add('flats-nav__tab--active');
+    return;
+  } else {
+    tabs.forEach(tab => {
+      console.log(tab.getAttribute('data-tab'), getCurrentPage());
+      if (tab.getAttribute('data-tab') === getCurrentPage()) {
+        tab.classList.add('flats-nav__tab--active');
+      }
+    });
+  }
 }
 
 async function getFlatsData() {
   if (window.location.href.includes('localhost')) {
-    const module = await import("../../../static/mockFlatsData.js");
+    const module = await import('../../../static/mockFlatsData.js');
     return module.flatsData;
   }
 
@@ -167,25 +199,19 @@ async function getFlatsData() {
 
 function renderFlatList(flatsPage, flatsData) {
   const flatListContainer = flatsPage.querySelector('[data-flats-list]');
-  
-  const tabs = Array.from(flatsPage.querySelectorAll('[data-tab]'));
-  const activeTab = tabs.find(tab => tab.classList.contains('flats-nav__tab--active'));
-  
-  const activeTabValue = activeTab ? activeTab.getAttribute('data-tab') : null;
+  const activeTabValue = getActiveTab(flatsPage).getAttribute('data-tab');
 
   const filteredFlats = flatsData.filter(flat => {
-    if (flat.sale === "1") {
-      if (activeTabValue === '0' && flat.type !== "Комерція") {
+    if (flat.sale === '1') {
+      if (activeTabValue === 'apartments') {
         return true;
-      }    
-      else if (activeTabValue === flat.rooms && flat.type !== "Комерція") {
-        return true
+      } else if (activeTabValue[0] === flat.rooms && flat.type !== 'Комерція') {
+        return true;
+      } else if (activeTabValue === 'commercial' && flat.type === 'Комерція') {
+        return true;
       }
-      else if (activeTabValue === 'commercial' && flat.type === 'Комерція') {
-        return true;
-      } 
     }
-    return false; 
+    return false;
   });
 
   let currentIndex = 0;
@@ -238,14 +264,6 @@ function renderFlatList(flatsPage, flatsData) {
   });
 }
 
-async function flatsInit() {
-  const flatsPage = document.querySelector('[data-flats-page]');
-  if (!flatsPage) return;
-
-  tabsInit(flatsPage);
-  renderFlatList(flatsPage, flatsData);
-}
-
 /**
  * @param {HTMLElement} flatsPage
  */
@@ -258,7 +276,7 @@ function tabsInit(flatsPage) {
 
   const moveBg = (flatsPage, tab) => {
     const tabBg = flatsPage.querySelector('[data-tab-bg]');
-    const width = tab.offsetWidth;
+    const width = tab.offsetWidth + 1;
     const height = tab.offsetHeight;
     const top = tab.offsetTop;
     const left = tab.offsetLeft;
@@ -268,39 +286,36 @@ function tabsInit(flatsPage) {
     tabBg.style.transform = `translateX(${left}px) translateY(${top}px)`;
   };
 
+  const tabBg = flatsPage.querySelector('[data-tab-bg]');
+  setActiveTab(flatsPage);
+  moveBg(flatsPage, getActiveTab(flatsPage));
+  tabBg.offsetHeight; 
+  tabBg.style.transition = 'transform 0.3s ease, width 0.3s ease';
   const tabs = flatsPage.querySelectorAll('[data-tab]');
-  const typeOfApartments = getTypeOfApartments();
+
+  let isClicked = false;
 
   tabs.forEach(tab => {
-    if (tab.getAttribute('data-tab') == typeOfApartments) {
-      tab.classList.add('flats-nav__tab--active');
-    }
-  })
-  moveBg(flatsPage, getActiveTab(flatsPage));
-
-  tabs.forEach((tab, index) => {
     tab.addEventListener('click', e => {
-      tabs.forEach(tab => tab.classList.remove('flats-nav__tab--active'));
-      const currentTab = e.currentTarget;
-      currentTab.classList.add('flats-nav__tab--active');
-      moveBg(flatsPage, currentTab);
+      isClicked = true;
+      setActiveTab(flatsPage, e.currentTarget);
+      moveBg(flatsPage, getActiveTab(flatsPage));
     });
 
     tab.addEventListener('mouseenter', e => {
-      tabs.forEach(tab => tab.classList.remove('flats-nav__tab--active'));
-      const currentTab = e.currentTarget;
-      currentTab.classList.add('flats-nav__tab--active');
-      moveBg(flatsPage, currentTab);
+      setActiveTab(flatsPage, e.currentTarget);
+      moveBg(flatsPage, getActiveTab(flatsPage));
     });
 
-    tab.addEventListener('mouseleave',() => {
-      tabs.forEach(t => t.classList.remove('flats-nav__tab--active'));
-      activeTab.classList.add('flats-nav__tab--active');
-      moveBg(flatsPage, activeTab);
+    tab.addEventListener('mouseleave', () => {
+      if (!isClicked) {
+        setActiveTab(flatsPage);
+        moveBg(flatsPage, getActiveTab(flatsPage));
+      }
     });
   });
 
-  window.addEventListener('resize', () => moveBg(flatsPage, tabs[numberOfRooms]));
+  window.addEventListener('resize', () => moveBg(flatsPage, getActiveTab(flatsPage)));
 }
 
 async function flatsInit() {

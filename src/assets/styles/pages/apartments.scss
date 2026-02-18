@@ -68,12 +68,10 @@
     }
 
     &__active-bg {
-      // z-index: 0;
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      transition: transform 0.3s ease, width 0.3s ease;
       background-color: var(--color-white);
       pointer-events: none;
     }
