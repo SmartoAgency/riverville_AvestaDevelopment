@@ -74,9 +74,12 @@ function RenderInfoRow(label, value) {
  * @returns {string}
  */
 
-function FlatCard({ area, price, priceM2, img, number, build, section, floor, rooms, id }) {
+function FlatCard({ area, price, priceM2, img, number, build, section, floor, rooms, url3d }) {
+  const url = `https://riverville.com.ua/${
+    parseInt(url3d) ? `3d/?currency=UAH&type=flat&id=${url3d}` : url3d
+  }`;
   return `
-    <a class="flat-card" href="https://riverville.com.ua/3d/?currency=UAH&type=flat&id=${id}">
+    <a class="flat-card" href="${url}">
       <div class="flat-card__header">
         <div class="flat-card__area">
           <span class="flat-card__area-label">Площа:</span>
@@ -237,7 +240,7 @@ function renderFlatList(flatsPage, flatsData) {
           section: flat.section,
           floor: flat.floor,
           rooms: flat.rooms,
-          id: flat.id,
+          url3d: flat?.['3d_url'] ? flat?.['3d_url'] : flat.id,
         }),
       )
       .join('');
@@ -289,7 +292,7 @@ function tabsInit(flatsPage) {
   const tabBg = flatsPage.querySelector('[data-tab-bg]');
   setActiveTab(flatsPage);
   moveBg(flatsPage, getActiveTab(flatsPage));
-  tabBg.offsetHeight; 
+  tabBg.offsetHeight;
   tabBg.style.transition = 'transform 0.3s ease, width 0.3s ease';
   const tabs = flatsPage.querySelectorAll('[data-tab]');
 
