@@ -230,3 +230,21 @@ document.querySelectorAll('[data-up-arrow]').forEach(el => {
     window.scrollTo({ top: 0 });
   });
 });
+
+
+function initAccordions() {
+  const accordions = document.querySelectorAll("[data-accordion]");
+  if (accordions.length === 0) return
+
+  accordions.forEach((accordion) => {
+    const title = accordion.querySelector("[data-accordion-title]");
+    if (!title) return;
+    
+    title.addEventListener("click", () => {
+      const isOpen = accordion.classList.toggle("accordion_open")
+      title.setAttribute("aria-expanded", isOpen)
+    })
+  });
+}
+
+document.addEventListener("DOMContentLoaded", initAccordions);

@@ -29,6 +29,12 @@
       padding-top: 20px;
       top: -50px;
     }
+
+    .custom-white-text {
+      width: 70%; 
+      color: #F5F7FA; 
+      text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    }
   }
   &__bg {
     position: absolute;

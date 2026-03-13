@@ -108,7 +108,8 @@
       object-fit: cover;
     }
   }
-  li {
+  
+  ul li {
     padding-left: 20px;
     position: relative;
     &:before {
@@ -120,6 +121,122 @@
       background-color: var(--07222F, #07222f);
       top: 12px;
       left: 4px;
+    }
+  }
+
+  .accordion {
+    margin: 20px 0;
+    &_open {
+      .accordion__title {
+        &::before {
+          transform: translateY(-50%) rotate(180deg);
+        }
+
+        &::after {
+          transform: translateY(-50%) rotate(90deg);
+        }
+      }
+
+      .accordion__body-container {
+        grid-template-rows: 1fr;
+        margin: 20px 0;
+      }
+    }
+
+    &__title {
+      position: relative;
+      width: 100%;
+      padding-right: 32px;
+      text-align: left;
+
+      &::before, &::after {
+        content: "";
+        position: absolute;
+        top: 12px;
+        right: 0;
+        width: 16px;
+        height: 2px;
+        background-color: #07222f;
+        transition: transform 0.3s ease;
+
+        @include from(600px) {
+          top: 19px;
+          width: 24px;
+        }
+      }
+
+      &::before {
+        transform: translateY(-50%) rotate(90deg);
+      }
+
+      &::after {
+        transform: translateY(-50%);
+      }
+    }
+
+    &__body-container {
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 0fr;
+      margin: 0;
+      transition: grid-template-rows 0.3s ease-out, margin 0.3s ease;
+    }
+
+    &__body {
+      min-height: 0;
+    }
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+
+  .table {
+    display: table;
+    width: 100%;
+    min-width: 664px;
+
+    :first-child {
+      .table__col {
+        color: #fff;
+      }
+    }
+
+    &__row {
+      display: table-row;
+      &:first-child {
+        background:#07222F;
+      }
+      
+      :last-child {
+        border-right: 2px solid #07222F;
+      }
+    }
+    
+    &__col {
+      display: table-cell;
+      padding: 8px 16px;
+      border-bottom: 2px solid #07222F;  
+      border-left: 2px solid #07222F;
+    }
+  }
+
+  .text-h3 {
+    font-size: 40px; 
+    font-size: pxWidthInVw(40);
+    font-family: Century Gothic;
+    font-weight: 500; 
+    line-height: 115%;
+    letter-spacing: -0.03em; 
+    text-decoration: none;
+    text-transform: none;
+
+    @media screen and (max-width: 1024px) {
+      font-size: 34px; 
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 22px; 
     }
   }
 }

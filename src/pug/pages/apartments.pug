@@ -23,7 +23,7 @@ block scripts
   script(defer src='./assets/scripts/libs.js')
   script(defer src='./assets/scripts/index.js')
   script(defer src='./assets/scripts/header.js')
-  script(defer src='./assets/scripts/apartments.js')
+  script(defer src='./assets/scripts/apartments.bundle.js')
 block content
   .inner-page-head
     include ../includes/breadcrumbs.pug
@@ -49,8 +49,30 @@ block content
           a.flats-nav__tab.flats-nav__tab--commercial(href="http://localhost:3000/apartments/commercial/", data-tab="commercial") 
             span Комерція
           .flats-nav__active-bg(data-tab-bg)
+        a.flats-nav__3d 
+          .flats-nav__3d-text Генплан
+          .flats-nav__3d-icon 
+            <svg width="26" height="22" viewBox="0 0 26 22" fill="none">
+              <path d="M14.8988 1.4707L24.2203 11.0001M24.2203 11.0001L14.8988 20.5295M24.2203 11.0001C18.6965 11.0001 6.47502 11.0001 1.77979 11.0001" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
       .flats__body(data-flats-body) 
         .flats__list(data-flats-list)
+        div(data-load-more-flats)
+    .flats-recommendation
+      .flats__container.flats-recommendation__title.text-style-1920-h-1 Рекомендовані квартири
+      .flats-recommendation__list.swiper(data-swiper-container)
+        .swiper-wrapper(data-flats-recommendation-list) 
+        .flats-recommendation__nav
+          button.flats-recommendation__nav-prev(data-prev-slide)
+            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3083 29.9999L30.2296 36.3159L28.7705 37.6838L21.2705 29.6838L20.6293 28.9999L21.2705 28.3159L28.7705 20.3159L30.2296 21.6838L24.3083 27.9999H37V29.9999H24.3083Z" fill="#1A1E21"/>
+            </svg>
+          button.flats-recommendation__nav-next(data-next-slide)
+            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M33.6917 29.9999L27.7704 36.3159L29.2295 37.6838L36.7295 29.6838L37.3707 28.9999L36.7295 28.3159L29.2295 20.3159L27.7704 21.6838L33.6917 27.9999H21V29.9999H33.6917Z" fill="#1A1E21"/>
+            </svg>
+
+
   
 block footer
   include ../includes/footer.pug

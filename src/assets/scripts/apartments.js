@@ -1,3 +1,5 @@
+import Swiper, { Navigation } from 'swiper';
+
 /**
  * @typedef {Object} FlatImages
  * @property {Object} without
@@ -161,10 +163,32 @@ function setActiveTab(flatsPage, tab) {
   }
 }
 
+/**
+ * @param {Array} array
+ */
+function shuffleArray(array) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
 async function getFlatsData() {
   if (window.location.href.includes('localhost')) {
-    const module = await import('../../../static/mockFlatsData.js');
-    return module.flatsData;
+    try {
+      const response = await fetch('/static/mockFlatsData.json');
+      if (!response.ok) {
+        throw new Error('Файл з мок-даними не знайдено');
+      }
+      
+      const data = await response.json();
+      return data; 
+    } catch (e) {
+      console.error('Помилка при завантаженні мок-даних через fetch:', e);
+      return [];
+    }
   }
 
   const url = 'https://riverville.com.ua/wp-admin/admin-ajax.php';
@@ -240,7 +264,7 @@ function renderFlatList(flatsPage, flatsData) {
           section: flat.section,
           floor: flat.floor,
           rooms: flat.rooms,
-          url3d: flat?.['3d_url'] ? flat?.['3d_url'] : flat.id,
+          url3d: (flat && flat['3d_url']) ? flat['3d_url'] : flat.id,
         }),
       )
       .join('');
@@ -260,11 +284,17 @@ function renderFlatList(flatsPage, flatsData) {
       '<p class="flats__list-empty inner-page-head__title">Квартир не знайдено :(</p>';
   }
 
-  window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= flatsPage.scrollHeight - 800) {
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
       loadMoreFlats();
+
+      if (currentIndex >= filteredFlats.length) {
+        observer.disconnect();
+      }
     }
   });
+
+  observer.observe(document.querySelector('[data-load-more-flats]'));
 }
 
 /**
@@ -321,11 +351,95 @@ function tabsInit(flatsPage) {
   window.addEventListener('resize', () => moveBg(flatsPage, getActiveTab(flatsPage)));
 }
 
+/**
+ * @param {HTMLElement} flatsPage
+ * @param {RealEstateUnit[]} flatsData
+ */
+function recommendationFlatsListInit(flatsPage, flatsData) {
+  const recommendationListContainer = flatsPage.querySelector('[data-flats-recommendation-list]');
+  if (!recommendationListContainer) return;
+
+  const activeTabElement = getActiveTab(flatsPage);
+  const activeTabValue = activeTabElement
+    ? activeTabElement.getAttribute('data-tab')
+    : 'apartments';
+
+  const availableFlats = flatsData.filter(flat => {
+    const isAvailable = flat.sale === '1';
+    const isCommercialTab = activeTabValue === 'commercial';
+    const isCommercialFlat = flat.type === 'Комерція';
+
+    if (!isAvailable) return false;
+
+    return isCommercialTab ? isCommercialFlat : !isCommercialFlat;
+  });
+
+  const randomRecommendations = shuffleArray(availableFlats).slice(0, 8);
+  recommendationListContainer.innerHTML = randomRecommendations
+    .map(
+      flat => `
+      <div class="swiper-slide">
+        ${FlatCard({
+          area: flat.area,
+          price: flat.price,
+          priceM2: flat.price_m2,
+          img: flat.img_small,
+          number: flat.number,
+          build: flat.build,
+          section: flat.section,
+          floor: flat.floor,
+          rooms: flat.rooms,
+          url3d: (flat && flat['3d_url']) ? flat['3d_url'] : flat.id,
+        })}
+      </div>
+    `,
+    )
+    .join('');
+
+  if (recommendationListContainer.swiper) {
+    recommendationListContainer.swiper.destroy(true, true);
+  }
+
+  new Swiper('[data-swiper-container]', {
+    modules: [Navigation],
+    slidesPerView: 1,
+    spaceBetween: 16,
+    observer: true,
+    observeParents: true,
+    slidesOffsetBefore: 20,
+    slidesOffsetAfter: 20,
+    autoHeight: false,
+    navigation: {
+      nextEl: '[data-next-slide]',
+      prevEl: '[data-prev-slide]',
+    },
+    breakpoints: {
+      660: {
+        slidesPerView: 2,
+      },
+      968: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesOffsetBefore: 40,
+        slidesOffsetAfter: 40,
+      },
+      1334: {
+        slidesPerView: 4,
+      },
+      1920: {
+        slidesPerView: 5,
+      },
+    },
+  });
+}
+
 async function flatsInit() {
   const flatsPage = document.querySelector('[data-flats-page]');
   const result = await getFlatsData();
   tabsInit(flatsPage);
   renderFlatList(flatsPage, result);
+  recommendationFlatsListInit(flatsPage, result);
 }
 
 addEventListener('DOMContentLoaded', flatsInit);

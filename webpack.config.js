@@ -16,6 +16,7 @@ const config = {
     about: './src/assets/scripts/about.js',
     infrastructure: './src/assets/scripts/infrastructure.js',
     commercial: './src/assets/scripts/commercial.js',
+    apartments: './src/assets/scripts/apartments.js',
   },
   output: {
     filename: '[name].bundle.js',
