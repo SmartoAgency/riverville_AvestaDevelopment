@@ -41,6 +41,41 @@ import Swiper, { Navigation } from 'swiper';
  */
 
 /**
+ * ГЕНЕРАЦІЯ МІКРОРОЗМІТКИ ItemList
+ * @param {RealEstateUnit[]} filteredFlats 
+ */
+
+function updateItemListSchema(filteredFlats) {
+  if (!filteredFlats) return;
+
+  const h1Element = document.querySelector('h1');
+  const listName = h1Element ? h1Element.innerText : "Каталог квартир";
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": listName,
+    "url": window.location.href,
+    "numberOfItems": filteredFlats.length,
+    "itemListElement": filteredFlats.map((flat, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": "Квартира №" + flat.number + ", секція " + flat.section + ", " + flat.rooms + "-кімнатна, " + flat.area + " м²"
+    }))
+  };
+
+  let scriptTag = document.getElementById('item-list-schema');
+  if (!scriptTag) {
+    scriptTag = document.createElement('script');
+    scriptTag.id = 'item-list-schema';
+    scriptTag.type = 'application/ld+json';
+    document.head.appendChild(scriptTag);
+  }
+  
+  scriptTag.text = JSON.stringify(schemaData);
+}
+
+/**
  *
  * @param {string} label
  * @param {string|number} value
@@ -240,6 +275,8 @@ function renderFlatList(flatsPage, flatsData) {
     }
     return false;
   });
+
+  updateItemListSchema(filteredFlats); 
 
   let currentIndex = 0;
   const itemsPerBatch = 16;
