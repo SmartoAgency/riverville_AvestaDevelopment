@@ -81,7 +81,8 @@
     .header>*,
     .breadcrumbs,
     .inner-page-head__title,
-    .inner-page-head__decor {
+    .inner-page-head__decor,
+    .inner-page-head__subtitle {
         opacity: 0;
     }
 </style>
@@ -191,7 +192,7 @@
                 clearProps: 'all'
             }, '<+20%')
             .fromTo(`
-                .breadcrumbs, .inner-page-head__title, .inner-page-head__decor, .inner-page-head~div
+                .breadcrumbs, .inner-page-head__title, .inner-page-head__decor, .inner-page-head__subtitle, .inner-page-head~div
             `, {
                 opacity: 0,
                 y: 50

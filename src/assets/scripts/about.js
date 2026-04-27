@@ -85,3 +85,17 @@ function blockImgTextParalax() {
 }
 
 blockImgTextParalax();
+
+Swiper.use([Mousewheel, Navigation]);
+new Swiper('[data-about-specs-slider]', {
+    slidesPerView: 4,
+    spaceBetween: 2,
+    speed: 800,
+    loop: true,
+    breakpoints: {
+        320: { slidesPerView: 1.5 },
+        601: { slidesPerView: 2.5 },
+        1025: { slidesPerView: 4 },
+        1440: { slidesPerView: 5 },
+    },
+});

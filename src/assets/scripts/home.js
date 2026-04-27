@@ -23,129 +23,129 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 });
 
 
-function screen1() {
-  const videoBtn = document.querySelector('.home-front-screen__video-btn');
-  const videoWrapper = document.querySelector('.home-front-screen__video');
-  const videoElement = document.querySelector('.home-front-screen__video video');
-  const header = document.querySelector('header');
+// function screen1() {
+//   const videoBtn = document.querySelector('.home-front-screen__video-btn');
+//   const videoWrapper = document.querySelector('.home-front-screen__video');
+//   const videoElement = document.querySelector('.home-front-screen__video video');
+//   const header = document.querySelector('header');
 
-  function openVideo() {
-    videoWrapper.classList.add('active');
-    header.classList.add('hidden-for-video');
-    videoElement.muted = false;
-    videoElement.setAttribute('controls', 'true');
-  }
+//   function openVideo() {
+//     videoWrapper.classList.add('active');
+//     header.classList.add('hidden-for-video');
+//     videoElement.muted = false;
+//     videoElement.setAttribute('controls', 'true');
+//   }
 
-  function shrinkVideo() {
-    videoWrapper.classList.remove('active');
-    header.classList.remove('hidden-for-video');
-    videoElement.muted = true;
-    videoElement.removeAttribute('controls');
-  }
+//   function shrinkVideo() {
+//     videoWrapper.classList.remove('active');
+//     header.classList.remove('hidden-for-video');
+//     videoElement.muted = true;
+//     videoElement.removeAttribute('controls');
+//   }
 
-  function removeVideoCompletely() {
-    videoWrapper.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-    videoWrapper.style.transform = 'translateX(120%)'; 
-    videoWrapper.style.opacity = '0';
+//   function removeVideoCompletely() {
+//     videoWrapper.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+//     videoWrapper.style.transform = 'translateX(120%)'; 
+//     videoWrapper.style.opacity = '0';
 
-    videoElement.muted = true;
-    videoElement.pause();
+//     videoElement.muted = true;
+//     videoElement.pause();
 
-    setTimeout(() => {
-        videoWrapper.style.display = 'none';
-        header.classList.remove('hidden-for-video');
-    }, 400);
-  }
+//     setTimeout(() => {
+//         videoWrapper.style.display = 'none';
+//         header.classList.remove('hidden-for-video');
+//     }, 400);
+//   }
 
-  if (document.documentElement.clientWidth > 680) {
-    window.addEventListener('click', () => {
-      if(videoElement.paused && videoWrapper.style.display !== 'none') { 
-          videoElement.play().catch(() => {}); 
-      }
-    }, { once: true });
-  }
+//   if (document.documentElement.clientWidth > 680) {
+//     window.addEventListener('click', () => {
+//       if(videoElement.paused && videoWrapper.style.display !== 'none') { 
+//           videoElement.play().catch(() => {}); 
+//       }
+//     }, { once: true });
+//   }
 
-  if (videoBtn) {
-      videoBtn.closest('.home-front-screen__video').addEventListener('click', (evt) => {
-        if (evt.target.tagName === 'VIDEO' && !videoElement.muted) return;
+//   if (videoBtn) {
+//       videoBtn.closest('.home-front-screen__video').addEventListener('click', (evt) => {
+//         if (evt.target.tagName === 'VIDEO' && !videoElement.muted) return;
         
-        evt.preventDefault();
+//         evt.preventDefault();
         
-        if (videoWrapper.style.display === 'none') return;
+//         if (videoWrapper.style.display === 'none') return;
 
-        if (videoElement.muted) {
-          openVideo();
-        } else {
-          shrinkVideo();
-        }
-      });
-  }
+//         if (videoElement.muted) {
+//           openVideo();
+//         } else {
+//           shrinkVideo();
+//         }
+//       });
+//   }
 
   
-  let xDown = null;
-  let yDown = null;
+//   let xDown = null;
+//   let yDown = null;
 
-  function handleTouchStart(evt) {
-    if (videoWrapper.classList.contains('active')) {
-        return; 
-    }
+//   function handleTouchStart(evt) {
+//     if (videoWrapper.classList.contains('active')) {
+//         return; 
+//     }
 
-    const firstTouch = evt.touches ? evt.touches[0] : evt;
-    xDown = firstTouch.clientX;
-    yDown = firstTouch.clientY;
-  };
+//     const firstTouch = evt.touches ? evt.touches[0] : evt;
+//     xDown = firstTouch.clientX;
+//     yDown = firstTouch.clientY;
+//   };
 
-  function handleTouchMove(evt) {
-    if (videoWrapper.classList.contains('active') || !xDown || !yDown) {
-      return;
-    }
+//   function handleTouchMove(evt) {
+//     if (videoWrapper.classList.contains('active') || !xDown || !yDown) {
+//       return;
+//     }
 
-    const firstTouch = evt.touches ? evt.touches[0] : evt;
-    const xUp = firstTouch.clientX;
-    const yUp = firstTouch.clientY;
+//     const firstTouch = evt.touches ? evt.touches[0] : evt;
+//     const xUp = firstTouch.clientX;
+//     const yUp = firstTouch.clientY;
 
-    const xDiff = xDown - xUp;
-    const yDiff = yDown - yUp;
+//     const xDiff = xDown - xUp;
+//     const yDiff = yDown - yUp;
 
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+//     if (Math.abs(xDiff) > Math.abs(yDiff)) {
       
-      if (Math.abs(xDiff) > 50) {
-        if (xDiff > 0) {
-        } else {
-          console.log('Swipe Right on Small Video -> Removing');
-          removeVideoCompletely();
-        }
-        xDown = null;
-        yDown = null;
-      }
-    }
-  };
+//       if (Math.abs(xDiff) > 50) {
+//         if (xDiff > 0) {
+//         } else {
+//           console.log('Swipe Right on Small Video -> Removing');
+//           removeVideoCompletely();
+//         }
+//         xDown = null;
+//         yDown = null;
+//       }
+//     }
+//   };
 
-  videoWrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
-  videoWrapper.addEventListener('touchmove', handleTouchMove, { passive: true });
+//   videoWrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+//   videoWrapper.addEventListener('touchmove', handleTouchMove, { passive: true });
 
-  let isMouseDown = false;
-  videoWrapper.addEventListener('mousedown', (e) => { isMouseDown = true; handleTouchStart(e); });
-  videoWrapper.addEventListener('mouseup', () => { isMouseDown = false; xDown = null; yDown = null; });
-  videoWrapper.addEventListener('mousemove', (e) => { if(isMouseDown) handleTouchMove(e); });
+//   let isMouseDown = false;
+//   videoWrapper.addEventListener('mousedown', (e) => { isMouseDown = true; handleTouchStart(e); });
+//   videoWrapper.addEventListener('mouseup', () => { isMouseDown = false; xDown = null; yDown = null; });
+//   videoWrapper.addEventListener('mousemove', (e) => { if(isMouseDown) handleTouchMove(e); });
 
 
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: '.home-front-screen',
-      onLeave() {
-        videoElement.pause();
-      },
-      onEnterBack() {
-        if (videoWrapper.style.display !== 'none') {
-            videoElement.play();
-        }
-      },
-    },
-  });
-}
+//   gsap.timeline({
+//     scrollTrigger: {
+//       trigger: '.home-front-screen',
+//       onLeave() {
+//         videoElement.pause();
+//       },
+//       onEnterBack() {
+//         if (videoWrapper.style.display !== 'none') {
+//             videoElement.play();
+//         }
+//       },
+//     },
+//   });
+// }
 
-screen1();
+// screen1();
 
 function applyScrollTriggerAnimation(selectors) {
   document.querySelectorAll(selectors).forEach(el => {
