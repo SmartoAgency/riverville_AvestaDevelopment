@@ -99,6 +99,18 @@
             padding: 14px 28px;
         }
     }
+    &--transparent {
+        padding: 30px 40px;
+        background-color: transparent;
+        border: 1px solid var(--color-white);
+        color: var(--color-white);
+        @include to(1024px){
+            padding: 20px 28px;
+        }
+        @media screen and (max-width:600px){
+            padding: 14px 28px;
+        }
+    }
     &--white {
         padding: 30px 40px;
         background-color: var(--color-white);
@@ -114,6 +126,14 @@
         background-color: var(--color-white);
         color: var(--color-07222-f);
     }
+    // &--small {
+    //     padding: 12px 20px;
+    //     font-size: 13px;
+    //     @include to(600px) {
+    //         padding: 10px 16px;
+    //         font-size: 12px;
+    //     }
+    // }
 }
 
 

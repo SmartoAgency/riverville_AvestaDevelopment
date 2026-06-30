@@ -1,0 +1,7 @@
+.flats-recommendation-title {
+  margin-top: 64px;
+
+  @include from(1024px) {
+    margin-top: 96px;
+  }
+}

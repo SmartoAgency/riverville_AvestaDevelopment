@@ -126,6 +126,17 @@
             }
         }
     }
+    &__buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 42px;
+        @include to(600px) {
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+    }
     &--big-title &__right {
         @include to(1023px){
             @for $i from 1 through 20 {

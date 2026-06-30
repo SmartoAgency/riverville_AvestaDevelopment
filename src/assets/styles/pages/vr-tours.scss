@@ -1,3 +1,17 @@
+.section-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 40px 0;
+    margin-bottom: calc(var(--section-v-offset));
+    @include to(600px) {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 24px var(--page-side-fields);
+    }
+}
+
 .vr-tours-tabs {
     display: flex;
     align-items: center;

@@ -1,0 +1,140 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'restaurant'
+    var id_page = 'id-page-restaurant'
+    var class_page = 'class-page-restaurant'
+    var breadcrumbsSubitem = [
+      {
+        label: 'About',
+        link: pagesLink[0].about
+      }
+    ]
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/restaurant.bundle.js')
+block content
+  .inner-page-head
+    include ../includes/breadcrumbs.pug
+    <svg class="inner-page-head__decor" preserveAspectRatio="xMidYMid slice" width="1920" height="141" viewBox="0 0 1920 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72.687 54.116L158.67 140.881L245.097 54.116L331.08 140.881L417.507 54.116L480 117.177V63.508L417.507 0L331.08 87.2117L245.097 0L158.67 87.2117L72.687 0L0 73.3473V127.463L72.687 54.116Z" fill="white"/>
+      <path d="M887.313 54.116L801.33 140.881L714.903 54.116L628.92 140.881L542.493 54.116L480 117.177V63.508L542.493 0L628.92 87.2117L714.903 0L801.33 87.2117L887.313 0L960 73.3473V127.463L887.313 54.116Z" fill="white"/>
+      <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
+      <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
+    </svg>
+    .inner-page-head__title Ресторан у ЖК riverville
+  .restaurant.restaurant--first
+    .restaurant__bg
+      img(src="./assets/images/restaurant/bg-1.jpg")
+    .restaurant__content
+      .restaurant-header
+        .restaurant-header__text.text-style-1920-h-3 ПРОСТІР З МОЖЛИВІСТЮ АДАПТАЦІЇ ПІД ВАШ ПРОЄКТ
+        .restaurant-header__logo 
+          img(src="./assets/images/restaurant/logo.png")
+      .restaurant-block.restaurant-block--first 
+        .restaurant-block__title.text-style-1920-h-2 1 150 м² для ресторану, гастропроєкту або інвестиції
+        .restaurant-block__body 
+          .restaurant-block__text.text-style-1920-body Пропонуємо ідеальну можливість для вашого бізнесу – не просто відкрити заклад, а зайти в готову точку росту бізнесу разом із ЖК RIVERVILLE у найбільш безпечному регіоні, у місті Ужгород, що займає друге місце за релокацією бізнесу в Україні.
+        .restaurant-block__footer
+          button(type="button" data-popup-call).button-30.button-30--blue
+            span Дізнатися вартість
+          button(type="button" data-popup-call).button-30.button-30--transparent
+            span Залишити заявку
+  .restaurant-description 
+    .restaurant-description__img 
+      img(src="./assets/images/restaurant/wave.svg")
+    .restaurant-description__title.text-style-1920-h-2 Локація
+    .restaurant-description__description.text-style-1920-body Місто Ужгород стрімко розвивається та розбудовується, і одним з найбільш перспективних напрямків є новий престижний житловий район біля річки Уж, розташований в мальовничій частині міста на вулиці Бобяка, з неповторними краєвидами та чистим повітрям. Перевагами нового житлового району є не лише інфраструктура та природа, а також близькість до кордонів країн Євросоюзу. Це означає стабільний потік клієнтів, розвиток і попит на якісний ресторанний продукт.
+  .restaurant.restaurant--second
+    .restaurant__wave(style="background-image: url('./assets/images/restaurant/big-wave.svg')")
+    .restaurant__bg
+      img(src="./assets/images/restaurant/bg-2.jpg")
+    .restaurant__content
+      .restaurant-block.restaurant-block--first 
+        .restaurant-block__title.text-style-1920-h-2 КОМЕРЦІЙНИЙ ПРОСТІР НОВОГО ПОКОЛІННЯ
+        .restaurant-block__body 
+          .restaurant-block__text.text-style-1920-body Ми пропонуємо унікальне триповерхове комерційне приміщення загальною площею 1 150 м², створене як гнучка платформа для ресторанного бізнесу, гастрономічних концепцій та інвестиційних проєктів.
+          .restaurant-block__text.text-style-1920-body Це не тільки престижна нерухомість, а й інструмент масштабування бізнесу, де архітектура працює на ідею, а простір підлаштовується під стратегію оператора.
+        .restaurant-block__footer
+          button(type="button" data-popup-call).button-30.button-30--blue
+            span Дізнатися вартість
+          button(type="button" data-popup-call).button-30.button-30--transparent
+            span Залишити заявку
+  .restaurant-description 
+    .restaurant-description__img 
+      img(src="./assets/images/restaurant/wave.svg")
+    .restaurant-description__title.text-style-1920-h-2 Планування
+    .restaurant-description__description.text-style-1920-body Об’єкт спроєктований за принципом модульності: ви самостійно формуєте необхідну конфігурацію площ і поверхів відповідно до концепції вашого закладу: ресторан, гастробар, сімейний заклад, івент-простір чи multi-format концепція.
+  .restaurant-planing
+    .restaurant-planing__container.swiper(data-restaurant-planing-slider)
+      .restaurant-planing__nav.restaurant-planing__nav--prev(data-prev-slide)
+        <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3083 29.9999L30.2296 36.3159L28.7705 37.6838L21.2705 29.6838L20.6293 28.9999L21.2705 28.3159L28.7705 20.3159L30.2296 21.6838L24.3083 27.9999H37V29.9999H24.3083Z" fill="#1A1E21"/>
+        </svg>
+      .restaurant-planing__track.swiper-wrapper
+        .restaurant-planing__slide.swiper-slide
+          .restaurant-planing__body
+            .restaurant-planing__img
+              img(src="./assets/images/restaurant/planning2.jpg")
+          .restaurant-planing__footer
+            .restaurant-planing__title.text-style-1920-h-2 −1 поверх (~300 м²)
+            .restaurant-planing__description.text-style-1920-body кухня, заготовочні цехи, склад, технічні приміщення
+        .restaurant-planing__slide.swiper-slide
+          .restaurant-planing__body
+            .restaurant-planing__img
+              img(src="./assets/images/restaurant/planning1.jpg")
+          .restaurant-planing__footer
+            .restaurant-planing__title.text-style-1920-h-2 −1 поверх (~460 м²)
+            .restaurant-planing__description.text-style-1920-body основна гостьова зона, максимальний трафік, контакт з вулицею
+        .restaurant-planing__slide.swiper-slide
+          .restaurant-planing__body
+            .restaurant-planing__img
+              img(src="./assets/images/restaurant/planning3.jpg")
+          .restaurant-planing__footer
+            .restaurant-planing__title.text-style-1920-h-2 −2 поверх (~390 м²)
+            .restaurant-planing__description.text-style-1920-body VIP-зона / події / адміністративний рівень або будь-яка логіка під вашу модель
+      .restaurant-planing__nav.restaurant-planing__nav--next(data-next-slide)
+        <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M33.6917 29.9999L27.7704 36.3159L29.2295 37.6838L36.7295 29.6838L37.3707 28.9999L36.7295 28.3159L29.2295 20.3159L27.7704 21.6838L33.6917 27.9999H21V29.9999H33.6917Z" fill="#1A1E21"/>
+        </svg>
+  .restaurant-description 
+    .restaurant-description__img 
+      img(src="./assets/images/restaurant/wave.svg")
+    .restaurant-description__description.text-style-1920-body Простір спроєктований таким чином, щоб адаптуватися під різні бізнес-моделі та сценарії розвитку. Об’єкт дозволяє запускати проєкт поетапно, масштабувати заклад відповідно до попиту, тестувати нові концепції та ефективно розділяти потоки гостей. Це створює можливості як для старту нового формату, так і для розвитку вже діючого бізнесу.
+    .restaurant-description__description.text-style-1920-body Також передбачена гнучка нарізка площ — від компактних блоків до повноцінних залів, що дозволяє запускати як моноконцепцію, так і гібридні формати. Ви самі визначаєте яку площу використовувати, як розділити простір та який формат запускати: можна взяти 1 поверх, комбінувати 2 рівні або зробити повноцінний ресторанний комплекс.
+    .restaurant-description__description.text-style-1920-body Об’єкт стане ефективною платформою для ресторанних операторів, гастропроєктів, франчайзингових мереж та інвесторів, які шукають готовий майданчик із потенціалом зростання. Продумана інфраструктура та варіативність форматів дозволяють швидко адаптувати простір під конкретну бізнес-стратегію.
+  .restaurant.restaurant--third
+    .restaurant__wave(style="background-image: url('./assets/images/restaurant/big-wave.svg')")
+    .restaurant__bg
+      img(src="./assets/images/restaurant/bg-2.jpg")
+    .restaurant__content
+      .restaurant-block.restaurant-block--first 
+        .restaurant-block__title.text-style-1920-h-2 КОМЕРЦІЙНИЙ ПРОСТІР НОВОГО ПОКОЛІННЯ
+        .restaurant-block__body 
+          .restaurant-block__text.text-style-1920-body Ми пропонуємо унікальне триповерхове комерційне приміщення загальною площею 1 150 м², створене як гнучка платформа для ресторанного бізнесу, гастрономічних концепцій та інвестиційних проєктів.
+          .restaurant-block__text.text-style-1920-body Це не тільки престижна нерухомість, а й інструмент масштабування бізнесу, де архітектура працює на ідею, а простір підлаштовується під стратегію оператора.
+        .restaurant-block__footer
+          button(type="button" data-popup-call).button-30.button-30--blue
+            span Дізнатися вартість
+          button(type="button" data-popup-call).button-30.button-30--transparent
+            span Залишити заявку
+
+
+
+
+
+
+
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug

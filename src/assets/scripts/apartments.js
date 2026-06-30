@@ -111,7 +111,7 @@ function RenderInfoRow(label, value) {
  * @returns {string}
  */
 
-function FlatCard({ area, price, priceM2, img, number, build, section, floor, rooms, url3d }) {
+export function FlatCard({ area, price, priceM2, img, number, build, section, floor, rooms, url3d }) {
   const url = `https://riverville.com.ua/${
     parseInt(url3d) ? `3d/?currency=UAH&type=flat&id=${url3d}` : url3d
   }`;
@@ -210,7 +210,7 @@ function shuffleArray(array) {
   return newArray;
 }
 
-async function getFlatsData() {
+export async function getFlatsData() {
   if (window.location.href.includes('localhost')) {
     try {
       const response = await fetch('/static/mockFlatsData.json');

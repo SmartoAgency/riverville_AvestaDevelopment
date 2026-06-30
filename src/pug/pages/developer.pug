@@ -7,7 +7,16 @@ block variable
     var class_page = 'class-page-developer'
     var breadcrumbsSubitem = [
     ]
-  
+    // Документи забудовника. Посилання (link) проставляються на проді.
+    var documents = [
+      { title: 'Дозвіл на виконання будівельних робіт', type: 'PDF', link: '#' },
+      { title: 'Містобудівні умови та обмеження', type: 'PDF', link: '#' },
+      { title: 'Витяг з Державного реєстру речових прав', type: 'PDF', link: '#' },
+      { title: 'Технічні умови на інженерні мережі', type: 'PDF', link: '#' },
+      { title: 'Ліцензія на будівельну діяльність', type: 'PDF', link: '#' },
+      { title: 'Проєктна декларація', type: 'PDF', link: '#' }
+    ]
+
 block meta
   title= title_page
   meta(name='description', content='')
@@ -166,6 +175,37 @@ block content
         <a href="/3d" class="button-30 button-30--blue">
           <span>Перейти до вибору квартир</span>
         </a>
+
+  .developer-documents.section-bottom-margin
+    .developer-documents__head
+      .developer-documents__title.text-style-1920-h-2(data-split-lines-and-fade-up) Документи
+      .developer-documents__nav
+        <svg data-developer-documents-prev role="button" aria-label="Попередній документ" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3083 29.9999L30.2296 36.3159L28.7705 37.6838L21.2705 29.6838L20.6293 28.9999L21.2705 28.3159L28.7705 20.3159L30.2296 21.6838L24.3083 27.9999H37V29.9999H24.3083Z" fill="#1A1E21"/>
+        </svg>
+        <svg data-developer-documents-next role="button" aria-label="Наступний документ" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M33.6917 29.9999L27.7704 36.3159L29.2295 37.6838L36.7295 29.6838L37.3707 28.9999L36.7295 28.3159L29.2295 20.3159L27.7704 21.6838L33.6917 27.9999H21V29.9999H33.6917Z" fill="#1A1E21"/>
+        </svg>
+    .swiper.developer-documents__slider(data-developer-documents-slider)
+      .swiper-wrapper
+        each doc in documents
+          .swiper-slide.developer-documents__slide
+            .developer-documents__card
+              .developer-documents__icon-row
+                .developer-documents__icon
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 6H38L52 20V56C52 57.1046 51.1046 58 50 58H14C12.8954 58 12 57.1046 12 56V8C12 6.89543 12.8954 6 14 6Z" stroke="#14427C" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M38 6V20H52" stroke="#14427C" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M22 34H42M22 42H42M22 50H34" stroke="#14427C" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                if doc.type
+                  .developer-documents__type #{doc.type}
+              .developer-documents__name.text-style-1920-h-4 #{doc.title}
+              a.button-30.button-30--blue.developer-documents__btn(href=doc.link target="_blank" rel="noopener noreferrer")
+                span Переглянути
+                <svg class="developer-documents__btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 10H15M15 10L10 5M15 10L10 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
 
   include ../includes/contact-screen.pug
 block footer

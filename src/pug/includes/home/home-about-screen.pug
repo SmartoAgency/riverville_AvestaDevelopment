@@ -1,6 +1,6 @@
 -
   const aboutItems = [{title: "Кава",
-    text: "Зустрітися на бізнес-каву у ресторані чи посмакувати ароматним круасаном у кав\'ярні на першому поверсі ",},
+    text: "Зустрітися на бізнес-каву у ресторані чи посмакувати ароматним круасаном у кав\'ярні на першому поверсі ",},
     {title: "Краса",
     text: "Зробити б'юті-процедури у сусідньому будинку чи піти у спортзал",},
     {title: "Відпочинок",
@@ -19,7 +19,7 @@
         </svg>
       .home-about-screen__title.text-style-1920-h-1 Про комплекс
       .home-about-screen__subtitle.text-style-1920-h-4 RIVERVILLE – унікальний житловий комплекс бізнес-класу, що поєднує сучасну архітектуру, розвинену інфраструктуру та мальовничу природу. Ми створили ідеальний простір для комфортного життя на березі річки в Ужгороді. Обирайте RIVERVILLE – насолоджуйтеся кожним моментом!
-    .home-about-screen__bg 
+    .home-about-screen__bg
       //-home-about-screen-bg@075x
       <picture>
         <source srcset="./assets/images/home/home-about-screen/home-about-screen-bg.jpg" media="(min-width: 1025px)">
@@ -28,7 +28,7 @@
         <img src="#", alt="", srcset="" loading="lazy"/>
       </picture>
       //- img(src="./assets/images/home/home-about-screen/home-about-screen-bg.jpg", alt="", srcset="" loading="lazy")
-    .home-about-screen__decor 
+    .home-about-screen__decor
     .home-about-screen__items
       each item, index in aboutItems
         - const imgSrc = `./assets/images/home/home-about-screen/${index+1}.png`
@@ -43,4 +43,4 @@
     .home-about-screen__bottom-content
       .home-about-screen__subtitle.text-style-1920-h-4 Для когось – ідеальний день, а для мешканців ЖК RIVERVILLE – приємна буденність
       button(type="button" data-popup-call).button-30
-        span Дізнатися більше 
+        span Дізнатися більше

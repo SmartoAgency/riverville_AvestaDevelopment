@@ -40,19 +40,46 @@
         // z-index: 2;
         --gap: 20px;
         gap: var(--gap);
-        align-items: center;
+        align-items: stretch;
         position: relative;
         z-index: 0;
         @include to(600px){
             --gap: 12px;
         }
         .news-card {
-            width: calc(50% - (var(--gap) / 2));
+            width: calc(33% - (var(--gap) / 2));
             margin-left: -1px;
+            // flex-direction: column;
+            // flex-wrap: nowrap;
             @include to(1024px){
                 width: 100%;
                 margin-left: initial;
             }
+
+            &:nth-child(3) {
+                @include to(1024px) {
+                    display: none;
+                }
+            }
+
+            &__image {
+                &-wrap {
+                    height: 100%;
+                    padding-bottom: 0;
+                }
+            }
+
+            &__content {
+                padding: 40px 20px;
+            }
+
+            // &__title {
+            //     margin-top: inherit;
+            // }
+
+            // &__button {
+            //     margin-top: auto;
+            // }
         }
         &>.button-30 {
             margin-top: 60px;

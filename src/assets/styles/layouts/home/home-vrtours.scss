@@ -36,7 +36,7 @@
     &__content {
         padding-left: var(--page-side-fields);
         padding-right: var(--page-side-fields);
-        margin-bottom: calc(var(--section-v-offset) * 1.5);
+        margin-bottom: calc(var(--section-v-offset) * 0.75);
     }
     &>svg:last-child {
         @include to(600px){

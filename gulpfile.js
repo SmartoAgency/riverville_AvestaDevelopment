@@ -81,6 +81,10 @@ const paths = {
 				src: './src/assets/images/**/*',
 				dest: './dist/assets/images'
 		},
+		video: {
+				src: './src/assets/video/**/*',
+				dest: './dist/assets/video'
+		},
 		svgSprite: {
 				src: './src/assets/svg-sprite/*.svg',
 				dest: './src/assets/svg-sprite/sprite/'
@@ -114,6 +118,7 @@ function watch() {
 
 		gulp.watch(paths.ts.src, testJsLint);
 		gulp.watch(paths.images.src, images);
+		gulp.watch(paths.video.src, video);
 		gulp.watch(paths.fonts.src, fonts);
 		gulp.watch(paths.libs.src, libs);
 		gulp.watch(paths.static.src, static);
@@ -241,6 +246,12 @@ function images() {
 				.pipe(gulp.dest(paths.images.dest));
 }
 
+// video
+function video() {
+		return gulp.src(paths.video.src)
+				.pipe(gulp.dest(paths.video.dest));
+}
+
 gulp.task('clear', function () {
 	return cache.clearAll();
 })
@@ -327,6 +338,7 @@ if (typeScriptSetting) {
 exports.gulpModules = gulpModules;
 exports.testJsLint = testJsLint;
 exports.images = images;
+exports.video = video;
 exports.clean = clean;
 exports.fonts = fonts;
 exports.svgSprite = svgSprite;
@@ -341,7 +353,7 @@ gulp.task('default', gulp.series(
 		clean,
     libs,
     ...additionalTask,
-		gulp.parallel(styles, templates, fonts, gulpModules, testJsLint, images, static),
+		gulp.parallel(styles, templates, fonts, gulpModules, testJsLint, images, video, static),
 		gulp.parallel(watch, server)
 ));
 

@@ -1,0 +1,35 @@
+.home-about-screen
+  .home-about-screen__top-gradient
+  .home-about-screen__bg
+    picture
+      source(srcset="./assets/images/home/home-about-screen/home-about-screen-bg.jpg" media="(min-width: 1025px)")
+      source(srcset="./assets/images/home/home-about-screen/home-about-screen-bg@075x.jpg" media="(min-width: 767px) and (max-width: 1024px)")
+      source(srcset="./assets/images/home/home-about-screen/home-about-screen-bg-mobile.jpg" media="(max-width: 767px)")
+      img(src="./assets/images/home/home-about-screen/home-about-screen-bg.jpg" alt="" srcset="" loading="lazy")
+  .home-about-screen__inner
+    .home-about-screen__left
+      h2.home-about-screen__title.text-style-1920-h-1 Про ЖК RIVERVILLE в Ужгороді
+      .home-about-screen__video-wrap
+        video.home-about-screen__video(controls playsinline preload="metadata")
+          source(src="./assets/video/new-front-screen-video.mp4" type="video/mp4")
+    .home-about-screen__right
+      .home-about-screen__description
+        p.home-about-screen__desc-text.text-style-1920-h-4 RIVERVILLE — житловий комплекс бізнес-класу на березі річки в новому районі Ужгорода, який поєднує сучасну архітектуру, комфортне середовище для життя, мальовничі краєвиди та щоденну інфраструктуру поруч.
+        a.button-30(href="https://riverville.com.ua/about/")
+          span Детальніше про проєкт
+      .home-about-screen__stats
+        - const stats = ["загальна площа", "кількість поверхів", "кількість апартаментів", "кількість офісів", "кількість комерційних приміщень", "кількість паркомісць"]
+        each stat in stats
+          .home-about-screen__stat
+            .home-about-screen__stat-value —
+            .home-about-screen__stat-label.text-style-1920-body #{stat}
+      .home-about-screen__infra
+        .home-about-screen__infra-heading Поруч із комплексом
+        ul.home-about-screen__infra-list
+          li.home-about-screen__infra-item 1 хв — ТЦ «Епіцентр»
+          li.home-about-screen__infra-item 1 хв — кафе та ресторани
+          li.home-about-screen__infra-item 3 хв — Боздоський парк
+          li.home-about-screen__infra-item 3 хв — банківські та поштові відділення
+          li.home-about-screen__infra-item 8 хв — центр міста
+        a.button-30(href="https://riverville.com.ua/infrastructure/")
+          span Детальніше про інфраструктуру
