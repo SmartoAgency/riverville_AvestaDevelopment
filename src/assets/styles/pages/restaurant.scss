@@ -1,7 +1,6 @@
-.restaurant {
-  position: relative;
-  height: 50vw;
-  margin-top: 6.25vw;
+.restaurant-title {
+  text-align: center;
+  margin-top: 2vw;
 
   @include to(1024px) {
     height: auto;
@@ -10,6 +9,21 @@
 
   @include to(600px) {
     margin-top: 48px;
+  }
+}
+
+.restaurant {
+  position: relative;
+  height: 50vw;
+  margin-top: 3vw;
+
+  @include to(1024px) {
+    height: auto;
+    margin-top: 40px;
+  }
+
+  @include to(600px) {
+    margin-top: 24px;
   }
 
   &--first {
