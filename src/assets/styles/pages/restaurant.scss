@@ -4,11 +4,11 @@
 
   @include to(1024px) {
     height: auto;
-    margin-top: 80px;
+    margin-top: 48px;
   }
 
   @include to(600px) {
-    margin-top: 48px;
+    margin-top: 16px;
   }
 }
 
