@@ -1,0 +1,100 @@
+//- ============================================================
+//-  NEW MENU (menu-v2) — незалежний від старого меню (.menu).
+//-  Розмітка/стилі/скрипти нові, старе меню не чіпається.
+//- ============================================================
+-
+    var menuV2Primary = [
+        [
+            { title: "ГОЛОВНА", href: "/" },
+            { title: "ПРО ЖИТЛОВИЙ <br>КОМПЛЕКС", href: "/about" },
+            { title: "ІНФРАСТРУКТУРА", href: "/infrastructure" },
+            { title: "ГЕНПЛАН", href: "#" }
+        ],
+        [
+            { title: "КВАРТИРИ", href: "/apartments" },
+            { title: "ВІРТУАЛЬНІ ШОУРУМИ", href: "/vr-tours" },
+            { title: "КОМЕРЦІЙНА <br>НЕРУХОМІСТЬ", href: "/commercial" },
+            { title: "РЕСТОРАН", href: "/restaurant" },
+            { title: "ТРЦ", href: "#" }
+        ]
+    ]
+    var menuV2Secondary = [
+        [
+            { title: "ЗАБУДОВНИК ТА ДОКУМЕНТИ", href: "/developer" },
+            { title: "ХІД БУДІВНИЦТВА", href: "/construction" },
+            { title: "НОВИНИ ТА АКЦІЇ", href: "/news" }
+        ],
+        [
+            { title: "БЛОГ", href: "#" },
+            { title: "ГАЛЕРЕЯ", href: "/gallery" },
+            { title: "КОНТАКТИ", href: "#contact-screen", close: true }
+        ]
+    ]
+//- Двошарове посилання: фронтовий (темний) та наведений (синій) шар,
+//- як у старому меню — на hover текст «перегортається» на синю копію.
+mixin menuV2Link(link)
+    a.menu-v2__link(href=link.href data-menu-v2-close=link.close)
+        span.menu-v2__link-line!= link.title
+        span.menu-v2__link-line.menu-v2__link-line--hover(aria-hidden="true")!= link.title
+nav.menu-v2(data-menu-v2 data-lenis-prevent aria-hidden="true")
+    .menu-v2__noise
+    .menu-v2__inner
+        .menu-v2__main
+            .menu-v2__nav.menu-v2__nav--primary
+                each col in menuV2Primary
+                    .menu-v2__col
+                        each link in col
+                            +menuV2Link(link)
+            .menu-v2__divider
+            .menu-v2__nav.menu-v2__nav--secondary
+                each col in menuV2Secondary
+                    .menu-v2__col
+                        each link in col
+                            +menuV2Link(link)
+        aside.menu-v2__aside
+            .menu-v2__image
+                img(src="./assets/images/menu/bg.jpg" alt="RiverVille" loading="lazy")
+            .menu-v2__contacts
+                .menu-v2__contacts-group
+                    .menu-v2__contacts-label Відділ інвестицій:
+                    a.menu-v2__contacts-value(href="tel:+380992777077") 38 099 277 70 77
+                .menu-v2__contacts-group
+                    .menu-v2__contacts-label E-mail:
+                    a.menu-v2__contacts-value(href="mailto:RIVERVILLE.UZH@GMAIL.COM") RIVERVILLE.UZH@GMAIL.COM
+                .menu-v2__contacts-group
+                    .menu-v2__contacts-label Наша адреса:
+                    a.menu-v2__contacts-value(target="_blank" href="https://maps.app.goo.gl/WwrzDiTi5eWE3sdk8") УЖГОРОД, ВУЛ. БАБʼЯКА, 47
+                .menu-v2__contacts-group
+                    .menu-v2__contacts-label Соц мережі:
+                    .menu-v2__socials
+                        a(href="https://www.instagram.com/riverville.ua?igsh=MXY5b2M1ZTlyaWN0cg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram")
+                            <svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32.5" cy="32" r="32" fill="url(#paint0_radial_menu_v2)"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M28.1357 21.0623C29.2708 21.0124 29.637 21 32.5041 21C35.3704 21 35.7379 21.0124 36.8775 21.0665C38.0417 21.1179 38.8567 21.3076 39.5776 21.586C40.338 21.8725 41.0306 22.3237 41.6028 22.9039L41.5996 22.9008L41.2837 23.2241L41.6058 22.907L41.6028 22.9039C42.1887 23.4771 42.6357 24.166 42.926 24.9332C43.205 25.6512 43.3946 26.4706 43.4459 27.6344C43.4959 28.7707 43.5 29.1384 43.5 32.0021C43.5 34.8686 43.4876 35.2348 43.4377 36.3697C43.3863 37.5352 43.1961 38.3506 42.9174 39.072C42.3232 40.6083 41.1083 41.8231 39.5717 42.4173C38.8534 42.6966 38.0335 42.8864 36.8686 42.9377C35.7334 42.9878 35.3671 43 32.5001 43C29.6331 43 29.2666 42.9878 28.1316 42.9377C26.9668 42.8864 26.1518 42.6967 25.4307 42.4182C24.67 42.1316 23.9772 41.6801 23.4048 41.0997L23.4073 41.1022L23.7245 40.7801L23.4024 41.0972L23.4048 41.0997C22.8247 40.5279 22.3733 39.8396 22.0824 39.071C21.8034 38.3531 21.6136 37.5337 21.5623 36.3698C21.5124 35.2349 21.5 34.8686 21.5 32.0021C21.5 29.1363 21.5124 28.7689 21.5665 27.6295C21.6179 26.4654 21.8077 25.6508 22.0862 24.9299C22.3728 24.1697 22.8239 23.4773 23.4042 22.9051L23.4011 22.9082L23.7245 23.2241L23.4073 22.902L23.4042 22.9051C23.9776 22.3193 24.6666 21.8724 25.4341 21.5821C26.152 21.3034 26.9716 21.1136 28.1357 21.0623ZM32.5001 26.7895C29.6235 26.7895 27.2895 29.1233 27.2895 32C27.2895 34.8767 29.6235 37.2105 32.5001 37.2105C35.3768 37.2105 37.7106 34.8767 37.7106 32C37.7106 29.1233 35.3768 26.7895 32.5001 26.7895ZM38.8683 23.3158C37.5895 23.3158 36.5526 24.3524 36.5526 25.6316C36.5526 26.9105 37.5895 27.9474 38.8683 27.9474C40.1473 27.9474 41.1842 26.9105 41.1842 25.6316C41.1842 24.3524 40.1472 23.3158 38.8683 23.3158Z" fill="#EFF3F7"/>
+                                <defs>
+                                <radialGradient id="paint0_radial_menu_v2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(17.5001 68.9293) rotate(-90) scale(63.4287 58.9937)">
+                                <stop stop-color="#FFDD55"/>
+                                <stop offset="0.1" stop-color="#FFDD55"/>
+                                <stop offset="0.5" stop-color="#FF543E"/>
+                                <stop offset="1" stop-color="#C837AB"/>
+                                </radialGradient>
+                                </defs>
+                            </svg>
+                        a(href="https://www.facebook.com/profile.php?id=61563002267487" target="_blank" rel="noopener noreferrer" aria-label="Facebook")
+                            <svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32.5" cy="32" r="32" fill="url(#paint0_linear_menu_v2)"/>
+                                <circle cx="32.5" cy="32" r="31.5" stroke="#ADCADE" stroke-opacity="0.3"/>
+                                <path d="M36.3092 23.985H38.5V20.169C38.122 20.117 36.8221 20 35.3083 20C32.1495 20 29.9857 21.987 29.9857 25.639V29H26.5V33.266H29.9857V44H34.2594V33.267H37.6041L38.135 29.001H34.2584V26.062C34.2594 24.829 34.5913 23.985 36.3092 23.985Z" fill="#EFF3F7"/>
+                                <defs>
+                                <linearGradient id="paint0_linear_menu_v2" x1="64.5" y1="-3.8147e-06" x2="0.500004" y2="64" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#59B8F8"/>
+                                <stop offset="1" stop-color="#3977F7"/>
+                                </linearGradient>
+                                </defs>
+                            </svg>
+                        a(href="https://www.tiktok.com/@riverville.uzh?_t=8q0wGdE1lI6&_r=1" target="_blank" rel="noopener noreferrer" aria-label="TikTok")
+                            <svg width="65" height="64" viewBox="0 0 65 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32.5" cy="32" r="32" fill="#070303"/>
+                                <circle cx="32.5" cy="32" r="31.5" stroke="#ADCADE" stroke-opacity="0.3"/>
+                                <path d="M40.0094 25.1327C39.8536 25.049 39.702 24.9572 39.5551 24.8578C39.1279 24.564 38.7361 24.2179 38.3884 23.8268C37.5183 22.7914 37.1933 21.7409 37.0736 21.0054H37.0784C36.9784 20.395 37.0198 20 37.026 20H33.063V35.9382C33.063 36.1522 33.063 36.3637 33.0543 36.5727C33.0543 36.5987 33.0519 36.6227 33.0505 36.6507C33.0505 36.6622 33.0505 36.6742 33.0481 36.6862C33.0481 36.6892 33.0481 36.6922 33.0481 36.6952C33.0063 37.267 32.83 37.8194 32.5348 38.3038C32.2396 38.7882 31.8344 39.1897 31.3549 39.473C30.8553 39.7687 30.2901 39.9238 29.7152 39.923C27.8688 39.923 26.3723 38.3571 26.3723 36.4232C26.3723 34.4893 27.8688 32.9234 29.7152 32.9234C30.0647 32.923 30.4121 32.9802 30.7444 33.0928L30.7492 28.8961C29.7404 28.7605 28.7155 28.8439 27.7391 29.141C26.7628 29.438 25.8563 29.9423 25.0767 30.622C24.3936 31.2392 23.8194 31.9758 23.3798 32.7984C23.2125 33.0983 22.5813 34.3038 22.5049 36.2602C22.4568 37.3706 22.7774 38.5211 22.9303 38.9966V39.0066C23.0264 39.2865 23.399 40.242 24.0062 41.0474C24.4957 41.6936 25.0742 42.2611 25.7228 42.7319V42.7219L25.7324 42.7319C27.651 44.0878 29.7782 43.9988 29.7782 43.9988C30.1464 43.9833 31.3799 43.9988 32.7808 43.3083C34.3345 42.5429 35.219 41.4024 35.219 41.4024C35.7841 40.721 36.2334 39.9444 36.5477 39.106C36.9063 38.1256 37.026 36.9497 37.026 36.4797V28.0241C37.0741 28.0541 37.7144 28.4946 37.7144 28.4946C37.7144 28.4946 38.6369 29.1095 40.0762 29.51C41.1088 29.795 42.5 29.855 42.5 29.855V25.7632C42.0125 25.8182 41.0227 25.6582 40.0094 25.1327Z" fill="#EFF3F7"/>
+                            </svg>

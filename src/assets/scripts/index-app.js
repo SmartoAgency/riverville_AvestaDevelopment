@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import './modules/form';
+import './modules/menu-v2';
 import { lenis } from './modules/scroll/leniscroll';
 
 const wrapper = document.querySelector('.home-module-screen__frame');
