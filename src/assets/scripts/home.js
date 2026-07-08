@@ -180,6 +180,19 @@ const advblock2 = new Swiper('[data-home-advantages-block2]', {
   centeredSlides: true,
   initialSlide: window.screen.width < 600 ? 0 : 1,
   sensitivity: 4,
+  // Гортання горизонтальним свайпом тачпада (два пальці).
+  // forceToAxis: реагуємо лише на горизонтальний рух (deltaX), тож вертикальний
+  // скрол сторінки над слайдером і звичайне колесо миші не перехоплюються.
+  mousewheel: {
+    forceToAxis: true,
+    releaseOnEdges: true,
+    sensitivity: 1,
+    // Один свайп = один слайд. Тачпад шле пачку wheel-подій (інерція),
+    // тож throttle-имо: thresholdTime — мін. пауза між перемиканнями (мс),
+    // thresholdDelta — ігнорувати мікрорухи. Якщо здається млявим — зменш thresholdTime.
+    thresholdDelta: 6,
+    thresholdTime: 900,
+  },
   navigation: {
     nextEl: '[data-home-advantages-block2-next]',
     prevEl: '[data-home-advantages-block2-prev]',

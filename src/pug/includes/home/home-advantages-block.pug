@@ -12,6 +12,29 @@
 .home-advantages-block
   .home-advantages-block__title.text-style-1920-h-1(data-split-lines-and-fade-up)
     span Переваги проекту
+  .home-advantages-block2
+    .swiper(data-home-advantages-block2)
+      .swiper-wrapper
+        each val, index in block2Items
+          -
+            const src = `./assets/images/home/home-advantages-block2/${index + 1}.jpg`
+          .swiper-slide
+            .home-advantages-block2__item
+              .home-advantages-block2__item-img
+                img(src=src, alt="", srcset="" loading="lazy")
+              .home-advantages-block2__item-number.text-style-1920-body #{index + 1}
+              .home-advantages-block2__item-text.color-ffffff.text-style-1920-h-3 #{val}
+      .home-advantages-block2__navigation
+        <svg data-home-advantages-block2-prev width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3083 29.9999L30.2296 36.3159L28.7705 37.6838L21.2705 29.6838L20.6293 28.9999L21.2705 28.3159L28.7705 20.3159L30.2296 21.6838L24.3083 27.9999H37V29.9999H24.3083Z" fill="#1A1E21"/>
+        </svg>
+        .home-advantages-block2__navigation-counter
+          span(data-home-advantages-block2-current) 01
+          span /
+          span(data-home-advantages-block2-total) 07
+        <svg data-home-advantages-block2-next   width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M33.6917 29.9999L27.7704 36.3159L29.2295 37.6838L36.7295 29.6838L37.3707 28.9999L36.7295 28.3159L29.2295 20.3159L27.7704 21.6838L33.6917 27.9999H21V29.9999H33.6917Z" fill="#1A1E21"/>
+        </svg>
   .home-advantages-block__bg
     <picture>
       <source srcset="./assets/images/home/home-advantages-block/home-advantages-block-bg.jpg" media="(min-width: 1025px)">
@@ -21,28 +44,3 @@
     </picture>
   //- .home-advantages-block__bottom-gradient
   .home-advantages-block__top-gradient
-.home-advantages-block2
-  .swiper(data-home-advantages-block2)
-
-
-    .swiper-wrapper
-      each val, index in block2Items
-        -
-          const src = `./assets/images/home/home-advantages-block2/${index + 1}.jpg`
-        .swiper-slide 
-          .home-advantages-block2__item
-            .home-advantages-block2__item-img
-              img(src=src, alt="", srcset="" loading="lazy")
-            .home-advantages-block2__item-number.text-style-1920-body #{index + 1}
-            .home-advantages-block2__item-text.color-ffffff.text-style-1920-h-3 #{val}
-    .home-advantages-block2__navigation
-      <svg data-home-advantages-block2-prev width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3083 29.9999L30.2296 36.3159L28.7705 37.6838L21.2705 29.6838L20.6293 28.9999L21.2705 28.3159L28.7705 20.3159L30.2296 21.6838L24.3083 27.9999H37V29.9999H24.3083Z" fill="#1A1E21"/>
-      </svg>
-      .home-advantages-block2__navigation-counter 
-        span(data-home-advantages-block2-current) 01
-        span / 
-        span(data-home-advantages-block2-total) 07
-      <svg data-home-advantages-block2-next   width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M33.6917 29.9999L27.7704 36.3159L29.2295 37.6838L36.7295 29.6838L37.3707 28.9999L36.7295 28.3159L29.2295 20.3159L27.7704 21.6838L33.6917 27.9999H21V29.9999H33.6917Z" fill="#1A1E21"/>
-      </svg>
