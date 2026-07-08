@@ -29,6 +29,9 @@
   &--first {
     .restaurant-block {
       width: 38.5vw;
+      // Центруємо блок по горизонталі над фото
+      // margin-left: auto;
+      // margin-right: auto;
 
       @include to(1024px) {
         width: 100%;
@@ -70,9 +73,10 @@
     }
 
     .restaurant-block {
-      width: 31.25vw;
-      margin-left: auto;
-      margin-top: auto;
+      // Ширший блок: коротші рядки/дрібний вигляд були через вузькі 31.25vw
+      width: 38.5vw;
+      // margin-left: auto;
+      // margin-top: auto;
 
       @include to(1024px) {
         width: 100%;
@@ -94,11 +98,14 @@
     
     .restaurant-block {
       width: 31.25vw;
-      margin-top: auto;
-  
+      // margin-top: auto;
+      // Центруємо блок по горизонталі над фото
+      // margin-left: auto;
+      // margin-right: auto;
+
       @include to(1024px) {
         width: 100%;
-      }  
+      }
     }
   }
 
@@ -120,7 +127,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     padding: 2vw;
 
@@ -304,7 +312,8 @@
 
   &__description {
     text-align: center;
-    width: 31.25vw;
+    width: 64vw;
+    font-size: 18px;
 
     @include to(1024px) {
       width: 100%;
