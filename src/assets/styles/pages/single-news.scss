@@ -32,12 +32,20 @@
   &__slider {
     overflow: visible;
     cursor: grab;
+    // ПК: слайдер — контекст позиціонування для стрілок і лічильника (поверх фото)
+    @include from(1025px) {
+      position: relative;
+    }
     &:active {
       cursor: grabbing;
     }
     @include from(601px) {
       margin-top: 40px;
       margin-bottom: 40px;
+    }
+    // ПК: більший відступ знизу — під фото поміщається лічильник (absolute)
+    @include from(1025px) {
+      margin-bottom: 56px;
     }
     .swiper-button-disabled {
       opacity: 0;
@@ -57,6 +65,23 @@
           width: 40px;
           height: 40px;
         }
+        // ПК: стрілки виносимо на краї фото, по вертикалі — по центру
+        @include from(1025px) {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 3;
+        }
+      }
+      [data-single-news-slider-prev] {
+        @include from(1025px) {
+          left: 0;
+        }
+      }
+      [data-single-news-slider-next] {
+        @include from(1025px) {
+          right: 0;
+        }
       }
       @media (hover: hover) {
         svg [fill] {
@@ -73,6 +98,21 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 10px;
+      // ПК: стрілки й лічильник ідуть поверх фото (absolute), тож нижній ряд не потрібен
+      @include from(1025px) {
+        margin-top: 0;
+      }
+      // ПК: лічильник — по центру ПІД фото (не поверх знімка)
+      > .text-style-1920-body {
+        @include from(1025px) {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-top: 12px;
+          transform: translateX(-50%);
+          z-index: 3;
+        }
+      }
     }
   }
   &__frame {
