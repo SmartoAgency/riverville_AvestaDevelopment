@@ -485,7 +485,7 @@
     font-weight: 700;
     text-transform: uppercase;
     line-height: 1;
-    font-size: 48px;
+    font-size: max(2.5vw, 36px);
 
     @include to(1024px) {
       font-size: 36px;
@@ -506,7 +506,7 @@
   &__nav--secondary &__link {
     font-weight: 400;
     line-height: 1.2;
-    font-size: 32px;
+    font-size: max(1.6vw, 28px);
 
     @include to(1024px) {
       font-size: 28px;
@@ -550,6 +550,7 @@
     flex: 1 1 auto;
     min-height: 0;
     overflow: hidden;
+    height: 0;
 
     @include to(1024px) {
       display: none;
