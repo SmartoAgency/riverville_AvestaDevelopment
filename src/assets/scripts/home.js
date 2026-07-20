@@ -1,11 +1,10 @@
 import Swiper, { Mousewheel, Navigation } from 'swiper';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Headroom from 'headroom.js';
 import { lenis } from './modules/scroll/leniscroll';
 import { pad, useState } from './modules/helpers/helpers';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
-import { speed } from 'jquery';
 import gallerySlider from './modules/gallery/gallerySlider';
 
 const header = document.querySelector('.header');
@@ -397,5 +396,5 @@ gsap.timeline({
     scrub: 1,
   }
 })
-  .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all' })
-  .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all' }, '<');
+  .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all', immediateRender: false })
+  .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all', immediateRender: false }, '<');

@@ -1,6 +1,6 @@
 import Swiper, { Navigation } from 'swiper';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Headroom from 'headroom.js';
 import { lenis } from './modules/scroll/leniscroll';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';

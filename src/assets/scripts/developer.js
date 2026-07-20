@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lenis } from './modules/scroll/leniscroll';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
 import Swiper, { Navigation } from 'swiper';
