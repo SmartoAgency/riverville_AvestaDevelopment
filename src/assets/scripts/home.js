@@ -300,10 +300,18 @@ gsap.timeline({
         '<'
     )
 
-splitToLinesAndFadeUp(
-  '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-gallery-screen__title, .home-construction-screen__title',
-  gsap,
-);
+function runSplitLinesAndFadeUp() {
+  splitToLinesAndFadeUp(
+    '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-gallery-screen__title, .home-construction-screen__title',
+    gsap,
+  );
+}
+
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(runSplitLinesAndFadeUp, { timeout: 2000 });
+} else {
+  setTimeout(runSplitLinesAndFadeUp, 200);
+}
 
 
 

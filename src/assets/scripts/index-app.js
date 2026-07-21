@@ -5,6 +5,23 @@ import { lenis } from './modules/scroll/leniscroll';
 
 const wrapper = document.querySelector('.home-module-screen__frame');
 const sensor = document.getElementById('iframe-sensor');
+const lazyIframe = wrapper && wrapper.querySelector('iframe[data-src]');
+
+if (lazyIframe) {
+  const iframeObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          lazyIframe.src = lazyIframe.dataset.src;
+          observer.unobserve(lazyIframe);
+        }
+      });
+    },
+    { rootMargin: '200px' },
+  );
+
+  iframeObserver.observe(lazyIframe);
+}
 
 if (sensor && wrapper) {
   sensor.addEventListener(
