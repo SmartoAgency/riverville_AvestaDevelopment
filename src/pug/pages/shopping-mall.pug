@@ -1,0 +1,139 @@
+
+extends ../layout/main
+block variable
+  -
+    var title_page = 'shopping-mall'
+    var id_page = 'id-page-shopping-mall'
+    var class_page = 'class-page-shopping-mall'
+    var breadcrumbsSubitem = [
+      {
+        label: 'About',
+        link: pagesLink[0].about
+      }
+    ]
+  
+block meta
+  title= title_page
+  meta(name='description', content='')
+block head
+    link(rel='stylesheet', href="./assets/styles/main.min.css")
+block scripts
+  script(defer src='./assets/scripts/vendors.bundle.js')
+  script(defer src='./assets/scripts/index.bundle.js')
+  script(defer src='./assets/scripts/libs.js')
+  script(defer src='./assets/scripts/index.js')
+  script(defer src='./assets/scripts/header.js')
+  script(defer src='./assets/scripts/shopping-mall.js')
+block content
+  .inner-page-head
+    include ../includes/breadcrumbs.pug
+    <svg class="inner-page-head__decor" preserveAspectRatio="xMidYMid slice" width="1920" height="141" viewBox="0 0 1920 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M72.687 54.116L158.67 140.881L245.097 54.116L331.08 140.881L417.507 54.116L480 117.177V63.508L417.507 0L331.08 87.2117L245.097 0L158.67 87.2117L72.687 0L0 73.3473V127.463L72.687 54.116Z" fill="white"/>
+      <path d="M887.313 54.116L801.33 140.881L714.903 54.116L628.92 140.881L542.493 54.116L480 117.177V63.508L542.493 0L628.92 87.2117L714.903 0L801.33 87.2117L887.313 0L960 73.3473V127.463L887.313 54.116Z" fill="white"/>
+      <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
+      <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
+    </svg>
+    .inner-page-head__title ЗАБУДОВНИК
+  .mall 
+    .text-block
+      .text-block__wave 
+        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+          <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
+        </svg>
+      h1.text-block__title.text-style-1920-h-2 Сучасний торгово-розважальний центр у новому житловому районі Ужгорода
+      .text-block__description RIVERVILLE – точка тяжіння на березі річки, де поєднуються житло, комерція, відпочинок та шопінг. Наш ТРЦ створений як частина екосистеми, яка генерує постійний потік людей і бізнесу.
+    .mall-slider.swiper(data-mall-slider)
+      .swiper-wrapper()
+        each i in [1, 2, 3]
+          .mall-slider__slide.swiper-slide
+            img(src="./assets/images/mall/mall-slide-" + i + ".jpg")
+      .mall-slider__nav-prev(data-mall-slider-prev)
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+          <path d="M5.78786 11L0.710937 6L5.78786 1M0.710937 6C3.71948 6 8.15367 6 10.7109 6" stroke="black" stroke-linecap="square"/>
+        </svg>
+      .mall-slider__nav-next(data-mall-slider-next)
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+          <path d="M6.42308 11L11.5 6L6.42308 1M11.5 6C8.49145 6 4.05727 6 1.5 6" stroke="black" stroke-linecap="square"/>
+        </svg>
+    .mall-location
+      .mall-location__block
+        .mall-location__header
+          .mall-location__wave
+            <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+              <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
+            </svg>
+          .mall-location__text ПРОГНОЗНИЙ ТРАФІК ТРЦ
+          .mall-location__value 12–15 тис. осіб/день
+        .mall-location__body 
+          .mall-location__item 
+            .mall-location__subtitle GBA (загальна площа)
+            .mall-location__value 31 711 m²
+          .mall-location__item 
+            .mall-location__subtitle GBA (без паркінгу)
+            .mall-location__value 19 677 m²
+          .mall-location__item 
+            .mall-location__subtitle GLA (орендна площа)
+            .mall-location__value 15 568 m²
+      .mall-location__img
+        img(src="./assets/images/mall/map.jpg")
+    .text-block.text-block--second
+      .text-block__wave 
+        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+          <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
+        </svg>
+      .text-block__title.text-style-1920-h-2 КОНЦЕПЦІЯ ТА ЛОГІСТИКА
+      .text-block__description RIVERVILLE спроєктований як цілісна екосистема, де кожен елемент працює на комфорт відвідувачів та ефективність орендарів. Планувальні рішення забезпечують рівномірний розподіл потоків покупців, активність усіх торговельних галерей та відсутність «мертвих» зон.
+      .text-block__description ТРЦ має дві основні вхідні групи на першому поверсі: головний фасадний вхід із боку вул. Баб’яка та фасадний боковий вхід із боку житлового комплексу. Таке розташування дозволяє комфортно приймати як пішохідний, так і автомобільний трафік, формуючи кілька точок тяжіння відвідувачів.
+    .mall-render
+      img(src="./assets/images/mall/mall-render.jpg")
+    .text-block.text-block--third
+      .text-block__wave 
+        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+          <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
+        </svg>
+      .text-block__description З підземного паркінгу відвідувачі можуть швидко потрапити до супермаркету та торговельних галерей за допомогою ліфтів. Вертикальні комунікації між поверхами також забезпечуються системою ескалаторів і ліфтів, створюючи інтуїтивно зрозумілу навігацію та комфортне пересування всередині будівлі.
+      .text-block__description Простір торгового центру доповнюють атріуми, які додають відкритості, оглядовості та природного відчуття простору. Галереї спроєктовані з урахуванням розміщення острівних зон, що створює додаткові комерційні можливості та підтримує активність усіх рівнів ТРЦ.
+      .text-block__description Логістична інфраструктура включає дві окремі зони завантаження та розвантаження для великогабаритного транспорту, що забезпечує безперебійне функціонування торговельного центру без перетину сервісних і клієнтських потоків.
+      .text-block__description У результаті RIVERVILLE функціонує не просто як торговельний центр, а як багаторівнева екосистема, де архітектура, логістика та клієнтський досвід працюють як єдиний механізм.
+    .mall-render
+      img(src="./assets/images/mall/mall-render-2.jpg")
+    .mall-stats 
+      .mall-stats__left 
+        .text-block.text-block--fourth
+          .text-block__wave 
+            <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+              <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
+            </svg>
+          .text-block__title.text-style-1920-h-2 Якорі та наповнення
+          .text-block__description Концепція RIVERVILLE передбачає формування збалансованого функціонального наповнення, де якірні оператори та різноманітне функціональне наповнення створюють постійний і рівномірний потік відвідувачів протягом усього дня.
+        .mall-stats__block 
+          .mall-stats__subtitle Станом на сьогодні в ТРЦ представлені:
+          .mall-stats__row 
+            .mall-stats__item 
+              .mall-stats__value 64
+              .mall-stats__label оператори
+            .mall-stats__item 
+              .mall-stats__value 22
+              .mall-stats__label товарні та сервісні категорії
+            .mall-stats__item 
+              .mall-stats__label близько
+              .mall-stats__value 14 000 м²
+              .mall-stats__label комерційних площ уже зайнято орендарями
+      .mall-stats__right
+        .mall-stats__blue 
+          .mall-stats__label.mall-stats__label--white Доступно для оренди
+          .mall-stats__value.mall-stats__value--white понад 1500 м²
+          .mall-stats__label.mall-stats__label--white Вільних торгових площ для нових орендарів у ТРЦ RIVERVILLE
+        .text-block.text-block--third
+          .text-block__description Основу торговельного центру формують ключові категорії, що забезпечують стабільний трафік і покривають щоденні потреби відвідувачів: супермаркет як головний драйвер відвідуваності, fashion-оператори для шопінгу, техніка та електроніка для цільових покупок, фудкорт і заклади харчування як точки тяжіння та дозвілля, дитячі розваги тощо.
+          .text-block__description Поєднання якірних орендарів і широкого категорійного наповнення створює стійку екосистему, у якій різні формати бізнесу взаємно підсилюють один одного та забезпечують стабільний клієнтський потік для всіх галерей ТРЦ.
+          .text-block__subtitle ТРЦ уже наповнений операторами — ви заходите в працюючу екосистему.
+
+
+
+
+block footer
+  include ../includes/footer.pug
+
+block header
+  include ../includes/header.pug
