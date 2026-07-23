@@ -23,7 +23,7 @@ block scripts
   script(defer src='./assets/scripts/libs.js')
   script(defer src='./assets/scripts/index.js')
   script(defer src='./assets/scripts/header.js')
-  script(defer src='./assets/scripts/shopping-mall.js')
+  script(defer src='./assets/scripts/shopping-mall.bundle.js')
 block content
   .inner-page-head
     include ../includes/breadcrumbs.pug
@@ -33,11 +33,11 @@ block content
       <path d="M1032.69 54.116L1118.67 140.881L1205.1 54.116L1291.08 140.881L1377.51 54.116L1440 117.177V63.508L1377.51 0L1291.08 87.2117L1205.1 0L1118.67 87.2117L1032.69 0L960 73.3473V127.463L1032.69 54.116Z" fill="white"/>
       <path d="M1847.31 54.116L1761.33 140.881L1674.9 54.116L1588.92 140.881L1502.49 54.116L1440 117.177V63.508L1502.49 0L1588.92 87.2117L1674.9 0L1761.33 87.2117L1847.31 0L1920 73.3473V127.463L1847.31 54.116Z" fill="white"/>
     </svg>
-    .inner-page-head__title ЗАБУДОВНИК
+    .inner-page-head__title ТРЦ RIVERVILLE
   .mall 
     .text-block
       .text-block__wave 
-        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 18" fill="none">
           <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
         </svg>
       h1.text-block__title.text-style-1920-h-2 Сучасний торгово-розважальний центр у новому житловому районі Ужгорода
@@ -48,18 +48,18 @@ block content
           .mall-slider__slide.swiper-slide
             img(src="./assets/images/mall/mall-slide-" + i + ".jpg")
       .mall-slider__nav-prev(data-mall-slider-prev)
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12" fill="none">
           <path d="M5.78786 11L0.710937 6L5.78786 1M0.710937 6C3.71948 6 8.15367 6 10.7109 6" stroke="black" stroke-linecap="square"/>
         </svg>
       .mall-slider__nav-next(data-mall-slider-next)
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12" fill="none">
           <path d="M6.42308 11L11.5 6L6.42308 1M11.5 6C8.49145 6 4.05727 6 1.5 6" stroke="black" stroke-linecap="square"/>
         </svg>
     .mall-location
       .mall-location__block
         .mall-location__header
           .mall-location__wave
-            <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 18" fill="none">
               <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
             </svg>
           .mall-location__text ПРОГНОЗНИЙ ТРАФІК ТРЦ
@@ -71,14 +71,16 @@ block content
           .mall-location__item 
             .mall-location__subtitle GBA (без паркінгу)
             .mall-location__value 19 677 m²
-          .mall-location__item 
+          .mall-location__item
             .mall-location__subtitle GLA (орендна площа)
             .mall-location__value 15 568 m²
+        button(type="button" data-popup-call).button-30.mall-location__button
+          span Отримати презентацію
       .mall-location__img
         img(src="./assets/images/mall/map.jpg")
     .text-block.text-block--second
       .text-block__wave 
-        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 18" fill="none">
           <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
         </svg>
       .text-block__title.text-style-1920-h-2 КОНЦЕПЦІЯ ТА ЛОГІСТИКА
@@ -88,7 +90,7 @@ block content
       img(src="./assets/images/mall/mall-render.jpg")
     .text-block.text-block--third
       .text-block__wave 
-        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 18" fill="none">
           <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
         </svg>
       .text-block__description З підземного паркінгу відвідувачі можуть швидко потрапити до супермаркету та торговельних галерей за допомогою ліфтів. Вертикальні комунікації між поверхами також забезпечуються системою ескалаторів і ліфтів, створюючи інтуїтивно зрозумілу навігацію та комфортне пересування всередині будівлі.
@@ -101,7 +103,7 @@ block content
       .mall-stats__left 
         .text-block.text-block--fourth
           .text-block__wave 
-            <svg xmlns="http://www.w3.org/2000/svg" width="61" height="18" viewBox="0 0 61 18" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 18" fill="none">
               <path d="M9.23731 6.91429L20.1644 18L31.1477 6.91429L42.0748 18L53.0582 6.91429L61 14.9714V8.11429L53.0582 0L42.0748 11.1429L31.1477 0L20.1644 11.1429L9.23731 0L0 9.37143V16.2857L9.23731 6.91429Z" fill="#5D85A3"/>
             </svg>
           .text-block__title.text-style-1920-h-2 Якорі та наповнення
@@ -128,6 +130,15 @@ block content
           .text-block__description Основу торговельного центру формують ключові категорії, що забезпечують стабільний трафік і покривають щоденні потреби відвідувачів: супермаркет як головний драйвер відвідуваності, fashion-оператори для шопінгу, техніка та електроніка для цільових покупок, фудкорт і заклади харчування як точки тяжіння та дозвілля, дитячі розваги тощо.
           .text-block__description Поєднання якірних орендарів і широкого категорійного наповнення створює стійку екосистему, у якій різні формати бізнесу взаємно підсилюють один одного та забезпечують стабільний клієнтський потік для всіх галерей ТРЦ.
           .text-block__subtitle ТРЦ уже наповнений операторами — ви заходите в працюючу екосистему.
+    .mall-parallax
+      .mall-parallax__img 
+        img(src="./assets/images/mall/parallax-render.jpg")
+      .mall-parallax__title-container
+        span.mall-parallax__title.mall-parallax__title--blue RIVERVILLE — сучасний центр тяжіння нового Ужгорода,
+        span.mall-parallax__title де продумана архітектура, якісне оточення та різноманітне наповнення формують простір для життя, відпочинку та успішного бізнесу.
+      button().button-30.mall-parallax__button
+        span Підібрати приміщення
+
 
 
 

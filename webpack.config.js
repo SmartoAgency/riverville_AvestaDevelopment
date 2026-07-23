@@ -18,6 +18,7 @@ const config = {
     commercial: './src/assets/scripts/commercial.js',
     apartments: './src/assets/scripts/apartments.js',
     restaurant: './src/assets/scripts/restaurant.js',
+    'shopping-mall': './src/assets/scripts/shopping-mall.js',
   },
   output: {
     filename: '[name].bundle.js',
