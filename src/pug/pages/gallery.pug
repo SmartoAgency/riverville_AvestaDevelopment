@@ -14,7 +14,70 @@ block variable
 
 
     var galleryBlockCustomClass = 'home-gallery-screen--no-title';
-  
+
+    // Вмикає перемикач категорій саме на цій сторінці (/gallery/).
+    // Головна сторінка може передавати ті самі galleryCategories, але без цього
+    // прапорця — і тоді покаже всі фото «пласко», без вкладок. Одне джерело на обидві.
+    var galleryShowCategories = true;
+
+    // ============================================================
+    //  Категорії галереї (внутрішній перемикач).
+    //  Відповідність «зображення → категорія» задається вручну тут:
+    //  щоб перенести фото в іншу групу — перемістіть шлях у потрібний
+    //  масив `images`. Порожні категорії (images: []) рендеряться як
+    //  неактивні вкладки, доки для них не додадуть зображення.
+    // ============================================================
+    var galleryImgBase = './assets/images/home/home-gallery-screen';
+    var galleryCategories = [
+      {
+        id: 'visualization',
+        label: 'Візуалізації ЖК',
+        images: [
+          galleryImgBase + '/img-2.jpg',
+          galleryImgBase + '/img-1.jpg',
+          galleryImgBase + '/img-9.JPG'
+        ]
+      },
+      {
+        id: 'masterplan',
+        label: 'Генплан',
+        images: [
+          galleryImgBase + '/img-0.jpg'
+        ]
+      },
+      {
+        id: 'embankment',
+        label: 'Набережна / територія',
+        images: [
+          galleryImgBase + '/img-8.JPG',
+          galleryImgBase + '/img-10.JPG',
+          galleryImgBase + '/img-6.jpg',
+          galleryImgBase + '/img-5.jpg',
+          galleryImgBase + '/img-7.JPG'
+        ]
+      },
+      {
+        id: 'interior',
+        label: 'Холи / інтер’єри',
+        // TODO: додати реальні фото холів / інтер’єрів
+        images: []
+      },
+      {
+        id: 'parking',
+        label: 'Паркінг',
+        // TODO: додати реальні фото паркінгу
+        images: []
+      },
+      {
+        id: 'location',
+        label: 'Локація / види',
+        images: [
+          galleryImgBase + '/img-3.jpg',
+          galleryImgBase + '/img-4.jpg'
+        ]
+      }
+    ];
+
 block meta
   title= title_page
   meta(name='description', content='')

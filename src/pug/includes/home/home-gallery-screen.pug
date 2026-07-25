@@ -1,5 +1,14 @@
 div(class="home-gallery-screen "+galleryBlockCustomClass)
   .home-gallery-screen__title.text-style-1920-h-1 Галерея
+  //- Перемикач показуємо лише коли він увімкнений (galleryShowCategories === true, сторінка /gallery/).
+  //- Слайди ж (нижче) в обох галереях беруться з того самого galleryCategories,
+  //- тож одне джерело фото працює і для головної (пласко), і для /gallery/ (з фільтром).
+  if typeof galleryCategories !== 'undefined' && typeof galleryShowCategories !== 'undefined' && galleryShowCategories
+    .home-gallery-screen__categories(data-home-gallery-categories)
+      button.home-gallery-screen__category.is-active(type="button" data-gallery-category="all") Всі
+      each category in galleryCategories
+        - var isEmpty = !category.images || !category.images.length
+        button.home-gallery-screen__category(type="button" class=(isEmpty ? "is-empty" : null) data-gallery-category=category.id disabled=isEmpty)= category.label
   .home-gallery-screen__slider
     .swiper-container(data-home-gallery-screen)
       .home-gallery-screen__slider-bottom-gradient
@@ -48,9 +57,18 @@ div(class="home-gallery-screen "+galleryBlockCustomClass)
         </svg>
       .swiper(data-home-gallery-screen-swiper)
         .swiper-wrapper
-          each val, index in [1, 2, 3, 4, 5, 6]
-            -
-              const src = `./assets/images/home/home-gallery-screen/img-${index}.jpg`
-            .swiper-slide
-              img(src=src, alt="", srcset="" loading="lazy")
-              img(src=src, alt="", srcset="" loading="lazy")
+          //- Одне джерело для обох галерей: слайди завжди з galleryCategories.
+          //- На /gallery/ їх фільтрує перемикач (data-category), на головній — усі підряд.
+          if typeof galleryCategories !== 'undefined'
+            each category in galleryCategories
+              each image in category.images
+                .swiper-slide(data-category=category.id)
+                  img(src=image, alt=category.label, srcset="" loading="lazy")
+                  img(src=image, alt="", srcset="" loading="lazy")
+          else
+            each val, index in [1, 2, 3, 4, 5, 6]
+              -
+                const src = `./assets/images/home/home-gallery-screen/img-${index}.jpg`
+              .swiper-slide
+                img(src=src, alt="", srcset="" loading="lazy")
+                img(src=src, alt="", srcset="" loading="lazy")

@@ -32,6 +32,84 @@
         }
     }
 
+    // Перемикач категорій (тільки на сторінці /gallery/)
+    &__categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 48px;
+        padding: 0 var(--page-side-fields);
+        @include to(1024px){
+            margin-bottom: 32px;
+        }
+        @include to(600px){
+            // на мобільних — горизонтальний скрол замість переносу
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+    &__category {
+        flex-shrink: 0;
+        margin: 0;
+        cursor: pointer;
+        padding: 12px 28px;
+        border: 1px solid var(--color-14427-c);
+        border-radius: 0;
+        background-color: transparent;
+        color: var(--color-14427-c);
+        font-family: $default-font;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        transition: color .25s ease-out, background-color .25s ease-out, border-color .25s ease-out, opacity .25s ease-out;
+        @include to(1024px){
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+        @include to(600px){
+            padding: 9px 16px;
+            font-size: 12px;
+        }
+        @media (hover:hover){
+            &:hover:not(.is-active):not(.is-empty){
+                background-color: rgba($color-14427-c, 0.1);
+            }
+        }
+        &.is-active {
+            background-color: var(--color-14427-c);
+            color: var(--color-white);
+        }
+        &.is-empty {
+            cursor: not-allowed;
+            opacity: 0.4;
+            border-color: var(--color-5-d-85-a-3);
+            color: var(--color-5-d-85-a-3);
+            pointer-events: none;
+        }
+    }
+
+    // Плавне згасання/поява слайдера під час перемикання категорій.
+    // .is-switching додається лише на /gallery/, тож на інших сторінках правило інертне.
+    .swiper {
+        transition: opacity .3s ease-out;
+        &.is-switching {
+            opacity: 0;
+        }
+    }
+
     .swiper-navigation {
         position: absolute;
         left: 0;
