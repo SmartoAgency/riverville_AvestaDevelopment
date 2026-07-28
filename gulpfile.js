@@ -203,14 +203,17 @@ function styles() {
 		return gulp.src(paths.styles.main)
 		.pipe(sourcemaps.init()) // инциализация sourcemap'ов
 		.pipe(sass({
-				outputStyle: 'expanded' // компиляции в CSS с отступами
+				outputStyle: 'compressed' // минифицированный CSS
 		}))
 		.on('error', notify.onError({
 				title: 'SCSS',
 				message: '<%= error.message %>' // вывод сообщения об ошибке
 		}))
-		.pipe(sourcemaps.write())
+		.pipe(autoprefixer({
+				cascade: false
+		}))
 		.pipe(rename("main.min.css"))
+		.pipe(sourcemaps.write('.')) // отдельный .map, а не inline внутри CSS
 		.pipe(gulp.dest(paths.styles.dest))
 }
 
