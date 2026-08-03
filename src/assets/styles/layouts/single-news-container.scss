@@ -1,0 +1,284 @@
+// Контейнер детальної сторінки. Спільний для single-news і single-construction.
+
+.single-news-container {
+  background-color: var(--color-ffffff);
+  max-width: 1065px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px;
+  overflow: hidden;
+  @include to(1024px) {
+    width: calc(100% - var(--page-side-fields) * 2);
+  }
+  @include to(600px) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .button-30 {
+    margin-top: 40px;
+    @include to(600px) {
+      margin-top: 32px;
+    }
+  }
+  &__subtitle {
+    margin-bottom: 20px;
+  }
+  &__title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  &__text {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  &__slider {
+    overflow: visible;
+    cursor: grab;
+    // ПК: слайдер — контекст позиціонування для стрілок і лічильника (поверх фото)
+    @include from(1025px) {
+      position: relative;
+    }
+    &:active {
+      cursor: grabbing;
+    }
+    @include from(601px) {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+    // ПК: більший відступ знизу — під фото поміщається лічильник (absolute)
+    @include from(1025px) {
+      margin-bottom: 56px;
+    }
+    .swiper-button-disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .swiper-slide:not(.swiper-slide-active) {
+      cursor: pointer;
+    }
+    &-nav {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: center;
+      svg {
+        cursor: pointer;
+        @include to(600px) {
+          width: 40px;
+          height: 40px;
+        }
+        // ПК: стрілки виносимо на краї фото, по вертикалі — по центру
+        @include from(1025px) {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 3;
+        }
+      }
+      [data-single-news-slider-prev] {
+        @include from(1025px) {
+          left: 0;
+        }
+      }
+      [data-single-news-slider-next] {
+        @include from(1025px) {
+          right: 0;
+        }
+      }
+      @media (hover: hover) {
+        svg [fill] {
+          transition: 0.25s ease-out;
+        }
+        svg:hover [fill] {
+          fill: var(--color-14427-c);
+          fill-opacity: 1;
+        }
+      }
+    }
+    &-nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      // ПК: стрілки й лічильник ідуть поверх фото (absolute), тож нижній ряд не потрібен
+      @include from(1025px) {
+        margin-top: 0;
+      }
+      // ПК: лічильник — по центру ПІД фото (не поверх знімка)
+      > .text-style-1920-body {
+        @include from(1025px) {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-top: 12px;
+          transform: translateX(-50%);
+          z-index: 3;
+        }
+      }
+    }
+  }
+  &__frame {
+    position: relative;
+    padding-bottom: 52.5%;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__content {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-07222-f);
+    & > .single-news-container__image {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__image {
+    padding-bottom: 52.5%;
+    position: relative;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  ul li {
+    padding-left: 20px;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--07222F, #07222f);
+      top: 12px;
+      left: 4px;
+    }
+  }
+
+  .accordion {
+    margin: 20px 0;
+    &_open {
+      .accordion__title {
+        &::before {
+          transform: translateY(-50%) rotate(180deg);
+        }
+
+        &::after {
+          transform: translateY(-50%) rotate(90deg);
+        }
+      }
+
+      .accordion__body-container {
+        grid-template-rows: 1fr;
+        margin: 20px 0;
+      }
+    }
+
+    &__title {
+      position: relative;
+      width: 100%;
+      padding-right: 32px;
+      text-align: left;
+
+      &::before, &::after {
+        content: "";
+        position: absolute;
+        top: 12px;
+        right: 0;
+        width: 16px;
+        height: 2px;
+        background-color: #07222f;
+        transition: transform 0.3s ease;
+
+        @include from(600px) {
+          top: 19px;
+          width: 24px;
+        }
+      }
+
+      &::before {
+        transform: translateY(-50%) rotate(90deg);
+      }
+
+      &::after {
+        transform: translateY(-50%);
+      }
+    }
+
+    &__body-container {
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 0fr;
+      margin: 0;
+      transition: grid-template-rows 0.3s ease-out, margin 0.3s ease;
+    }
+
+    &__body {
+      min-height: 0;
+    }
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+
+  .table {
+    display: table;
+    width: 100%;
+    min-width: 664px;
+
+    :first-child {
+      .table__col {
+        color: #fff;
+      }
+    }
+
+    &__row {
+      display: table-row;
+      &:first-child {
+        background:#07222F;
+      }
+      
+      :last-child {
+        border-right: 2px solid #07222F;
+      }
+    }
+    
+    &__col {
+      display: table-cell;
+      padding: 8px 16px;
+      border-bottom: 2px solid #07222F;  
+      border-left: 2px solid #07222F;
+    }
+  }
+
+  .text-h3 {
+    font-size: 40px; 
+    font-size: pxWidthInVw(40);
+    font-family: Century Gothic;
+    font-weight: 500; 
+    line-height: 115%;
+    letter-spacing: -0.03em; 
+    text-decoration: none;
+    text-transform: none;
+
+    @media screen and (max-width: 1024px) {
+      font-size: 34px;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 22px;
+    }
+  }
+}

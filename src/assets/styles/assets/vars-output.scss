@@ -1,0 +1,149 @@
+// Правила из vars.scss, которые реально отдают CSS.
+// Вынесены сюда, чтобы vars.scss остался "тихим" (только $переменные и @mixin)
+// и его можно было импортировать в page-бандлы без дублирования вывода.
+// Импортируется только из main.scss, сразу после './assets/vars'.
+
+:root {
+	--color-ffffff: rgba(255,255,255,1);
+	--color-white: rgba(239,243,247,1);
+	--color-bg-colour: rgba(228,228,236,1);
+	--color-b-1-c-6-c-9: rgba(177,198,201,1);
+	--color-5-d-85-a-3: rgba(93,133,163,1);
+	--color-14427-c: rgba(20,66,124,1);
+	--color-07222-f: rgba(7,34,47,1);
+	--color-000000: rgba(0,0,0,1);
+}
+
+
+.color-ffffff {
+	color: rgba(255,255,255,1);
+}
+.color-white {
+	color: rgba(239,243,247,1);
+}
+.color-bg-colour {
+	color: rgba(228,228,236,1);
+}
+.color-b-1-c-6-c-9 {
+	color: #b1c6c9;
+}
+.color-5-d-85-a-3 {
+	color: rgba(93,133,163,1);
+}
+.color-14427-c {
+	color: rgba(20,66,124,1);
+}
+.color-07222-f {
+	color: rgba(7,34,47,1);
+}
+.color-000000 {
+	color: rgba(0,0,0,1);
+}
+
+:root {
+	--in: cubic-bezier(0.13, 0.81, 0.23, 0.96);
+	--header-h: 90px;
+	--logo-w: 155px;
+	--sliceFigure: 239px;
+	--sliceFigure-big: 541px;
+	--page-side-fields: 40px;
+	--section-v-offset: 150px;
+	--button-color: #001A58;
+}
+
+@media screen and (max-width: 1440px) {
+	:root {
+		--header-h: 86px;
+		--logo-w: 120px;
+		--sliceFigure-big: 362px;
+		--section-v-offset: 100px;
+	}
+}
+
+@media screen and (max-width:1024px){
+	:root {
+		--page-side-fields: 20px;
+	}
+}
+
+
+@media screen and (max-width: 992px) {
+	:root {
+		--header-h: 110px;
+		--logo-w: 90px;
+		--sliceFigure-big: 44px;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	:root {
+		--header-h: 70px;
+		--section-v-offset: 75px;
+		--page-side-fields: 12px;
+	}
+}
+
+
+.tablet {
+	--page-side-fields: 20px;
+	--section-v-offset: 50px;
+	--header-h: 80px;
+
+	.page__inner {
+		max-width: 100vw;
+		overflow: hidden;
+	}
+}
+
+.mobile {
+	--page-side-fields: 12px;
+	--section-v-offset: 50px;
+	--header-h: 55px;
+
+	.page__inner {
+		max-width: 100vw;
+		overflow: hidden;
+	}
+}
+
+.text-style-1920-h-1 {
+	@include text-style-1920-h-1;
+}
+
+.text-style-1920-h-2 {
+	@include text-style-1920-h-2;
+}
+
+.text-style-1920-h-3 {
+	@include text-style-1920-h-3;
+}
+
+.text-style-768-h-3 {
+	@include text-style-768-h-3;
+}
+
+.text-style-1920-h-4 {
+	@include text-style-1920-h-4;
+	@media screen and (max-width:1024px){
+		@include text-style-768-h-4;
+	}
+	@media screen and (max-width:600px){
+		@include text-style-375-h-4;
+	}
+}
+
+.text-style-1920-links {
+	@include text-style-1920-links;
+}
+
+.text-style-1920-body {
+	@include text-style-1920-body;
+}
+
+.text-style-1920-button {
+	@include text-style-1920-button;
+}
+
+.text-style-1920-tiny {
+	@include text-style-1920-tiny;
+}

@@ -165,6 +165,31 @@ function applyScrollTriggerAnimation(selectors) {
   });
 }
 
+// Виконує callback після того, як браузер намалював кадр.
+// requestAnimationFrame спрацьовує ПЕРЕД відмальовуванням, тому самого rAF
+// (і навіть подвійного) недостатньо — робота лишиться в критичному кадрі.
+// setTimeout усередині rAF стає в чергу задач і виконається вже після паінту.
+// Зовнішній setTimeout — підстраховка для фонових вкладок, де rAF не викликається.
+function afterFirstPaint(callback) {
+  let done = false;
+
+  const run = () => {
+    if (done) return;
+    done = true;
+    callback();
+  };
+
+  requestAnimationFrame(() => setTimeout(run, 0));
+  setTimeout(run, 1000);
+}
+
+// Налаштування анімацій коштує ~800 ms (527 ms Recalculate style + 294 ms Layout
+// за даними Performance-трейсу): gsap на кожному елементі викликає
+// getComputedStyle, а DOM тут великий — 519 КБ html із 76 інлайновими svg.
+// Жодна з цих анімацій не потрібна одразу — усі спрацьовують при прокрутці,
+// тож ініціалізуємо їх після першого кадру, щоб не тримати LCP.
+function initAnimations() {
+
 applyScrollTriggerAnimation(
   '.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items',
 );
@@ -406,3 +431,7 @@ gsap.timeline({
 })
   .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all', immediateRender: false })
   .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all', immediateRender: false }, '<');
+
+}
+
+afterFirstPaint(initAnimations);

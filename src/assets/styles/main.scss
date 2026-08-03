@@ -1,4 +1,5 @@
-@import './assets/vars';  // переменные
+@import './assets/vars';  // переменные и миксины (без вывода css)
+@import './assets/vars-output';  // :root, .color-*, .text-style-* — только здесь
 @import './assets/smart-grid';  // mixins smartgrid.js
 // libraries
 @import './libs';
@@ -29,9 +30,9 @@
 @import './components/vrtour-item';
 @import './components/sticky-block';
 @import './layouts/inner-page-head';
+@import './layouts/contact-screen';  // контактний екран, форма, попап — є на кожній сторінці
 
 
-//@import 'pages/contacts';
-//@import 'pages/contact';
-//@import 'pages/home';
-@import './assets/templates'; // main style
+// стили страниц собираются отдельными бандлами в dist/assets/styles/pages/
+// (таск stylesPages), сюда их импортировать не нужно
+//@import './assets/templates';

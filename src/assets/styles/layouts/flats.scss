@@ -1,0 +1,401 @@
+// Список квартир. Спільний для apartments і commercial.
+
+.flats {
+  margin-bottom: 96px;
+  &__container {
+    padding: 0 var(--page-side-fields) 0 var(--page-side-fields);
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  &__list {
+    display: grid;
+    row-gap: 8px;
+    column-gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin-top: 64px;
+  }
+
+  &__list-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 96px;
+  }
+
+  .flats-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    &__body {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    &__tab {
+      padding: 20px 28px;
+      transition: color 0.3s ease;
+      background-color: var(--color-07222-f);
+      color: var(--color-white);
+      text-decoration: none;
+      text-transform: uppercase;
+      @include to(600px) {
+        flex: 0 1 50%;
+      }
+
+      span {
+        position: relative;
+        z-index: 1;
+      }
+
+      &--active {
+        color: var(--color-07222-f);
+      }
+
+      &--commercial {
+        background-color: #2d5a27;
+      }
+    }
+
+    &__active-bg {
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: var(--color-white);
+    }
+
+    &__3d {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      padding: 10px 0;
+      transition: color 0.3s ease;
+      background: transparent;
+      cursor: pointer;
+      border: none;
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--color-07222-f);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      &:hover {
+        &::after {
+          transform: scaleX(1);
+        }
+
+        .flats-nav__3d-icon {
+          transform: translateX(8px);
+        }
+      }
+
+      &::after {
+        transform-origin: left;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: scaleX(0.3);
+        width: 100%;
+        height: 1px;
+        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        background-color: currentColor;
+      }
+    }
+
+    &__3d-text {
+      margin-right: 15px;
+    }
+
+    &__3d-icon {
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease;
+      svg {
+        width: 20px;
+        height: auto;
+      }
+    }
+  }
+
+  .flat-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    min-height: 360px;
+    padding: 8px;
+    transition: border 0.4s ease-in-out;
+    background-color: rgba(#fafbfe, 0.88);
+    cursor: pointer;
+    border: 1px solid #dbe4ec;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: normal;
+    &:hover {
+      .flat-card__img {
+        img {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    &:visited {
+      color: inherit;
+    }
+    &__header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      width: auto;
+      height: auto;
+      padding: 4px 12px;
+      background-color: #1a1e21;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: $default-font, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 130%;
+      color: #fafbfe;
+      text-decoration: none;
+      text-transform: none;
+    }
+
+    &__status {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+      width: auto;
+      height: auto;
+      padding: 4px 12px;
+      background-color: #25b14c;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: $default-font, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 130%;
+      color: #fafbfe;
+      text-decoration: none;
+      text-transform: capitalize;
+      &:hover {
+        .flat-card__tooltip {
+          opacity: 1;
+          transform: translateX(-50%) translateY(-12px);
+        }
+      }
+    }
+
+    &__tooltip {
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+      bottom: 100%;
+      left: 50%;
+      opacity: 0;
+      transform: translateX(-50%) translateY(-4px);
+      width: 150%;
+      padding: 16px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      background-color: #fff;
+      border: 1px solid rgba(174, 190, 204, 0.8);
+      border-radius: 8px;
+      color: #1a1e21;
+      text-align: center;
+      text-transform: none;
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(50%) rotate(45deg);
+        width: 10px;
+        height: 10px;
+        background: white;
+        border: 1px solid rgba(174, 190, 204, 0.8);
+        border-top: none;
+        border-left: none;
+        border-radius: 0 0 3px 0;
+      }
+    }
+
+    &__img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 220px;
+      min-height: 220px;
+      margin-top: 8px;
+      padding: 6px;
+      padding-bottom: 8px;
+      transition: border-bottom 0.4s ease-in-out;
+      background-color: #fff;
+      border-radius: 4px;
+      img {
+        object-fit: contain;
+        display: inline-block;
+        max-width: 100%;
+        max-height: 100%;
+        transition: transform 0.4s ease-in-out;
+      }
+    }
+
+    &__info-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      margin-top: 12px;
+    }
+
+    &__label-wrapper {
+      display: flex;
+      height: min-content;
+      gap: 4px;
+      padding: 4px 12px;
+      background-color: #fafbfe;
+      border: 1px solid #dbe4ec;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: $default-font, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 130%;
+      color: #1a1e21;
+    }
+
+    &__price {
+      margin-top: 8px;
+      margin-bottom: 8px * -1;
+      font-size: 32px;
+      font-family: $default-font, sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%;
+      color: #1a1e21;
+      text-decoration: none;
+      text-transform: none;
+    }
+
+    &__m2-price {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 20px;
+      font-family: $default-font, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      color: #1a1e21;
+      text-decoration: none;
+      text-transform: none;
+    }
+
+    &__more {
+      margin-top: 8px;
+      padding: 11px 12px;
+      transition: 0.25s ease-out;
+      background-color: #07222f;
+      cursor: pointer;
+      border: 1px solid #04141c;
+      border-color: #04141c;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: $default-font, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 130%;
+      color: #fafbfe;
+      text-align: center;
+      text-decoration: none;
+      text-transform: none;
+      &:hover {
+        background-color: #123749;
+        border-color: #07222f;
+      }
+    }
+  }
+
+  .flats-recommendation {
+    margin-top: 32px;
+    @include from(1024px) {
+      margin-top: 64px;
+    }
+
+    &__title {
+    }
+
+    &__list {
+      position: relative;
+      margin-top: 16px;
+      @include from(1024px) {
+        margin-top: 32px;
+      }
+
+      .swiper-wrapper {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .swiper-slide {
+        height: auto; 
+      }
+    }
+
+    &__nav {
+      pointer-events: none;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      padding: 20px;
+      @include from(1024px) {
+        padding: 40px;
+      }
+    }
+
+    &__nav-prev, &__nav-next {
+      pointer-events: all;
+      position: relative;
+      background-color: rgba(7, 34, 47, 0.7);
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(7, 34, 47, 0.9);
+      }
+      svg {
+        path {
+          fill: var(--color-bg-colour);
+        }
+      }
+    }    
+  }
+}

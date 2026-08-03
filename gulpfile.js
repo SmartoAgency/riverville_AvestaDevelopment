@@ -4,6 +4,7 @@ let typeScriptSetting = false;
 
 
 var fs = require('fs');
+const { Transform } = require('stream');
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const del = require('del');
@@ -17,6 +18,7 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
+const critical = require('./critical.js');
 // webpack
 const gulpWebpack = require('gulp-webpack');
 const webpack = require('webpack');
@@ -65,6 +67,12 @@ const paths = {
 				src: './src/**/*.scss',
 				dest: './dist/assets/styles'
 		},
+		// каждая страница собирается в отдельный бандл, чтобы не тащить
+		// стили всех страниц на каждую страницу
+		stylesPages: {
+				src: './src/assets/styles/pages/*.scss',
+				dest: './dist/assets/styles/pages'
+		},
 		scripts: {
 				src: './src/**/*.js',
 				dest: './dist/assets/scripts/'
@@ -106,8 +114,8 @@ const paths = {
 // слежка
 function watch() {
     gulp.watch(paths.templateStyles.main, watchScssTemplates);
-		gulp.watch(paths.styles.src, styles);
-    gulp.watch(paths.templates.src, templates);
+		gulp.watch(paths.styles.src, gulp.series(gulp.parallel(styles, stylesPages), criticalCss));
+    gulp.watch(paths.templates.src, gulp.series(templates, criticalCss));
     if (webPackSetting) {
       gulp.watch(paths.scripts.src, scripts); //for webpack
     }
@@ -212,9 +220,61 @@ function styles() {
 		.pipe(autoprefixer({
 				cascade: false
 		}))
-		.pipe(rename("main.min.css"))
+		.pipe(rename({ suffix: '.min' })) // main.scss -> main.min.css, critical.scss -> critical.min.css
 		.pipe(sourcemaps.write('.')) // отдельный .map, а не inline внутри CSS
 		.pipe(gulp.dest(paths.styles.dest))
+}
+
+// общие импорты, которые нужны каждому page-бандлу:
+// переменные и миксины, без них страницы не скомпилируются
+const SHARED_SCSS = [
+		"@import 'assets/vars';",
+		"@import 'assets/smart-grid';",
+		"@import 'assets/mixins';",
+		''
+].join('\n');
+
+// дописывает SHARED_SCSS в начало файла перед компиляцией.
+// gulp-sass берёт исходник из file.contents, а относительные @import
+// внутри страницы резолвятся от file.path, поэтому подмена безопасна
+function prependShared() {
+		return new Transform({
+				objectMode: true,
+				transform(file, enc, callback) {
+						if (file.isBuffer()) {
+								file.contents = Buffer.concat([Buffer.from(SHARED_SCSS), file.contents]);
+						}
+						callback(null, file);
+				}
+		});
+}
+
+// scss страниц
+function stylesPages() {
+		return gulp.src(paths.stylesPages.src)
+		.pipe(prependShared())
+		.pipe(sourcemaps.init())
+		.pipe(sass({
+				outputStyle: 'compressed',
+				includePaths: ['./src/assets/styles']
+		}))
+		.on('error', notify.onError({
+				title: 'SCSS pages',
+				message: '<%= error.message %>'
+		}))
+		.pipe(autoprefixer({
+				cascade: false
+		}))
+		.pipe(rename({ suffix: '.min' }))
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(paths.stylesPages.dest))
+}
+
+// критичний CSS першого екрана головної.
+// Читає готові dist/index.html + dist/**/*.css, тому має йти після styles,
+// stylesPages і templates. Логіка — в ./critical.js
+function criticalCss() {
+		return critical();
 }
 
 // fonts
@@ -323,6 +383,8 @@ function libs() {
 
 exports.templates = templates;
 exports.styles = styles;
+exports.stylesPages = stylesPages;
+exports.critical = criticalCss;
 
 let additionalTask = [];
 
@@ -356,7 +418,8 @@ gulp.task('default', gulp.series(
 		clean,
     libs,
     ...additionalTask,
-		gulp.parallel(styles, templates, fonts, gulpModules, testJsLint, images, video, static),
+		gulp.parallel(styles, stylesPages, templates, fonts, gulpModules, testJsLint, images, video, static),
+		criticalCss,
 		gulp.parallel(watch, server)
 ));
 
@@ -369,7 +432,9 @@ const pathsProd = {
 		dest: './prod'
 	},
 	style: {
-		src: './dist/assets/styles/*.css',
+		// ** — чтобы забрать и pages/*.min.css, base сохраняет вложенность
+		src: './dist/assets/styles/**/*.css',
+		base: './dist/assets/styles',
 		dest: './prod/assets/styles',
 	},
 	js: {
@@ -400,12 +465,12 @@ function _templates() {
 }
 // CSS
 function _styles() {
-	return gulp.src(pathsProd.style.src)
+	return gulp.src(pathsProd.style.src, { base: pathsProd.style.base })
 		.pipe(autoprefixer({
 			cascade: false
 		}))
 		.pipe(cleanCSS())
-		.pipe(gulp.dest(paths.styles.dest))
+		.pipe(gulp.dest(pathsProd.style.dest))
 }
 
 // FONTS
@@ -458,5 +523,6 @@ exports._images = _images;
 
 gulp.task('prod', gulp.series(
 	_clean,
+	criticalCss, // до _styles: той забирає dist/assets/styles/**/*.css разом із critical/
 	gulp.parallel(_templates, _fonts, _static, _scripts, _styles, _images)
 ));

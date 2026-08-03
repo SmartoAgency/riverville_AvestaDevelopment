@@ -1,0 +1,14 @@
+// Хвилястий декор-роздільник. Використовується на about і infrastructure.
+
+.about-decor {
+    width: 100%;
+    height: auto;
+    max-width: 100vw;
+    overflow: hidden;
+    @include from-to(601px, 1024px){
+        height: 100px;
+    }
+    @include to(600px){
+        height: 50px;
+    }
+}

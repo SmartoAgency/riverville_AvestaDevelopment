@@ -1,0 +1,58 @@
+// Сітка карток новин. Спільна для news, single-news і single-construction.
+
+.news-container {
+    // @include row-flex();
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: calc(var(--section-v-offset) * 1.33);
+    overflow: hidden;
+    --gap: 20px;
+    gap: var(--gap);
+    padding-left: var(--page-side-fields);
+    padding-right: var(--page-side-fields);
+    @include to(1024px){
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+    }
+    @include to(600px){
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &__title {
+        width: 100%;
+        margin-bottom: 60px;
+        text-align: center;
+        padding-left: var(--page-side-fields);
+        padding-right: var(--page-side-fields);
+        margin-top: calc(var(--section-v-offset) * 1.33);
+        @include to(1024px){
+            @include text-style-768-h-1;
+        }
+        @include to(600px){
+            @include text-style-375-h-1;
+            margin-bottom: 40px;
+        }
+    }
+    .news-card {
+        width: calc(50% - (var(--gap) / 2));
+        @include to(1024px){
+            width: 100%;
+        }
+    }
+    .construction-card {
+        // width: 50%;
+        @include from(1025px){
+            width: calc(33% - 10px);
+        }
+        @include to(1024px){
+            width: 100%;
+        }
+    }
+    .news-card:nth-child(3n - 1),
+    .news-card:nth-child(3n) {
+        margin-left: -1px;
+    }
+    .news-card:nth-child(n+3) {
+        margin-top: -1px;
+    }
+}
