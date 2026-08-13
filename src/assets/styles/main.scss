@@ -1,11 +1,11 @@
 @import './assets/vars';  // переменные и миксины (без вывода css)
+@import './assets/mixins';  // миксины — должны быть импортированы до vars-output, иначе pxWidthInVw и т.п. не резолвятся
 @import './assets/vars-output';  // :root, .color-*, .text-style-* — только здесь
 @import './assets/smart-grid';  // mixins smartgrid.js
 // libraries
 @import './libs';
 
 // assets
-@import './assets/mixins';  // миксины
 @import './assets/fonts';  // шрифты
 @import './assets/base';  // общие стили
 @import './assets/animation';  // анимации

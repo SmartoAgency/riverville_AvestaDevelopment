@@ -6,6 +6,7 @@ const config = {
   entry: {
     'immediate-loading': './src/assets/scripts/immediate-loading.js',
     'single-news': './src/assets/scripts/single-news.js',
+    construction: './src/assets/scripts/construction.js',
     'single-construction': './src/assets/scripts/single-construction.js',
     'vr-tours': './src/assets/scripts/vr-tours.js',
     home: './src/assets/scripts/home.js',

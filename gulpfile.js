@@ -464,6 +464,12 @@ function _templates() {
 		.pipe(gulp.dest(pathsProd.root));
 }
 // CSS
+// PurgeCSS (2026-08-04) пробували підключити тут — зламало прод: form-popup/
+// intl-tel-input і навіть .mobile-callback-popup (є в header.pug, мав би бути
+// знайдений) постраждали. dist/*.html з цього репозиторію не еквівалентний
+// реальній WP-розмітці, і навіть там, де контент вірний, PurgeCSS зрізав
+// потрібне. Відкладено — потребує live-HTML як джерела й повного візуального
+// regression-тесту перед наступною спробою, а не тільки safelist.
 function _styles() {
 	return gulp.src(pathsProd.style.src, { base: pathsProd.style.base })
 		.pipe(autoprefixer({

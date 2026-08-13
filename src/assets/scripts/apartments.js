@@ -105,6 +105,34 @@ function RenderInfoRow(label, value) {
  * @property {number|string} id
  */
 
+const ORIGIN = 'https://riverville.com.ua';
+
+/**
+ * Збирає посилання картки, щоб воно віддавало 200 без редиректу.
+ *
+ * `3d_url` приходить з CRM у вигляді `/3d?&favourites=&type=flyby...`, і кожна
+ * з трьох дрібниць у цьому рядку окремо дає 301: слеш на початку (склеювався з
+ * базою в `//3d`), відсутній слеш перед `?` (`/3d?` → `/3d/?`) і порожній
+ * перший параметр (`?&` → `?`). Плюс в одного об'єкта значення приходить
+ * загорнутим у лапки, тому їх теж зрізаємо.
+ *
+ * @param {number|string} url3d - `3d_url` з CRM або числовий id квартири
+ * @returns {string}
+ */
+
+function buildFlatUrl(url3d) {
+  if (parseInt(url3d)) {
+    return `${ORIGIN}/3d/?currency=UAH&type=flat&id=${url3d}`;
+  }
+
+  const raw = String(url3d).trim().replace(/^['"]+/, '').replace(/['"]+$/, '');
+  const [rawPath, rawQuery = ''] = raw.split('?');
+  const path = rawPath.replace(/^\/+/, '').replace(/\/+$/, '');
+  const query = rawQuery.replace(/^&+/, '');
+
+  return `${ORIGIN}/${path}/${query ? `?${query}` : ''}`;
+}
+
 /**
  *
  * @param {FlatCardProps} props
@@ -112,9 +140,7 @@ function RenderInfoRow(label, value) {
  */
 
 export function FlatCard({ area, price, priceM2, img, number, build, section, floor, rooms, url3d }) {
-  const url = `https://riverville.com.ua/${
-    parseInt(url3d) ? `3d/?currency=UAH&type=flat&id=${url3d}` : url3d
-  }`;
+  const url = buildFlatUrl(url3d);
   return `
     <a class="flat-card" href="${url}">
       <div class="flat-card__header">
