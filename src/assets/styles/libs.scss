@@ -1,8 +1,29 @@
-@import '../scripts/libs/swiper/swiper';
 @import '../../../node_modules/swiper/swiper';
-@import '../../../node_modules/swiper/modules/effect-fade/effect-fade';
-@import '../../../node_modules/accordion-js/dist/accordion.min';
+// accordion-js більше не використовується: жоден JS його не імпортує, а класів
+// .ac / .ac-header немає в жодній із 82 сторінок сайту. Акордеони на сайті —
+// власні, на [data-accordion] + .accordion_open (див. index-app.js).
+// @import '../../../node_modules/accordion-js/dist/accordion.min';
 @import '../../../node_modules/intl-tel-input/build/css/intlTelInput.min';
+
+// Легасі-псевдонім кореня слайдера.
+// Частина розмітки (і в pug, і в WP-шаблонах) досі має клас `.swiper-container`
+// з часів Swiper 6. Swiper 9 при ініціалізації додає лише модифікатори
+// (`swiper-initialized`, `swiper-horizontal`, `swiper-android`…, див.
+// node_modules/swiper/core/classes/addClasses.js), а базовий клас `.swiper`
+// очікує вже в HTML — тому без цього рядка такі слайдери лишаються без
+// overflow:hidden і розсипаються.
+// Прибрати, коли в розмітці не лишиться жодного `.swiper-container`.
+.swiper-container {
+  @extend .swiper;
+}
+
+// Єдине потрібне правило з navigation.scss: модуль Navigation вішає цей клас на
+// наші власні кнопки, коли гортати нема куди. Решту navigation.scss не імпортуємо —
+// стрілки в проєкті свої (`[data-*-next]/[data-*-prev]`), а `.swiper-button-disabled`
+// стилізується у власних стилях сторінок.
+.swiper-button-lock {
+  display: none;
+}
 
 
 

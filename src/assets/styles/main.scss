@@ -28,7 +28,8 @@
 @import './components/delimiter';
 @import './components/construction-card';
 @import './components/vrtour-item';
-@import './components/sticky-block';
+// sticky-block та його картки — тільки на about/infrastructure/commercial/developer,
+// тому імпортуються у відповідні pages/*.scss, а не глобально
 @import './layouts/inner-page-head';
 @import './layouts/contact-screen';  // контактний екран, форма, попап — є на кожній сторінці
 

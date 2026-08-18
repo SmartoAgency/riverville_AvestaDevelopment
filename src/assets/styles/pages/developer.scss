@@ -1,3 +1,4 @@
+@import '../components/sticky-block-buttons';
 .developer-block {
     overflow: hidden;
     @include to(1024px){

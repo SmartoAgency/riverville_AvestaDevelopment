@@ -9,7 +9,6 @@ import SexyInput from '../../../pug/components/input/input';
  * form handlers start
  */
 const forms = ['[data-popupn-form]', '[data-contact-screen-form]'];
-console.log('ffff');
 forms.forEach(form => {
   const $form = document.querySelector(form);
   if ($form) {

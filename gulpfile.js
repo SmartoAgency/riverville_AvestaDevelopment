@@ -18,6 +18,7 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
+const purgecss = require('gulp-purgecss');
 const critical = require('./critical.js');
 // webpack
 const gulpWebpack = require('gulp-webpack');
@@ -464,19 +465,138 @@ function _templates() {
 		.pipe(gulp.dest(pathsProd.root));
 }
 // CSS
-// PurgeCSS (2026-08-04) пробували підключити тут — зламало прод: form-popup/
-// intl-tel-input і навіть .mobile-callback-popup (є в header.pug, мав би бути
-// знайдений) постраждали. dist/*.html з цього репозиторію не еквівалентний
-// реальній WP-розмітці, і навіть там, де контент вірний, PurgeCSS зрізав
-// потрібне. Відкладено — потребує live-HTML як джерела й повного візуального
-// regression-тесту перед наступною спробою, а не тільки safelist.
+//
+// PurgeCSS. Перша спроба 2026-08-04 зламала прод, бо сканувала `dist/*.html` —
+// pug-збірку цього репозиторію, яка НЕ еквівалентна живій WP-розмітці. Тому
+// тепер джерело — знімок реальних сторінок сайту в `.purgecss-content/`, який
+// наповнює окрема задача `purgeContent` (див. нижче).
+//
+// Ріжеться тільки `main.min.css`: у сторінкових бандлах зайвого ~2%, а ризик
+// той самий, тож вони проходять повз.
+//
+// Якщо знімка немає — крок мовчки пропускається (віддаємо повний CSS). Краще
+// залити незрізаний файл, ніж зрізаний за порожнім корпусом.
+const PURGE_CONTENT_DIR = './.purgecss-content';
+
+// Класи, яких немає в розмітці на момент сканування, бо їх додає JS або
+// бібліотека вже в браузері. Саме ця категорія й зламала прод минулого разу.
+const PURGE_SAFELIST = {
+	standard: [
+		/^iti/, /^intl-tel-input/,   // прапорці країн, генерується intl-tel-input
+		/^swiper/,                   // рантайм-модифікатори Swiper
+		/^headroom/,                 // стани хедера
+		/^toast/,                    // тости створює form-view.js через addToast()
+		/^field--/,                  // стани полів форми (data-status -> клас)
+		/^form-/,                    // родина форми цілком
+		/^js-/,                      // класи-стани з префіксом js-
+		/^mobile-callback-popup/,    // плаваюча кнопка дзвінка
+		/^text-style-/, /^color-/,   // типографіка й кольори: ними верстає редактор
+		// стани, які вішає JS проєкту (зібрано з classList.add/toggle по src/)
+		'active', 'selected', 'closed', 'hidden-for-video', 'is-active', 'is-open',
+		'is-switching', 'left-side', 'safari', 'popup-open', 'accordion_open',
+		'menu__active', 'select-arrow-active', 'select-hide', 'flats-nav__tab--active',
+		'tablet', 'mobile', 'desktop',
+	],
+	// deep/greedy — для віджетів, чию внутрішню розмітку цілком будує бібліотека
+	deep: [/^iti/, /^toast/, /^swiper/],
+	// `^data-` — принципове правило, а не латка: у цьому проєкті всі data-*
+	// атрибути є хуками для JS і виставляються в рантаймі, тож у статичній
+	// розмітці їх немає й PurgeCSS вважає такі правила мертвими. Без цього
+	// рядка зрізаються стани полів форми
+	// ([data-status=field--error] .input-message і подібні) — форма виглядає
+	// цілою й ламається лише коли користувач помилиться у полі.
+	// Увага: patterns тут матчаться проти частин селектора БЕЗ квадратних
+	// дужок, тому /\[data-/ мовчки не працює — перевірено.
+	greedy: [/^iti/, /^toast/, /^data-/],
+};
+
+// Крім знімка розмітки, скануємо ще й вихідний JS. Частину класів верстка не
+// містить взагалі — вони існують лише в рядкових шаблонах (`insertAdjacentHTML`
+// у modules/form.js вставляє `.button-30--success-popup`, form-view.js будує
+// тости) та в `classList.add(...)`. Без цього такі правила зрізаються, і
+// зламане видно тільки після відправки форми.
+// libs/ виключено: там мініфіковані вендорні файли, з яких екстрактор витягує
+// сміттєві токени і безпідставно рятує зайве.
+const PURGE_JS_SOURCES = [
+	'./src/assets/scripts/**/*.js',
+	'!./src/assets/scripts/libs/**/*.js',
+	'!./src/assets/scripts/gulp-modules/**/*.js',
+	'./src/pug/components/**/*.js',
+];
+
+function purgeContentFiles() {
+	if (!fs.existsSync(PURGE_CONTENT_DIR)) return null;
+	const files = fs.readdirSync(PURGE_CONTENT_DIR).filter(f => f.endsWith('.html'));
+	return files.length ? [`${PURGE_CONTENT_DIR}/*.html`, ...PURGE_JS_SOURCES] : null;
+}
+
+function passthrough() {
+	return new Transform({ objectMode: true, transform(file, enc, cb) { cb(null, file); } });
+}
+
 function _styles() {
-	return gulp.src(pathsProd.style.src, { base: pathsProd.style.base })
-		.pipe(autoprefixer({
-			cascade: false
-		}))
+	const content = purgeContentFiles();
+	if (!content) {
+		console.log('\x1b[33m%s\x1b[0m', `PurgeCSS пропущено: немає ${PURGE_CONTENT_DIR}. Спочатку: npx gulp purgeContent`);
+	}
+
+	const main = gulp.src('./dist/assets/styles/main.min.css', { base: pathsProd.style.base })
+		.pipe(autoprefixer({ cascade: false }))
+		.pipe(content ? purgecss({ content, safelist: PURGE_SAFELIST }) : passthrough())
 		.pipe(cleanCSS())
-		.pipe(gulp.dest(pathsProd.style.dest))
+		.pipe(gulp.dest(pathsProd.style.dest));
+
+	const rest = gulp.src([pathsProd.style.src, '!./dist/assets/styles/main.min.css'], { base: pathsProd.style.base })
+		.pipe(autoprefixer({ cascade: false }))
+		.pipe(cleanCSS())
+		.pipe(gulp.dest(pathsProd.style.dest));
+
+	return merge(main, rest);
+}
+
+// Знімок живої розмітки для PurgeCSS.
+// Sitemap самого по собі НЕ досить: у ньому немає /3d/ і сторінки 404, а вони
+// мають власну розмітку — перевірено, без них зрізалось на 2 KB більше, ніж можна.
+const PURGE_SITE = 'https://riverville.com.ua';
+const PURGE_EXTRA_URLS = [`${PURGE_SITE}/3d/`, `${PURGE_SITE}/neisnuyucha-storinka-404/`];
+
+function fetchUrl(url) {
+	return new Promise((resolve, reject) => {
+		require('https').get(url, res => {
+			if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+				resolve(fetchUrl(res.headers.location));
+				return;
+			}
+			const chunks = [];
+			res.on('data', c => chunks.push(c));
+			res.on('end', () => resolve(Buffer.concat(chunks).toString()));
+		}).on('error', reject);
+	});
+}
+
+const locsOf = xml => [...xml.matchAll(/<loc>(?:<!\[CDATA\[)?([^\]<]+)/g)].map(m => m[1].trim());
+
+async function purgeContent() {
+	const index = await fetchUrl(`${PURGE_SITE}/sitemap.xml`);
+	const urls = new Set(PURGE_EXTRA_URLS);
+
+	for (const sub of locsOf(index)) {
+		locsOf(await fetchUrl(sub)).forEach(u => urls.add(u));
+	}
+
+	del.sync([`${PURGE_CONTENT_DIR}/**`], { force: true });
+	fs.mkdirSync(PURGE_CONTENT_DIR, { recursive: true });
+
+	let i = 0;
+	for (const url of urls) {
+		i += 1;
+		try {
+			fs.writeFileSync(`${PURGE_CONTENT_DIR}/p${i}.html`, await fetchUrl(url));
+		} catch (e) {
+			console.log(`  пропущено ${url}: ${e.message}`);
+		}
+	}
+	console.log(`Знімок оновлено: ${i} сторінок у ${PURGE_CONTENT_DIR}`);
 }
 
 // FONTS
@@ -526,6 +646,7 @@ exports._clean = _clean;
 exports._scripts = _scripts;
 exports._styles = _styles;
 exports._images = _images;
+exports.purgeContent = purgeContent;
 
 gulp.task('prod', gulp.series(
 	_clean,

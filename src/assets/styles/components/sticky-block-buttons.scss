@@ -1,0 +1,14 @@
+// Ряд кнопок під sticky-блоком. Живе окремо від components/sticky-block.scss,
+// бо в темі трапляється і сам по собі (напр. /developer/), без обгортки
+// .sticky-block — тягнути заради нього всю базу компонента немає сенсу.
+.sticky-block__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 42px;
+    @include to(600px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+}

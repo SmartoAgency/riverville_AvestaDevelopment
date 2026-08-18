@@ -9,10 +9,14 @@
 
 @include reset();
 
-.debug {
-	z-index: 999999;
-	@include debug(rgba(0, 0, 0, .5), 1px solid #ff0);
-}
+// Оверлей колонкової сітки для розробки. Розгортався в ~7 KB CSS (mixin debug
+// зі smart-grid генерує правило на кожну з 12 колонок × усі брейкпоінти) і їхав
+// у main.min.css на кожну сторінку, хоча класу .debug немає в жодній із 82
+// сторінок сайту. Щоб увімкнути тимчасово — розкоментувати.
+// .debug {
+// 	z-index: 999999;
+// 	@include debug(rgba(0, 0, 0, .5), 1px solid #ff0);
+// }
 
 .page__inner {
 	@media screen and (max-width:600px){

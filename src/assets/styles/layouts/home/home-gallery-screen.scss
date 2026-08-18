@@ -242,6 +242,10 @@
         justify-content: center;
         transition: var(--transition);
         font-size: 24px;
+        // мусить бути вище за __slider-bottom-gradient (z-index: 2), інакше
+        // градієнт перекриє лічильник. Раніше цей z-index приходив із базового
+        // правила Swiper 6, яке ми прибрали разом із його CSS (див. libs.scss)
+        z-index: 10;
         @include to(600px){
             bottom: 20px;
         }

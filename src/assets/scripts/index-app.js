@@ -1,5 +1,6 @@
+import './modules/public-path'; // має бути найпершим — до будь-якого import()
 import { gsap } from 'gsap';
-import './modules/form';
+import './modules/form-lazy';
 import './modules/menu-v2';
 import { lenis } from './modules/scroll/leniscroll';
 

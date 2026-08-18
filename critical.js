@@ -1,7 +1,7 @@
 /**
  * Генератор критичного CSS.
  *
- * Ідея: беремо HTML, відрізаємо все від <body> до маркера CUT (перший блок,
+ * Ідея: беремо HTML, відрізаємо все від <body> до маркера cut (перший блок,
  * який завідомо нижче згину), збираємо звідти класи й data-атрибути — і лишаємо
  * в CSS тільки ті правила, чиї селектори повністю покриваються цим набором.
  *
@@ -9,23 +9,18 @@
  * Зате не тягне за собою headless-браузер і працює за секунди.
  *
  * Використання:
- *   gulp critical                                 # таск у збірці
- *   node critical.js                              # з dist/index.html
- *   node critical.js https://riverville.com.ua/   # з живої сторінки
+ *   gulp critical                                          # усі сторінки з PAGES
+ *   node critical.js                                       # усі сторінки з PAGES
+ *   node critical.js infrastructure                        # тільки одна сторінка
+ *   node critical.js infrastructure https://riverville.com.ua/infrastructure/  # з живої сторінки
  */
 
 const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
 
-const CONFIG = {
-	// Все до цього маркера вважаємо першим екраном.
-	cut: 'home-about-screen',
-	css: [
-		'dist/assets/styles/main.min.css',
-		'dist/assets/styles/pages/home.min.css',
-	],
-	out: 'dist/assets/styles/critical/home.css',
+// Спільне для всіх сторінок.
+const SHARED = {
 	// Інлайновий CSS резолвить відносні url() від адреси ДОКУМЕНТА, а не від
 	// папки стилю. Тому '../' з main.min.css треба переписати в абсолютний
 	// шлях від кореня сайту — інакше всі шрифти й картинки ведуть у нікуди.
@@ -39,16 +34,38 @@ const CONFIG = {
 	],
 };
 
-function aboveTheFold(html) {
+// Одна сторінка = один запис. cut — клас блоку, який відкриває другий екран.
+const PAGES = {
+	home: {
+		src: 'dist/index.html',
+		cut: 'home-about-screen',
+		css: [
+			'dist/assets/styles/main.min.css',
+			'dist/assets/styles/pages/home.min.css',
+		],
+		out: 'dist/assets/styles/critical/home.css',
+	},
+	infrastructure: {
+		src: 'dist/infrastructure.html',
+		cut: 'infrastructure-block-with-render',
+		css: [
+			'dist/assets/styles/main.min.css',
+			'dist/assets/styles/pages/infrastructure.min.css',
+		],
+		out: 'dist/assets/styles/critical/infrastructure.css',
+	},
+};
+
+function aboveTheFold(html, cut) {
 	const start = html.indexOf('<body');
-	const cutAt = html.indexOf(CONFIG.cut);
+	const cutAt = html.indexOf(cut);
 	if (start < 0) throw new Error('не знайдено <body>');
-	if (cutAt < 0) throw new Error(`не знайдено маркер "${CONFIG.cut}" — перевір CONFIG.cut`);
+	if (cutAt < 0) throw new Error(`не знайдено маркер "${cut}" — перевір PAGES[...].cut`);
 	return html.slice(start, cutAt);
 }
 
 function collect(html) {
-	const classes = new Set(CONFIG.extraClasses);
+	const classes = new Set(SHARED.extraClasses);
 	const attrs = new Set();
 
 	const classRe = /class\s*=\s*("([^"]*)"|'([^']*)')/g;
@@ -125,7 +142,7 @@ function build(cssText, classes, attrs) {
 // data: і вже абсолютні адреси не чіпаємо.
 function absolutizeUrls(css) {
 	return css.replace(/url\(\s*(['"]?)((?:\.\.\/)+)([^'")]+)\1\s*\)/g,
-		(_all, quote, _dots, rest) => `url(${quote}${CONFIG.urlBase}${rest}${quote})`);
+		(_all, quote, _dots, rest) => `url(${quote}${SHARED.urlBase}${rest}${quote})`);
 }
 
 /**
@@ -161,12 +178,13 @@ async function readSource(src) {
 	return fs.readFileSync(src, 'utf8');
 }
 
-async function generate(src = 'dist/index.html') {
+async function generateOne(page, { src } = {}) {
+	src = src || page.src;
 	const html = await readSource(src);
-	const { classes, attrs } = collect(aboveTheFold(html));
+	const { classes, attrs } = collect(aboveTheFold(html, page.cut));
 
 	let out = '';
-	for (const file of CONFIG.css) {
+	for (const file of page.css) {
 		if (!fs.existsSync(file)) {
 			console.warn(`  пропущено (немає): ${file}`);
 			continue;
@@ -176,25 +194,42 @@ async function generate(src = 'dist/index.html') {
 
 	out = dedupe(out);
 
-	fs.mkdirSync(path.dirname(CONFIG.out), { recursive: true });
-	fs.writeFileSync(CONFIG.out, out);
+	fs.mkdirSync(path.dirname(page.out), { recursive: true });
+	fs.writeFileSync(page.out, out);
 
-	const before = CONFIG.css
+	const before = page.css
 		.filter(f => fs.existsSync(f))
 		.reduce((n, f) => n + fs.statSync(f).size, 0);
 
 	console.log(`critical: джерело розмітки ${src}`);
 	console.log(`critical: класів у першому екрані ${classes.size}`);
 	console.log(`critical: ${before} -> ${out.length} байт (${Math.round((out.length / before) * 100)}%)`);
-	console.log(`critical: записано ${CONFIG.out}`);
+	console.log(`critical: записано ${page.out}`);
 }
 
-module.exports = generate;
-module.exports.CONFIG = CONFIG;
+async function generateAll() {
+	for (const page of Object.values(PAGES)) {
+		await generateOne(page);
+	}
+}
 
-// Запуск напряму: node critical.js [html-або-url]
+module.exports = generateAll;
+module.exports.generateOne = generateOne;
+module.exports.PAGES = PAGES;
+
+// Запуск напряму: node critical.js [сторінка з PAGES] [html-або-url]
 if (require.main === module) {
-	generate(process.argv[2]).catch((e) => {
+	const [pageName, src] = process.argv.slice(2);
+
+	const run = pageName
+		? (() => {
+			const page = PAGES[pageName];
+			if (!page) throw new Error(`невідома сторінка "${pageName}", є: ${Object.keys(PAGES).join(', ')}`);
+			return generateOne(page, { src });
+		})()
+		: generateAll();
+
+	run.catch((e) => {
 		console.error('critical:', e.message);
 		process.exit(1);
 	});

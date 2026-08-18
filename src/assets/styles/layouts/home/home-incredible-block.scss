@@ -1,7 +1,8 @@
 .home-incredible-block {
     display: grid;
     grid-template-columns: repeat(4, 25%);
-    grid-template-rows: repeat(12, 1fr);
+    // ряди створюються під фактичну кількість карток, усі однакової висоти
+    grid-auto-rows: 1fr;
     position: relative;
     z-index: 2;
     @include from-to(601px, 1024px){
@@ -12,7 +13,7 @@
     @media screen and (max-width:600px){
         grid-template-columns: repeat(2, 50%);
         // grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: auto;
+        grid-auto-rows: auto;
         padding-bottom: 50px;
     }
     &__item {
@@ -145,21 +146,8 @@
     }
     .home-incredible-block__item-19 {
         order: 19;
-    }
-    .home-incredible-block__item-20 {
-        order: 20;
-    }
-    .home-incredible-block__item-21 {
-        order: 21;
-    }
-    .home-incredible-block__item-22 {
-        order: 22;
-    }
-    .home-incredible-block__item-23 {
-        order: 23;
-    }
-    .home-incredible-block__item-24 {
-        order: 24;
+        // карток непарна кількість — остання займає весь рядок
+        width: 100%;
     }
 }
 

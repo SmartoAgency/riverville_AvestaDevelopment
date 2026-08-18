@@ -4,7 +4,7 @@
   "description": "work builder",
   "main": "index.js",
   "scripts": {
-    "prod": "gulp styles && gulp _styles && gulp scripts --production"
+    "prod": "gulp styles stylesPages && gulp _styles && gulp scripts --production && gulp _scripts"
   },
   "browserslist": [
     "last 3 version"
