@@ -119,64 +119,91 @@ document.addEventListener('keyup', evt => {
   }
 });
 
-// Timeline створюється один раз
 const menu = document.querySelector('[data-menu]');
 
-const menuOpenTl = gsap.timeline({ paused: true })
-  .add(() => menu.classList.add('active'))
-  .fromTo(
-    '.menu__list, .menu__image, .menu__contacts',
-    { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' },
-    {
-      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-      stagger: 0.1,
-      ease: 'power2.out',
-      duration: 1,
-      clearProps: 'clipPath',
-    },
-  )
-  .fromTo(
-    '[data-menu] .menu__link',
-    { opacity: 0, y: -20 },
-    { opacity: 1, y: 0, ease: 'power2.out', duration: 1, stagger: 0.1 },
-    '<',
-  )
-  .fromTo(
-    '[data-menu] .menu__close',
-    { opacity: 0, y: -20 },
-    { opacity: 1, y: 0, ease: 'power2.out', duration: 1 },
-    '<+0.5',
-  );
+// Таймлайни меню будувались прямо на парсингу index.bundle.js — тобто на кожній
+// сторінці. `fromTo` має immediateRender: true навіть у paused-таймлайні, тож
+// gsap ще до першого кліку реально прописував clipPath/opacity/y на
+// .menu__list, .menu__image, .menu__contacts і всі .menu__link. Меню в цей
+// момент сховане, візуально це нічого не давало — лише CPU і style recalc на
+// старті. Тепер конструюємо їх при першому відкритті (ТЗ 3.5.2.1, підпункт 3:
+// «після взаємодії користувача»).
+//
+// Обидва таймлайни створюються разом: у відкритті/закритті вони працюють у парі,
+// а підсумковий стан елементів після побудови (from-стан closeTl, який
+// перекриває from-стан openTl) має лишитись таким самим, як був раніше.
+let menuTimelines = null;
 
-const menuCloseTl = gsap.timeline({ paused: true })
-  .fromTo(
-    '[data-menu]>*:not(.menu__close)',
-    { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' },
-    {
-      clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-      stagger: 0.1,
-      ease: 'power2.out',
-      duration: 0.5,
-    },
-  )
-  .fromTo(
-    '[data-menu] .menu__link',
-    { opacity: 1, y: 0 },
-    { opacity: 0, y: -20, ease: 'power2.out', duration: 0.5, stagger: 0.1 },
-    '<',
-  )
-  .add(() => menu.classList.remove('active'), '<+0.5');
+function getMenuTimelines() {
+  if (menuTimelines) return menuTimelines;
+  if (!menu) return null;
+
+  const menuOpenTl = gsap.timeline({ paused: true })
+    .add(() => menu.classList.add('active'))
+    .fromTo(
+      '.menu__list, .menu__image, .menu__contacts',
+      { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' },
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        stagger: 0.1,
+        ease: 'power2.out',
+        duration: 1,
+        clearProps: 'clipPath',
+      },
+    )
+    .fromTo(
+      '[data-menu] .menu__link',
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, ease: 'power2.out', duration: 1, stagger: 0.1 },
+      '<',
+    )
+    .fromTo(
+      '[data-menu] .menu__close',
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, ease: 'power2.out', duration: 1 },
+      '<+0.5',
+    );
+
+  const menuCloseTl = gsap.timeline({ paused: true })
+    .fromTo(
+      '[data-menu]>*:not(.menu__close)',
+      { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' },
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+        stagger: 0.1,
+        ease: 'power2.out',
+        duration: 0.5,
+      },
+    )
+    .fromTo(
+      '[data-menu] .menu__link',
+      { opacity: 1, y: 0 },
+      { opacity: 0, y: -20, ease: 'power2.out', duration: 0.5, stagger: 0.1 },
+      '<',
+    )
+    .add(() => menu.classList.remove('active'), '<+0.5');
+
+  menuTimelines = { menuOpenTl, menuCloseTl };
+  return menuTimelines;
+}
 
 useSetMenuEffect(val => {
-  if (val) {
-    menuCloseTl.pause(0);
-    menuOpenTl.restart();
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  } else {
-    menuOpenTl.pause();
-    menuCloseTl.restart();
+  const timelines = getMenuTimelines();
+
+  if (timelines) {
+    const { menuOpenTl, menuCloseTl } = timelines;
+
+    if (val) {
+      menuCloseTl.pause(0);
+      menuOpenTl.restart();
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    } else {
+      menuOpenTl.pause();
+      menuCloseTl.restart();
+    }
   }
+
   document.body.classList.toggle('popup-open', val);
 });
 

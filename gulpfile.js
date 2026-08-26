@@ -328,7 +328,19 @@ gulp.task('clear', function () {
 })
 
 // webpack
+//
+// Прод-збірка (`gulp scripts --production`) і dev-watch пишуть в ОДНУ теку
+// dist/assets/scripts, але дають різний вміст → різний [contenthash] у
+// асинхронних чанках. Через це в prod/ осідали пари одного й того самого
+// чанка: swiper 419 КБ (dev) поряд зі 139 КБ (prod), form 673 КБ поряд із
+// 203 КБ і т.д. Лишаємо мітку режиму, щоб dev-збірку не можна було мовчки
+// скопіювати в prod (див. _assertProdBuild).
+const BUILD_MODE_FILE = './dist/assets/scripts/.build-mode';
+
 function scripts() {
+		fs.mkdirSync(paths.scripts.dest, { recursive: true });
+		fs.writeFileSync(BUILD_MODE_FILE, webpackConfig.mode);
+
 		return gulp.src(paths.scripts.src)
 				.pipe(gulpWebpack(webpackConfig, webpack))
 				.pipe(gulp.dest(paths.scripts.dest));
@@ -470,6 +482,50 @@ const pathsProd = {
 // CLEAN PROD FOLDER
 function _clean() {
 	return del(pathsProd.root);
+}
+
+// Точкова чистка перед копіюванням у prod/. Без неї там накопичуються файли
+// попередніх збірок: в імені асинхронних чанків стоїть [contenthash] (він
+// обов'язковий — див. коментар до output.chunkFilename у webpack.config.js),
+// тож кожна зміна коду лишає ще один form.*/gsap-scroll.*/swiper.*, а старий
+// нікуди не дівається. На 2026-08-26 таких «хвостів» накопичилось 8.
+//
+// Знищуємо саме `*.bundle.js`, а не всю теку: поряд лежать файли, яких
+// поточний пайплайн уже не генерує (libs.js, header.js, index.js, gsap.min.js
+// — усі з 2026-07-17), але на libs.js/header.js/index.js досі посилається
+// розмітка кількох сторінок, і в git їх немає (prod/ і dist/ у .gitignore).
+// Відновити їх збіркою не вийде, тому видаляти їх можна лише свідомо й з
+// перевіркою WP-теми — і точно не мовчки під час кожної збірки.
+// Копіювати в prod/ можна лише прод-збірку. Найчастіший спосіб отримати
+// dev-бандли на сайті — запустити `gulp _scripts` тоді, коли в dist лежить
+// результат watch-збірки (вона там опиняється сама, щойно змінюється будь-який
+// файл під src/**/*.js — а watch міг лишитись запущеним у сусідньому терміналі).
+function _assertProdBuild(done) {
+	const mode = fs.existsSync(BUILD_MODE_FILE)
+		? fs.readFileSync(BUILD_MODE_FILE, 'utf8').trim()
+		: 'невідомий';
+
+	if (mode !== 'production') {
+		done(new Error(
+			`У dist/assets/scripts лежить збірка в режимі «${mode}», а не production. ` +
+			'Спочатку `npm run prod` (або `gulp scripts --production`), і зупини watch, ' +
+			'щоб він не перезаписав dist. Копіювання в prod/ скасовано.'
+		));
+		return;
+	}
+
+	done();
+}
+
+function _cleanScripts() {
+	return del([
+		`${pathsProd.js.dest}/*.bundle.js`,
+		`${pathsProd.js.dest}/*.bundle.js.map`,
+	]);
+}
+
+function _cleanStyles() {
+	return del(pathsProd.style.dest);
 }
 // HTML
 function _templates() {
@@ -655,12 +711,13 @@ exports._templates = _templates;
 exports._fonts = _fonts;
 exports._static = _static;
 exports._clean = _clean;
-exports._scripts = _scripts;
-exports._styles = _styles;
+exports._scripts = gulp.series(_assertProdBuild, _cleanScripts, _scripts);
+exports._styles = gulp.series(_cleanStyles, _styles);
 exports._images = _images;
 exports.purgeContent = purgeContent;
 
 gulp.task('prod', gulp.series(
+	_assertProdBuild, // повна прод-збірка так само не має права взяти dev-бандли
 	_clean,
 	criticalCss, // до _styles: той забирає dist/assets/styles/**/*.css разом із critical/
 	gulp.parallel(_templates, _fonts, _static, _scripts, _styles, _images)

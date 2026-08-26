@@ -231,6 +231,27 @@ function onEnterView(el, callback, { rootMargin = '800px 0px', once = true } = {
   observer.observe(el);
 }
 
+// Для блоків, які на старті вже у вьюпорті (або потрапляють у запас rootMargin),
+// IntersectionObserver — фікція: він спрацьовує одразу після першого кадру і
+// списує вартість чанка в стартовий CPU. Якщо ефект без скролу все одно не
+// видно, прив'язуємось не до видимості, а до першого наміру скролити.
+// wheel/touchstart/pointerdown летять ПЕРЕД самим scroll, тож ініціалізація
+// встигає до першого зсуву сторінки.
+function onFirstInteraction(callback) {
+  const events = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'];
+  const listenerOpts = { passive: true, capture: true };
+  let done = false;
+
+  const run = () => {
+    if (done) return;
+    done = true;
+    events.forEach(type => window.removeEventListener(type, run, listenerOpts));
+    callback();
+  };
+
+  events.forEach(type => window.addEventListener(type, run, listenerOpts));
+}
+
 function applyScrollTriggerAnimation(selectors) {
   document.querySelectorAll(selectors).forEach(el => {
     onEnterView(el, async () => {
@@ -401,12 +422,24 @@ function initNewsWaveAnimation() {
   });
 }
 
-function runSplitLinesAndFadeUp() {
-  loadScrollTrigger().then(() => {
-    splitToLinesAndFadeUp(
-      '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-gallery-screen__title, .home-construction-screen__title',
-      gsap,
-    );
+const SPLIT_LINES_SELECTOR =
+  '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-gallery-screen__title, .home-construction-screen__title';
+
+// Раніше: один прохід по всій сторінці на requestIdleCallback — переписати
+// innerHTML кожного заголовка, gsap.set і ScrollTrigger на кожен, включно з
+// тими, що за сім екранів нижче. Плюс безумовний loadScrollTrigger(), через
+// який чанк gsap-scroll вантажився на головній завжди, навіть якщо жоден
+// scroll-ефект так і не знадобився.
+//
+// Тепер кожен заголовок обробляється у момент входу у вьюпорт, а сам ефект
+// іде в режимі immediate — момент старту задає IntersectionObserver, тож
+// ScrollTrigger тут не потрібен взагалі (rootMargin 0 = ScrollTrigger'ів
+// дефолтний start 'top bottom'). Потрібне лише ядро gsap.
+function initSplitLinesAndFadeUp() {
+  document.querySelectorAll(SPLIT_LINES_SELECTOR).forEach(el => {
+    onEnterView(el, () => splitToLinesAndFadeUp(el, gsap, { immediate: true }), {
+      rootMargin: '0px',
+    });
   });
 }
 
@@ -481,42 +514,62 @@ function initHomeParalaxBackgrounds() {
   });
 }
 
-function initFrontScreenParalax() {
+// Викликається вже після першої взаємодії (див. initAnimations), тому свого
+// гейта не має: фронт-екран за визначенням у вьюпорті, чекати на IO нема сенсу.
+async function initFrontScreenParalax() {
   const frontScreen = document.querySelector('.home-front-screen');
-  onEnterView(frontScreen, async () => {
-    await loadScrollTrigger();
+  if (!frontScreen) return;
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: '.home-front-screen',
-        start: 'top top',
-        scrub: 1,
-      }
-    })
-      .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all', immediateRender: false })
-      .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all', immediateRender: false }, '<');
-  });
+  await loadScrollTrigger();
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '.home-front-screen',
+      start: 'top top',
+      scrub: 1,
+    },
+  })
+    .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all', immediateRender: false })
+    .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all', immediateRender: false }, '<');
 }
 
 function initAnimations() {
-  applyScrollTriggerAnimation(
-    '.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items',
-  );
-
-  initAdvantagesSlider();
-  initGallerySlider();
-  constructionScreenObserver();
-  initNewsWaveAnimation();
-
+  // Split-lines більше не залежить від ScrollTrigger — його роль виконує
+  // IntersectionObserver, а ядро gsap і так в initial-чанку. Тому лишаємо
+  // на idle: заголовки над згином анімуються як і раніше, не чекаючи скролу.
+  // Підписка дешева, але переписування innerHTML для вже видимих заголовків
+  // станеться синхронно в першому ж колбеку IO — звідси idle, щоб не влізти
+  // у критичне вікно одразу після першого кадру.
   if ('requestIdleCallback' in window) {
-    requestIdleCallback(runSplitLinesAndFadeUp, { timeout: 2000 });
+    requestIdleCallback(initSplitLinesAndFadeUp, { timeout: 2000 });
   } else {
-    setTimeout(runSplitLinesAndFadeUp, 200);
+    setTimeout(initSplitLinesAndFadeUp, 200);
   }
 
-  initIncredibleBlock();
-  initHomeParalaxBackgrounds();
-  initFrontScreenParalax();
+  // Решта — scroll-driven анімації та слайдери. На головній усі вони лежать
+  // нижче першого екрана і без скролу не показують нічого, тому реєструємо
+  // спостерігачі лише після першого наміру скролити.
+  //
+  // Сам по собі IntersectionObserver цю проблему не закривав: із запасом
+  // rootMargin 800px він чіпляє вже другу секцію (.home-about-screen__items,
+  // .home-about-screen__bg) одразу після першого кадру — і тягне gsap-scroll
+  // у стартовий CPU навіть у Lighthouse, який сторінку взагалі не скролить.
+  // Тепер працює зв'язка: взаємодія відкриває групу, а IO всередині вирішує,
+  // який саме блок ініціалізувати (ТЗ 3.5.2.1, підпункт 3 — «після взаємодії
+  // користувача або коли блок потрапляє у viewport»).
+  onFirstInteraction(() => {
+    applyScrollTriggerAnimation(
+      '.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items',
+    );
+
+    initAdvantagesSlider();
+    initGallerySlider();
+    constructionScreenObserver();
+    initNewsWaveAnimation();
+    initIncredibleBlock();
+    initHomeParalaxBackgrounds();
+    initFrontScreenParalax();
+  });
 }
 
 afterFirstPaint(initAnimations);

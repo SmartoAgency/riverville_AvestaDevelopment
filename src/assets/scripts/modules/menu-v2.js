@@ -33,44 +33,58 @@ if (menu) {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
-  const openTl = gsap
-    .timeline({ paused: true })
-    .add(() => menu.classList.add('is-open'))
-    .fromTo(
-      menu,
-      { clipPath: CLIP_HIDDEN },
-      {
-        clipPath: CLIP_SHOWN,
-        ease: 'power2.out',
-        duration: 1,
-        clearProps: 'clipPath',
-      },
-    )
-    .fromTo(
-      links,
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, ease: 'power2.out', duration: 0.9, stagger: 0.06 },
-      '<',
-    );
+  // Ті самі міркування, що і в index-app.js: `fromTo` рендериться одразу при
+  // створенні таймлайна, навіть якщо той paused. Тобто до першого кліку по
+  // «МЕНЮ» gsap дарма прописував clipPath на контейнер і opacity/y на кожен
+  // .menu-v2__link. Будуємо обидва таймлайни при першому відкритті.
+  let timelines = null;
 
-  const closeTl = gsap
-    .timeline({ paused: true })
-    .fromTo(
-      links,
-      { opacity: 1, y: 0 },
-      { opacity: 0, y: -20, ease: 'power2.in', duration: 0.4, stagger: 0.03 },
-    )
-    .fromTo(
-      menu,
-      { clipPath: CLIP_SHOWN },
-      { clipPath: CLIP_HIDDEN, ease: 'power2.in', duration: 0.6 },
-      '<0.1',
-    )
-    .add(() => menu.classList.remove('is-open'));
+  const getTimelines = () => {
+    if (timelines) return timelines;
+
+    const openTl = gsap
+      .timeline({ paused: true })
+      .add(() => menu.classList.add('is-open'))
+      .fromTo(
+        menu,
+        { clipPath: CLIP_HIDDEN },
+        {
+          clipPath: CLIP_SHOWN,
+          ease: 'power2.out',
+          duration: 1,
+          clearProps: 'clipPath',
+        },
+      )
+      .fromTo(
+        links,
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, ease: 'power2.out', duration: 0.9, stagger: 0.06 },
+        '<',
+      );
+
+    const closeTl = gsap
+      .timeline({ paused: true })
+      .fromTo(
+        links,
+        { opacity: 1, y: 0 },
+        { opacity: 0, y: -20, ease: 'power2.in', duration: 0.4, stagger: 0.03 },
+      )
+      .fromTo(
+        menu,
+        { clipPath: CLIP_SHOWN },
+        { clipPath: CLIP_HIDDEN, ease: 'power2.in', duration: 0.6 },
+        '<0.1',
+      )
+      .add(() => menu.classList.remove('is-open'));
+
+    timelines = { openTl, closeTl };
+    return timelines;
+  };
 
   let opened = false;
 
   const open = () => {
+    const { openTl, closeTl } = getTimelines();
     opened = true;
     syncOffsets();
     closeTl.pause();
@@ -80,6 +94,7 @@ if (menu) {
   };
 
   const close = () => {
+    const { openTl, closeTl } = getTimelines();
     opened = false;
     openTl.pause();
     closeTl.restart();
