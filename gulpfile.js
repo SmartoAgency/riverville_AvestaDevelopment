@@ -189,6 +189,13 @@ function clean() {
 		return del(paths.root);
 }
 
+// webpack-чанки мають хеш у імені (form.<hash>.bundle.js тощо) і при кожній
+// збірці отримують новий хеш — старі версії webpack сам не видаляє, тож без
+// цього вони назавжди лишаються в dist/assets/scripts/ поряд із новими.
+function cleanScripts() {
+		return del(paths.scripts.dest);
+}
+
 // pug
 function templates() {
 	return gulp.src(paths.templates.pages)
@@ -391,7 +398,12 @@ let additionalTask = [];
 
 
 if (webPackSetting) {
-  exports.scripts = scripts;
+  // `gulp scripts` викликається напряму для прод-збірки (npm run prod) — там
+  // немає загального `clean` перед ним, тож чистимо тільки dist/assets/scripts/.
+  // У watch-потоці (`default`) лишається сирий `scripts` без очистки: там
+  // повний `clean` уже стоїть на старті серії, і чистити щоразу при watch-ребілді
+  // було б повільно.
+  exports.scripts = gulp.series(cleanScripts, scripts);
   additionalTask.push(scripts)
 }
 if (typeScriptSetting) {

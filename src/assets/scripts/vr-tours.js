@@ -1,9 +1,6 @@
+import './modules/public-path';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useState } from './modules/helpers/helpers';
-
-gsap.registerPlugin(ScrollTrigger);
-gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 const [ tab, setTab, useTabEffect] = useState(null);
 
@@ -71,6 +68,11 @@ document.body.addEventListener('click', (e) => {
     const target = e.target.closest('[data-vr-tour-tab]');
     if (!target) return;
     setTab(target.dataset.vrTourTab);
+});
+
+import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.core.globals('ScrollTrigger', ScrollTrigger);
 });
 
 /*

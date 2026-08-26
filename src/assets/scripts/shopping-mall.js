@@ -1,9 +1,7 @@
-import Swiper, { Navigation, Autoplay } from 'swiper';
+import './modules/public-path';
 import { gsap } from 'gsap';
 
-Swiper.use([Navigation, Autoplay]);
-
-function initMallSlider() {
+function initMallSlider(Swiper, Navigation, Autoplay) {
   const mallSlider = document.querySelector('[data-mall-slider]');
   if (!mallSlider) return;
 
@@ -11,6 +9,7 @@ function initMallSlider() {
   const nextButton = mallSlider.querySelector('[data-mall-slider-next]');
   if (!prevButton || !nextButton) return;
 
+  Swiper.use([Navigation, Autoplay]);
   new Swiper(mallSlider, {
     slidesPerView: 1,
     loop: true,
@@ -26,7 +25,9 @@ function initMallSlider() {
   });
 }
 
-initMallSlider();
+import(/* webpackChunkName: "swiper" */ 'swiper').then(({ default: Swiper, Navigation, Autoplay }) => {
+  initMallSlider(Swiper, Navigation, Autoplay);
+});
 
 /* -----------------------------------------------------------------------------
    Helpers

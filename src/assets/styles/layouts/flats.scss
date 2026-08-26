@@ -17,6 +17,10 @@
     column-gap: 16px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     margin-top: 64px;
+    // JS рендерить картки після fetch (apartments.js), список стартує порожнім.
+    // Резервуємо висоту одного ряду (= .flat-card min-height), щоб перша поява
+    // карток не штовхала .flats-recommendation/футер (CLS, ТЗ 3.5.3.4).
+    min-height: 360px;
   }
 
   &__list-empty {
@@ -171,7 +175,7 @@
       background-color: #1a1e21;
       border-radius: 4px;
       font-size: 13px;
-      font-family: $default-font, sans-serif;
+      font-family: $default-font;
       font-style: normal;
       font-weight: 500;
       line-height: 130%;
@@ -192,7 +196,7 @@
       background-color: #25b14c;
       border-radius: 4px;
       font-size: 13px;
-      font-family: $default-font, sans-serif;
+      font-family: $default-font;
       font-style: normal;
       font-weight: 500;
       line-height: 130%;
@@ -280,7 +284,7 @@
       border: 1px solid #dbe4ec;
       border-radius: 4px;
       font-size: 13px;
-      font-family: $default-font, sans-serif;
+      font-family: $default-font;
       font-style: normal;
       font-weight: 500;
       line-height: 130%;
@@ -291,7 +295,7 @@
       margin-top: 8px;
       margin-bottom: 8px * -1;
       font-size: 32px;
-      font-family: $default-font, sans-serif;
+      font-family: $default-font;
       font-style: normal;
       font-weight: 700;
       line-height: 130%;
@@ -305,7 +309,7 @@
       gap: 4px;
       margin-top: 8px;
       font-size: 20px;
-      font-family: $default-font, sans-serif;
+      font-family: $default-font;
       font-style: normal;
       font-weight: 400;
       line-height: 130%;
@@ -324,7 +328,7 @@
       border-color: #04141c;
       border-radius: 8px;
       font-size: 13px;
-      font-family: $default-font, sans-serif;
+      font-family: $default-font;
       font-style: normal;
       font-weight: 500;
       line-height: 130%;
@@ -351,6 +355,7 @@
     &__list {
       position: relative;
       margin-top: 16px;
+      min-height: 360px;
       @include from(1024px) {
         margin-top: 32px;
       }

@@ -1,4 +1,4 @@
-import Swiper, { Navigation } from 'swiper';
+import './modules/public-path';
 
 /**
  * @typedef {Object} FlatImages
@@ -418,7 +418,7 @@ function tabsInit(flatsPage) {
  * @param {HTMLElement} flatsPage
  * @param {RealEstateUnit[]} flatsData
  */
-function recommendationFlatsListInit(flatsPage, flatsData) {
+async function recommendationFlatsListInit(flatsPage, flatsData) {
   const recommendationListContainer = flatsPage.querySelector('[data-flats-recommendation-list]');
   if (!recommendationListContainer) return;
 
@@ -462,6 +462,8 @@ function recommendationFlatsListInit(flatsPage, flatsData) {
   if (recommendationListContainer.swiper) {
     recommendationListContainer.swiper.destroy(true, true);
   }
+
+  const { default: Swiper, Navigation } = await import(/* webpackChunkName: "swiper" */ 'swiper');
 
   new Swiper('[data-swiper-container]', {
     modules: [Navigation],

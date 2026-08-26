@@ -1,4 +1,5 @@
 $default-font: "Century Gothic",
+	"Century Gothic Fallback",
 	sans-serif;
 $default-font2: "montser",
 	sans-serif;
@@ -36,7 +37,7 @@ $gold: #CFA46E;
 
 @mixin text-style-1920-h-1() {
 	font-size: pxWidthInVw(90);
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 100%;
@@ -52,7 +53,7 @@ $gold: #CFA46E;
 }
 
 @mixin text-style-768-h-1 {
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-size: 64px;
 	font-style: normal;
 	font-weight: 400;
@@ -61,7 +62,7 @@ $gold: #CFA46E;
 }
 
 @mixin text-style-375-h-1 {
-	font-family: "Century Gothic";
+	font-family: $default-font;
 	font-size: 40px;
 	font-style: normal;
 	font-weight: 400;
@@ -70,7 +71,7 @@ $gold: #CFA46E;
 }
 
 @mixin text-style-375-h-2 {
-	font-family: "Century Gothic";
+	font-family: $default-font;
 font-size: 28px;
 font-style: normal;
 font-weight: 700;
@@ -82,7 +83,7 @@ text-transform: uppercase;
 @mixin text-style-1920-h-2() {
 	font-size: 48px;
 	font-size: pxWidthInVw(48);
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 700;
 	font-style: normal;
 	line-height: 100%;
@@ -110,7 +111,7 @@ text-transform: uppercase;
 @mixin text-style-1920-h-3() {
 	font-size: 60px;
 	font-size: Min(pxWidthInVw(60), 60px);
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 100%;
@@ -127,7 +128,7 @@ text-transform: uppercase;
 }
 
 @mixin text-style-768-h-3 {
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-size: 48px;
 	font-style: normal;
 	font-weight: 400;
@@ -139,7 +140,7 @@ text-transform: uppercase;
 @mixin text-style-1920-h-4() {
 	font-size: 32px;
 	font-size: pxWidthInVw(32);
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 120%;
@@ -155,7 +156,7 @@ text-transform: uppercase;
 }
 
 @mixin text-style-768-h-4 {
-	font-family: "Century Gothic";
+	font-family: $default-font;
 	font-size: 28px;
 	font-style: normal;
 	font-weight: 400;
@@ -164,7 +165,7 @@ text-transform: uppercase;
 }
 
 @mixin text-style-375-h-4 {
-	font-family: "Century Gothic";
+	font-family: $default-font;
 	font-size: 18px;
 	font-style: normal;
 	font-weight: 400;
@@ -175,7 +176,7 @@ text-transform: uppercase;
 @mixin text-style-1920-links() {
 	font-size: 24px;
 	font-size: pxWidthInVw(24);
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 700;
 	font-style: normal;
 	line-height: 140%;
@@ -191,7 +192,7 @@ text-transform: uppercase;
 }
 @mixin text-style-1920-body() {
 	font-size: Min(18px, pxWidthInVw(18));
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 140%;
@@ -208,7 +209,7 @@ text-transform: uppercase;
 @mixin text-style-1920-button() {
 	font-size: 16px;
 	font-size: pxWidthInVw(16);
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 140%;
@@ -224,7 +225,7 @@ text-transform: uppercase;
 }
 @mixin text-style-1920-tiny() {
 	font-size: 12px;
-	font-family: Century Gothic;
+	font-family: $default-font;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 140%;

@@ -267,7 +267,7 @@
   .text-h3 {
     font-size: 40px; 
     font-size: pxWidthInVw(40);
-    font-family: Century Gothic;
+    font-family: $default-font;
     font-weight: 500; 
     line-height: 115%;
     letter-spacing: -0.03em; 

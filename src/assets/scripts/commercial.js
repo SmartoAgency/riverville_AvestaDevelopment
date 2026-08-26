@@ -1,17 +1,9 @@
+import './modules/public-path';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lenis } from './modules/scroll/leniscroll';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
 import { FlatCard, getFlatsData } from './apartments';
 import gallerySlider from './modules/gallery/gallerySlider';
-import Swiper, { Navigation } from 'swiper';
-
-Swiper.use([Navigation]);
-
-gsap.registerPlugin(ScrollTrigger);
-gsap.core.globals('ScrollTrigger', ScrollTrigger);
-
-splitToLinesAndFadeUp('[data-split-lines-and-fade-up]', gsap);
 
 async function initFlatList() {
   const flatsList = document.querySelector('[data-flats-list]');
@@ -42,5 +34,19 @@ async function initFlatList() {
   flatsList.innerHTML = htmlContent;
 }
 
+// Не залежить від gsap/Swiper — не чекає на них, щоб не затримувати рендер списку.
 initFlatList();
-gallerySlider(gsap, Swiper);
+
+Promise.all([
+  import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger'),
+  import(/* webpackChunkName: "swiper" */ 'swiper'),
+]).then(([{ ScrollTrigger }, { default: Swiper, Navigation }]) => {
+  Swiper.use([Navigation]);
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.core.globals('ScrollTrigger', ScrollTrigger);
+
+  splitToLinesAndFadeUp('[data-split-lines-and-fade-up]', gsap);
+
+  gallerySlider(gsap, Swiper);
+});

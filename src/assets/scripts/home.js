@@ -1,6 +1,5 @@
-import Swiper, { Mousewheel, Navigation } from 'swiper';
+import './modules/public-path';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Headroom from 'headroom.js';
 import { lenis } from './modules/scroll/leniscroll';
 import { pad, useState } from './modules/helpers/helpers';
@@ -11,9 +10,6 @@ const header = document.querySelector('.header');
 
 const headroom = new Headroom(header, {});
 headroom.init();
-
-gsap.registerPlugin(ScrollTrigger);
-gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
   el.addEventListener('click', () => {
@@ -44,7 +40,7 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 
 //   function removeVideoCompletely() {
 //     videoWrapper.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-//     videoWrapper.style.transform = 'translateX(120%)'; 
+//     videoWrapper.style.transform = 'translateX(120%)';
 //     videoWrapper.style.opacity = '0';
 
 //     videoElement.muted = true;
@@ -58,8 +54,8 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 
 //   if (document.documentElement.clientWidth > 680) {
 //     window.addEventListener('click', () => {
-//       if(videoElement.paused && videoWrapper.style.display !== 'none') { 
-//           videoElement.play().catch(() => {}); 
+//       if(videoElement.paused && videoWrapper.style.display !== 'none') {
+//           videoElement.play().catch(() => {});
 //       }
 //     }, { once: true });
 //   }
@@ -67,9 +63,9 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 //   if (videoBtn) {
 //       videoBtn.closest('.home-front-screen__video').addEventListener('click', (evt) => {
 //         if (evt.target.tagName === 'VIDEO' && !videoElement.muted) return;
-        
+
 //         evt.preventDefault();
-        
+
 //         if (videoWrapper.style.display === 'none') return;
 
 //         if (videoElement.muted) {
@@ -80,13 +76,13 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 //       });
 //   }
 
-  
+
 //   let xDown = null;
 //   let yDown = null;
 
 //   function handleTouchStart(evt) {
 //     if (videoWrapper.classList.contains('active')) {
-//         return; 
+//         return;
 //     }
 
 //     const firstTouch = evt.touches ? evt.touches[0] : evt;
@@ -107,7 +103,7 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 //     const yDiff = yDown - yUp;
 
 //     if (Math.abs(xDiff) > Math.abs(yDiff)) {
-      
+
 //       if (Math.abs(xDiff) > 50) {
 //         if (xDiff > 0) {
 //         } else {
@@ -146,25 +142,6 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 
 // screen1();
 
-function applyScrollTriggerAnimation(selectors) {
-  document.querySelectorAll(selectors).forEach(el => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: '50% bottom',
-          // end: 'bottom center',
-          once: true,
-        },
-      })
-      .fromTo(
-        Array.from(el.children),
-        { y: 25, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, clearProps: 'all', duration: 1.25, ease: 'power4.out', stagger: 0.1 },
-      );
-  });
-}
-
 // Виконує callback після того, як браузер намалював кадр.
 // requestAnimationFrame спрацьовує ПЕРЕД відмальовуванням, тому самого rAF
 // (і навіть подвійного) недостатньо — робота лишиться в критичному кадрі.
@@ -183,90 +160,184 @@ function afterFirstPaint(callback) {
   setTimeout(run, 1000);
 }
 
-// Налаштування анімацій коштує ~800 ms (527 ms Recalculate style + 294 ms Layout
-// за даними Performance-трейсу): gsap на кожному елементі викликає
-// getComputedStyle, а DOM тут великий — 519 КБ html із 76 інлайновими svg.
-// Жодна з цих анімацій не потрібна одразу — усі спрацьовують при прокрутці,
-// тож ініціалізуємо їх після першого кадру, щоб не тримати LCP.
-function initAnimations() {
+// Віддає керування назад у event loop між важкими блоками ініціалізації,
+// щоб жоден із них не збирався в один суцільний long task (ТЗ 3.5.2.3/3.5.2.2).
+// scheduler.yield() — коли є, планує продовження з нормальним пріоритетом;
+// setTimeout(0) — фолбек для браузерів без цього API.
+function yieldToMain() {
+  if ('scheduler' in window && typeof window.scheduler.yield === 'function') {
+    return window.scheduler.yield();
+  }
+  return new Promise(resolve => setTimeout(resolve, 0));
+}
 
-applyScrollTriggerAnimation(
-  '.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items',
-);
+// Раніше весь кошт gsap-scroll.bundle.js/swiper.bundle.js (реєстрація
+// ScrollTrigger, ~800 ms на getComputedStyle і Layout по всій сторінці —
+// 519 КБ html, 76 інлайнових svg) списувався одним заходом одразу після
+// першого кадру. Lighthouse фіксував це як long tasks на позначках ~4,1-4,6с
+// (ТЗ 3.5.2.1, підпункт 3) — хоча переважна більшість блоків, що
+// ініціалізувались, у цей момент ще навіть не в зоні видимості.
+//
+// Тепер ініціалізація відкладена у два рівні:
+//  1) afterFirstPaint — сама підписка на IntersectionObserver'и дешева
+//     (querySelectorAll + observer.observe, без gsap/getComputedStyle),
+//     тож не тримає LCP;
+//  2) кожен блок довантажує gsap/ScrollTrigger і/або swiper та
+//     ініціалізується лише тоді, коли наближається до viewport — з запасом
+//     rootMargin, щоб чанк встиг довантажитись і виконатись до того, як
+//     користувач реально доскролить. Секції, які на момент завантаження
+//     сторінки взагалі не видно, у Lighthouse-трейсі (він сторінку не
+//     скролить) тепер не ініціалізуються — і не додають CPU-часу в TBT.
 
-Swiper.use([Mousewheel, Navigation]);
-const advblock2 = new Swiper('[data-home-advantages-block2]', {
-  slidesPerView: 3.1,
-  // slidesPerView: 'auto',
-  // modules: [Mousewheel],
-  speed: 1000,
-  enabled: true,
-  centeredSlides: true,
-  initialSlide: window.screen.width < 600 ? 0 : 1,
-  sensitivity: 4,
-  // Гортання горизонтальним свайпом тачпада (два пальці).
-  // forceToAxis: реагуємо лише на горизонтальний рух (deltaX), тож вертикальний
-  // скрол сторінки над слайдером і звичайне колесо миші не перехоплюються.
-  mousewheel: {
-    forceToAxis: true,
-    releaseOnEdges: true,
-    sensitivity: 1,
-    // Один свайп = один слайд. Тачпад шле пачку wheel-подій (інерція),
-    // тож throttle-имо: thresholdTime — мін. пауза між перемиканнями (мс),
-    // thresholdDelta — ігнорувати мікрорухи. Якщо здається млявим — зменш thresholdTime.
-    thresholdDelta: 6,
-    thresholdTime: 900,
-  },
-  navigation: {
-    nextEl: '[data-home-advantages-block2-next]',
-    prevEl: '[data-home-advantages-block2-prev]',
-  },
-  on: {
-    init: swiper => {
-        document.querySelector('[data-home-advantages-block2-total]').textContent = pad(swiper.slides.length);
-    }
-  },
-  breakpoints: {
-    320: {
-      slidesPerView: 1.2,
-      centeredSlides: true,
-      // mousewheel: {
-      //   enabled: false,
-      // },
-    },
-    601: {
-      slidesPerView: 1.2,
-      // mousewheel: {
-      //   enabled: false,
-      // },
-    },
-    1024: {
+let scrollTriggerPromise = null;
+function loadScrollTrigger() {
+  if (!scrollTriggerPromise) {
+    scrollTriggerPromise = import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.core.globals('ScrollTrigger', ScrollTrigger);
+      return ScrollTrigger;
+    });
+  }
+  return scrollTriggerPromise;
+}
+
+let swiperPromise = null;
+function loadSwiper() {
+  if (!swiperPromise) {
+    // Mousewheel/Navigation реєструються тут один раз — глобально на клас
+    // Swiper, тож усі інстанси нижче (advantages/gallery/incredible) вже
+    // мають ці модулі, хто б з них не довантажив swiper першим.
+    swiperPromise = import(/* webpackChunkName: "swiper" */ 'swiper').then((mod) => {
+      mod.default.use([mod.Mousewheel, mod.Navigation]);
+      return mod;
+    });
+  }
+  return swiperPromise;
+}
+
+// Викликає callback не одразу, а коли елемент наблизиться до viewport.
+// rootMargin — запас "на випередження": чанк і ініціалізація встигають
+// відпрацювати до того, як користувач реально доскролить до блока.
+// once: відписуємось після першого спрацювання — повторної ініціалізації не буде.
+function onEnterView(el, callback, { rootMargin = '800px 0px', once = true } = {}) {
+  if (!el) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      callback(entry.target);
+      if (once) observer.unobserve(entry.target);
+    });
+  }, { rootMargin });
+  observer.observe(el);
+}
+
+function applyScrollTriggerAnimation(selectors) {
+  document.querySelectorAll(selectors).forEach(el => {
+    onEnterView(el, async () => {
+      await loadScrollTrigger();
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: '50% bottom',
+            // end: 'bottom center',
+            once: true,
+          },
+        })
+        .fromTo(
+          Array.from(el.children),
+          { y: 25, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, clearProps: 'all', duration: 1.25, ease: 'power4.out', stagger: 0.1 },
+        );
+    });
+  });
+}
+
+function initAdvantagesSlider() {
+  const container = document.querySelector('[data-home-advantages-block2]');
+  onEnterView(container, async () => {
+    const { default: Swiper } = await loadSwiper();
+
+    const advblock2 = new Swiper('[data-home-advantages-block2]', {
       slidesPerView: 3.1,
-      // mousewheel: {
-      //   enabled: true,
-      // },
-    },
-  },
-});
-advblock2.on('slideChange', (swiper) => {
-  document.querySelector('[data-home-advantages-block2-current]').textContent = pad(swiper.realIndex + 1);
-});
+      // slidesPerView: 'auto',
+      // modules: [Mousewheel],
+      speed: 1000,
+      enabled: true,
+      centeredSlides: true,
+      initialSlide: window.screen.width < 600 ? 0 : 1,
+      sensitivity: 4,
+      // Гортання горизонтальним свайпом тачпада (два пальці).
+      // forceToAxis: реагуємо лише на горизонтальний рух (deltaX), тож вертикальний
+      // скрол сторінки над слайдером і звичайне колесо миші не перехоплюються.
+      mousewheel: {
+        forceToAxis: true,
+        releaseOnEdges: true,
+        sensitivity: 1,
+        // Один свайп = один слайд. Тачпад шле пачку wheel-подій (інерція),
+        // тож throttle-имо: thresholdTime — мін. пауза між перемиканнями (мс),
+        // thresholdDelta — ігнорувати мікрорухи. Якщо здається млявим — зменш thresholdTime.
+        thresholdDelta: 6,
+        thresholdTime: 900,
+      },
+      navigation: {
+        nextEl: '[data-home-advantages-block2-next]',
+        prevEl: '[data-home-advantages-block2-prev]',
+      },
+      on: {
+        init: swiper => {
+            document.querySelector('[data-home-advantages-block2-total]').textContent = pad(swiper.slides.length);
+        }
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1.2,
+          centeredSlides: true,
+          // mousewheel: {
+          //   enabled: false,
+          // },
+        },
+        601: {
+          slidesPerView: 1.2,
+          // mousewheel: {
+          //   enabled: false,
+          // },
+        },
+        1024: {
+          slidesPerView: 3.1,
+          // mousewheel: {
+          //   enabled: true,
+          // },
+        },
+      },
+    });
+    advblock2.on('slideChange', (swiper) => {
+      document.querySelector('[data-home-advantages-block2-current]').textContent = pad(swiper.realIndex + 1);
+    });
+  });
+}
 
-gallerySlider(gsap, Swiper);
-
+function initGallerySlider() {
+  const gallery = document.querySelector('[data-home-gallery-screen]');
+  onEnterView(gallery, async () => {
+    const [, { default: Swiper }] = await Promise.all([loadScrollTrigger(), loadSwiper()]);
+    gallerySlider(gsap, Swiper);
+  });
+}
 
 function constructionScreenObserver() {
   //.home-construction-screen intersection observer
   const constructionScreen = document.querySelector('.home-construction-screen');
   if (!constructionScreen) return;
   console.log('constructionScreenObserver');
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        ScrollTrigger.refresh();
-        console.log('Construction screen is visible');
-        
+        loadScrollTrigger().then(ScrollTrigger => {
+          ScrollTrigger.refresh();
+          console.log('Construction screen is visible');
+        });
       } else {
       }
     });
@@ -274,132 +345,117 @@ function constructionScreenObserver() {
     threshold: 0.1, // Adjust this value as needed
   });
   observer.observe(constructionScreen);
-
 }
-constructionScreenObserver();
 
-gsap.timeline({
-    defaults: {
-      ease: 'none',
-    },
-    scrollTrigger: {
-        // trigger: '[data-wave1-block]',
-        trigger: '.home-news-screen',
-          start: '0% top',
-        // pin: '[data-wave1-block-content]',
-        end: '40% top',
-        // endTrigger: '.home-news-screen',
-        // start: 'top top',
-        // end: '100% top',
-        scrub: 0,
-        // markers: true
-    }
-})
-    .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.75, ease: 'none' })
-    .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.75, ease: 'none' }, '<')
+function initNewsWaveAnimation() {
+  const newsScreen = document.querySelector('.home-news-screen');
+  onEnterView(newsScreen, async () => {
+    await loadScrollTrigger();
 
     gsap.timeline({
       defaults: {
-      ease: 'none',
-    },
-    scrollTrigger: {
-        trigger: '.home-news-screen',
-        // pin: '[data-wave2-block-content]',
-        // start: 'top top',
-        start: '60% bottom',
-        end: '100% bottom',
-        // endTrigger: '.home-news-screen',
-        scrub: 0,
-        // markers: true
-    }
-})
-    .fromTo(
-        '[data-wave2-block-top]',
-        { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.75 },
-        { y: 0, ease: 'none'  }
-    )
-    .fromTo(
-        '[data-wave2-block-bottom]',
-        { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.75 },
-        { y: 0, ease: 'none' },
-        '<'
-    )
+        ease: 'none',
+      },
+      scrollTrigger: {
+          // trigger: '[data-wave1-block]',
+          trigger: '.home-news-screen',
+            start: '0% top',
+          // pin: '[data-wave1-block-content]',
+          end: '40% top',
+          // endTrigger: '.home-news-screen',
+          // start: 'top top',
+          // end: '100% top',
+          scrub: 0,
+          // markers: true
+      }
+    })
+        .fromTo('[data-wave-block-top]', { y: 0 }, { y: window.screen.height * -0.75, ease: 'none' })
+        .fromTo('[data-wave-block-bottom]', { y: 0 }, { y: window.screen.height * 0.75, ease: 'none' }, '<')
+
+        gsap.timeline({
+          defaults: {
+          ease: 'none',
+        },
+        scrollTrigger: {
+            trigger: '.home-news-screen',
+            // pin: '[data-wave2-block-content]',
+            // start: 'top top',
+            start: '60% bottom',
+            end: '100% bottom',
+            // endTrigger: '.home-news-screen',
+            scrub: 0,
+            // markers: true
+        }
+    })
+        .fromTo(
+            '[data-wave2-block-top]',
+            { y: window.screen.width < 600 ? window.screen.height * -1 : window.screen.height * -0.75 },
+            { y: 0, ease: 'none'  }
+        )
+        .fromTo(
+            '[data-wave2-block-bottom]',
+            { y: window.screen.width < 600 ? window.screen.height : window.screen.height * 0.75 },
+            { y: 0, ease: 'none' },
+            '<'
+        )
+  });
+}
 
 function runSplitLinesAndFadeUp() {
-  splitToLinesAndFadeUp(
-    '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-gallery-screen__title, .home-construction-screen__title',
-    gsap,
-  );
-}
-
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(runSplitLinesAndFadeUp, { timeout: 2000 });
-} else {
-  setTimeout(runSplitLinesAndFadeUp, 200);
-}
-
-
-
-// function frontVideoDesktopAnimation() {
-//   if (document.documentElement.clientWidth < 600) return;
-
-//   console.log('f');
-  
-
-//   gsap.timeline({
-//     scrollTrigger: {
-//     trigger: '.home-front-screen',
-//     start: 'top top', 
-//     end: 'max',
-//     pin: '.home-front-screen__video-wrapper', 
-//     markers: /localhost/.test(window.location.href),
-//     }
-//   })  
-// }
-
-// frontVideoDesktopAnimation();
-
-
-document.querySelectorAll('.home-incredible-block__item').forEach(el => {
-  const offset = 50;
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: el,
-      start: `-${offset}px 80%`,
-      end: '30% 80%',
-      scrub: true,
-      markers: /localhost/.test(window.location.href),
-    },
-  })
-    .fromTo(el, { y: offset, autoAlpha: 0 }, { y: 0, autoAlpha: 1, clearProps: 'all' });
-});
-
-
-
-function mobileIncredibleBlockSlider() {
-  if (window.screen.width > 600) return;
-  const incredibleBlock = document.querySelector('[data-incredible-block-mobile-slider]');
-  const swiper = new Swiper(incredibleBlock, {
-    slidesPerView: 1.15,
-    navigation: {
-      nextEl: '[data-incredible-block-mobile-next]',
-      prevEl: '[data-incredible-block-mobile-prev]',
-    },
-    on: {
-      init: swiper => {
-          document.querySelector('[data-incredible-block-mobile-total]').textContent = pad(swiper.slides.length);
-      }
-    },
-  });
-
-  swiper.on('slideChange', (swiper) => {
-    document.querySelector('[data-incredible-block-mobile-current]').textContent = pad(swiper.realIndex + 1);
+  loadScrollTrigger().then(() => {
+    splitToLinesAndFadeUp(
+      '[data-split-lines-and-fade-up], .home-location-screen__content .text-style-1920-body, .home-location-screen__title, .home-about-screen__title, .home-about-screen__subtitle, .home-gallery-screen__title, .home-construction-screen__title',
+      gsap,
+    );
   });
 }
 
-mobileIncredibleBlockSlider();
+function initIncredibleBlock() {
+  const incredibleBlock = document.querySelector('.home-incredible-block');
+  onEnterView(incredibleBlock, async () => {
+    await loadScrollTrigger();
 
+    const offset = 50;
+    document.querySelectorAll('.home-incredible-block__item').forEach(el => {
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: `-${offset}px 80%`,
+          end: '30% 80%',
+          scrub: true,
+          markers: /localhost/.test(window.location.href),
+        },
+      })
+        .fromTo(el, { y: offset, autoAlpha: 0 }, { y: 0, autoAlpha: 1, clearProps: 'all' });
+    });
 
+    if (window.screen.width > 600) return;
+
+    await yieldToMain();
+
+    const incredibleBlockMobileSlider = document.querySelector('[data-incredible-block-mobile-slider]');
+    if (!incredibleBlockMobileSlider) return;
+
+    const { default: Swiper } = await loadSwiper();
+
+    const swiper = new Swiper(incredibleBlockMobileSlider, {
+      slidesPerView: 1.15,
+      navigation: {
+        nextEl: '[data-incredible-block-mobile-next]',
+        prevEl: '[data-incredible-block-mobile-prev]',
+      },
+      on: {
+        init: swiper => {
+            document.querySelector('[data-incredible-block-mobile-total]').textContent = pad(swiper.slides.length);
+        }
+      },
+    });
+
+    swiper.on('slideChange', (swiper) => {
+      document.querySelector('[data-incredible-block-mobile-current]').textContent = pad(swiper.realIndex + 1);
+    });
+  });
+}
 
 function homeParalax(container) {
   gsap.timeline({
@@ -416,22 +472,51 @@ function homeParalax(container) {
   }, '<');
 }
 
-document.querySelectorAll('.home-about-screen__bg, .home-location-screen__bg, .home-advantages-block__bg').forEach(el => {
-  homeParalax(el);
-});
+function initHomeParalaxBackgrounds() {
+  document.querySelectorAll('.home-about-screen__bg, .home-location-screen__bg, .home-advantages-block__bg').forEach(el => {
+    onEnterView(el, async () => {
+      await loadScrollTrigger();
+      homeParalax(el);
+    });
+  });
+}
 
+function initFrontScreenParalax() {
+  const frontScreen = document.querySelector('.home-front-screen');
+  onEnterView(frontScreen, async () => {
+    await loadScrollTrigger();
 
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '.home-front-screen',
+        start: 'top top',
+        scrub: 1,
+      }
+    })
+      .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all', immediateRender: false })
+      .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all', immediateRender: false }, '<');
+  });
+}
 
-gsap.timeline({
-  scrollTrigger: {
-    trigger: '.home-front-screen',
-    start: 'top top',
-    scrub: 1,
+function initAnimations() {
+  applyScrollTriggerAnimation(
+    '.contact-screen__table-item, .contact-screen .contact-screen-form, .home-sticky-block__item, .home-video-block__decor, .home-advantages-block__title, .home-location-screen__slogan, .home-location-screen__light, .home-about-screen__items',
+  );
+
+  initAdvantagesSlider();
+  initGallerySlider();
+  constructionScreenObserver();
+  initNewsWaveAnimation();
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(runSplitLinesAndFadeUp, { timeout: 2000 });
+  } else {
+    setTimeout(runSplitLinesAndFadeUp, 200);
   }
-})
-  .fromTo('.home-front-screen__bg img', { scale: 1 }, { scale: 1.05, clearProps: 'all', immediateRender: false })
-  .fromTo('.home-front-screen__bg', { y: 0 }, { y: document.documentElement.clientHeight * 0.25, clearProps: 'all', immediateRender: false }, '<');
 
+  initIncredibleBlock();
+  initHomeParalaxBackgrounds();
+  initFrontScreenParalax();
 }
 
 afterFirstPaint(initAnimations);

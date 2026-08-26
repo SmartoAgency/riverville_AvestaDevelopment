@@ -14,3 +14,31 @@
 	src: url('../fonts/CenturyGothic/CenturyGothic-Bold.woff2') format('woff2'),
 	     url('../fonts/CenturyGothic/CenturyGothic-Bold.woff') format('woff');
 }
+
+// Metric-matched fallback для Century Gothic (ТЗ 3.5.3.3): system-шрифт з тими ж
+// пропорціями (розраховано fontTools з реальних .woff/.woff2 через
+// size-adjust + ascent/descent/line-gap-override), щоб FOUT-підміна не міняла
+// ширину/висоту тексту. Arial/Liberation Sans/Arimo — метрично ідентичні один
+// одному, покривають Windows/macOS/Linux/ChromeOS без довантаження файлів.
+@font-face {
+	font-family: 'Century Gothic Fallback';
+	font-display: swap;
+	font-style: normal;
+	font-weight: 400;
+	src: local('Arial'), local('Liberation Sans'), local('Arimo');
+	size-adjust: 83.8248%;
+	ascent-override: 119.9955%;
+	descent-override: 26.2709%;
+	line-gap-override: 0%;
+}
+@font-face {
+	font-family: 'Century Gothic Fallback';
+	font-display: swap;
+	font-style: normal;
+	font-weight: 700;
+	src: local('Arial Bold'), local('Liberation Sans Bold'), local('Arimo Bold');
+	size-adjust: 79.6474%;
+	ascent-override: 126.2890%;
+	descent-override: 27.6487%;
+	line-gap-override: 0%;
+}
