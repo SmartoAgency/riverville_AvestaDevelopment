@@ -1,5 +1,12 @@
 .home-gallery-screen {
-    --transition: .75s ease-out;
+    // Шорткат без назви властивості означає transition-property: all. Через це
+    // браузер вважав анімованими всі властивості слайда, включно з flex-shrink і
+    // padding-bottom, які композитор не вміє — Lighthouse позначав це як
+    // non-composited animation на кожному з ~69 слайдів (аудит «Avoid
+    // non-composited animations»). Між станами .closed тут насправді змінюються
+    // лише opacity і transform, тож перелічуємо їх явно: візуально нічого не
+    // змінюється, а анімація лишається на композиторі.
+    --transition: opacity .75s ease-out, transform .75s ease-out;
     margin-top: var(--section-v-offset);
     margin-bottom: var(--section-v-offset);
     

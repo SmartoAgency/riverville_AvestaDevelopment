@@ -8,7 +8,11 @@
     justify-content: flex-start;
     padding: 20px 28px;
 
-    transition: .25s ease-out;
+    // Шорткат без назви властивості означає transition-property: all, тож
+    // Lighthouse рахував анімованими margin/padding, які тут не анімуються
+    // взагалі (їх міняє gsap через clearProps). На ховері змінюються лише
+    // color і background — перелічуємо їх явно.
+    transition: color .25s ease-out, background-color .25s ease-out;
     border: none;
     width: max-content;
     position: relative;
@@ -33,7 +37,8 @@
         height: 102%;
         background-color: var(--color-white);
         z-index: 1;
-        transition: .25s ease-out;
+        // Єдине, що тут змінюється на ховері — clip-path (див. &:hover::after).
+        transition: clip-path .25s ease-out;
         transform: translate3d(-50%, -50%, 0px);
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }

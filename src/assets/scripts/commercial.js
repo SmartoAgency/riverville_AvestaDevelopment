@@ -1,7 +1,7 @@
 import './modules/public-path';
 import { gsap } from 'gsap';
-import { lenis } from './modules/scroll/leniscroll';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
+import { onFirstInteraction } from './modules/helpers/defer';
 import { FlatCard, getFlatsData } from './apartments';
 import gallerySlider from './modules/gallery/gallerySlider';
 
@@ -37,16 +37,22 @@ async function initFlatList() {
 // Не залежить від gsap/Swiper — не чекає на них, щоб не затримувати рендер списку.
 initFlatList();
 
-Promise.all([
-  import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger'),
-  import(/* webpackChunkName: "swiper" */ 'swiper'),
-]).then(([{ ScrollTrigger }, { default: Swiper, Navigation }]) => {
-  Swiper.use([Navigation]);
+// Уся ця робота — scroll-driven анімації: без скролу вони нічого не показують.
+// Тому і чанки, і виміри відкладаємо до першого наміру гортати сторінку
+// (ТЗ 3.5.2.2: не тримати важку ініціалізацію в першому рендері).
+onFirstInteraction(() => {
+  Promise.all([
+    import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger'),
+    import(/* webpackChunkName: "swiper" */ 'swiper'),
+  ]).then(([{ ScrollTrigger }, { default: Swiper, Navigation }]) => {
+    Swiper.use([Navigation]);
 
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.core.globals('ScrollTrigger', ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
-  splitToLinesAndFadeUp('[data-split-lines-and-fade-up]', gsap);
+    splitToLinesAndFadeUp('[data-split-lines-and-fade-up]', gsap);
 
-  gallerySlider(gsap, Swiper);
+    gallerySlider(gsap, Swiper);
+  });
+
 });

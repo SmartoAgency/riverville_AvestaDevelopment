@@ -500,6 +500,9 @@ function _clean() {
 // dev-бандли на сайті — запустити `gulp _scripts` тоді, коли в dist лежить
 // результат watch-збірки (вона там опиняється сама, щойно змінюється будь-який
 // файл під src/**/*.js — а watch міг лишитись запущеним у сусідньому терміналі).
+//
+// Увага: watch, запущений ДО появи цієї перевірки, мітку не пише — його треба
+// перезапустити, інакше він і далі підкладатиме dev-чанки в dist непомітно.
 function _assertProdBuild(done) {
 	const mode = fs.existsSync(BUILD_MODE_FILE)
 		? fs.readFileSync(BUILD_MODE_FILE, 'utf8').trim()

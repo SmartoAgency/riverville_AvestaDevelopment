@@ -1,8 +1,8 @@
 import './modules/public-path';
 import { gsap } from 'gsap';
 import Headroom from 'headroom.js';
-import { lenis } from './modules/scroll/leniscroll';
 import { pad, useState } from './modules/helpers/helpers';
+import { afterFirstPaint, onFirstInteraction, onEnterView, yieldToMain } from './modules/helpers/defer';
 import splitToLinesAndFadeUp from './modules/effects/splitLinesAndFadeUp';
 import gallerySlider from './modules/gallery/gallerySlider';
 
@@ -142,35 +142,6 @@ document.querySelectorAll('.home-front-screen__arrow').forEach(el => {
 
 // screen1();
 
-// Виконує callback після того, як браузер намалював кадр.
-// requestAnimationFrame спрацьовує ПЕРЕД відмальовуванням, тому самого rAF
-// (і навіть подвійного) недостатньо — робота лишиться в критичному кадрі.
-// setTimeout усередині rAF стає в чергу задач і виконається вже після паінту.
-// Зовнішній setTimeout — підстраховка для фонових вкладок, де rAF не викликається.
-function afterFirstPaint(callback) {
-  let done = false;
-
-  const run = () => {
-    if (done) return;
-    done = true;
-    callback();
-  };
-
-  requestAnimationFrame(() => setTimeout(run, 0));
-  setTimeout(run, 1000);
-}
-
-// Віддає керування назад у event loop між важкими блоками ініціалізації,
-// щоб жоден із них не збирався в один суцільний long task (ТЗ 3.5.2.3/3.5.2.2).
-// scheduler.yield() — коли є, планує продовження з нормальним пріоритетом;
-// setTimeout(0) — фолбек для браузерів без цього API.
-function yieldToMain() {
-  if ('scheduler' in window && typeof window.scheduler.yield === 'function') {
-    return window.scheduler.yield();
-  }
-  return new Promise(resolve => setTimeout(resolve, 0));
-}
-
 // Раніше весь кошт gsap-scroll.bundle.js/swiper.bundle.js (реєстрація
 // ScrollTrigger, ~800 ms на getComputedStyle і Layout по всій сторінці —
 // 519 КБ html, 76 інлайнових svg) списувався одним заходом одразу після
@@ -178,11 +149,13 @@ function yieldToMain() {
 // (ТЗ 3.5.2.1, підпункт 3) — хоча переважна більшість блоків, що
 // ініціалізувались, у цей момент ще навіть не в зоні видимості.
 //
-// Тепер ініціалізація відкладена у два рівні:
+// Тепер ініціалізація відкладена у три рівні:
 //  1) afterFirstPaint — сама підписка на IntersectionObserver'и дешева
 //     (querySelectorAll + observer.observe, без gsap/getComputedStyle),
 //     тож не тримає LCP;
-//  2) кожен блок довантажує gsap/ScrollTrigger і/або swiper та
+//  2) onFirstInteraction — спостерігачі взагалі не реєструються, доки
+//     користувач не виявив наміру гортати сторінку (див. initAnimations);
+//  3) кожен блок довантажує gsap/ScrollTrigger і/або swiper та
 //     ініціалізується лише тоді, коли наближається до viewport — з запасом
 //     rootMargin, щоб чанк встиг довантажитись і виконатись до того, як
 //     користувач реально доскролить. Секції, які на момент завантаження
@@ -195,6 +168,13 @@ function loadScrollTrigger() {
     scrollTriggerPromise = import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger);
       gsap.core.globals('ScrollTrigger', ScrollTrigger);
+
+      // На мобільних показ і приховування адресного рядка генерує resize під час
+      // звичайного скролу, а кожен такий resize тягне повний ScrollTrigger.refresh()
+      // — переміряти ВСІ тригери сторінки. ignoreMobileResize вимикає реакцію на
+      // зміну лише висоти вьюпорта (ТЗ 3.5.2.2: уникати forced reflow).
+      ScrollTrigger.config({ ignoreMobileResize: true });
+
       return ScrollTrigger;
     });
   }
@@ -213,43 +193,6 @@ function loadSwiper() {
     });
   }
   return swiperPromise;
-}
-
-// Викликає callback не одразу, а коли елемент наблизиться до viewport.
-// rootMargin — запас "на випередження": чанк і ініціалізація встигають
-// відпрацювати до того, як користувач реально доскролить до блока.
-// once: відписуємось після першого спрацювання — повторної ініціалізації не буде.
-function onEnterView(el, callback, { rootMargin = '800px 0px', once = true } = {}) {
-  if (!el) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      callback(entry.target);
-      if (once) observer.unobserve(entry.target);
-    });
-  }, { rootMargin });
-  observer.observe(el);
-}
-
-// Для блоків, які на старті вже у вьюпорті (або потрапляють у запас rootMargin),
-// IntersectionObserver — фікція: він спрацьовує одразу після першого кадру і
-// списує вартість чанка в стартовий CPU. Якщо ефект без скролу все одно не
-// видно, прив'язуємось не до видимості, а до першого наміру скролити.
-// wheel/touchstart/pointerdown летять ПЕРЕД самим scroll, тож ініціалізація
-// встигає до першого зсуву сторінки.
-function onFirstInteraction(callback) {
-  const events = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'];
-  const listenerOpts = { passive: true, capture: true };
-  let done = false;
-
-  const run = () => {
-    if (done) return;
-    done = true;
-    events.forEach(type => window.removeEventListener(type, run, listenerOpts));
-    callback();
-  };
-
-  events.forEach(type => window.addEventListener(type, run, listenerOpts));
 }
 
 function applyScrollTriggerAnimation(selectors) {
@@ -346,26 +289,26 @@ function initGallerySlider() {
   });
 }
 
+// Блок будівництва підвантажує вміст, через що висота сторінки нижче нього
+// змінюється — і позиції вже створених тригерів треба переміряти.
+//
+// Раніше тут стояв власний IntersectionObserver без `once`, тож refresh()
+// викликався щоразу, коли блок з'являвся у вьюпорті — і при поверненні назад
+// теж. А refresh() переміряє ВСІ ScrollTrigger'и сторінки: це найдорожча
+// операція плагіна і прямий forced reflow. Тепер він один раз і всередині
+// requestAnimationFrame, щоб виміри не потрапили в один такт із записами в DOM.
 function constructionScreenObserver() {
-  //.home-construction-screen intersection observer
   const constructionScreen = document.querySelector('.home-construction-screen');
-  if (!constructionScreen) return;
-  console.log('constructionScreenObserver');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        loadScrollTrigger().then(ScrollTrigger => {
-          ScrollTrigger.refresh();
-          console.log('Construction screen is visible');
-        });
-      } else {
-      }
-    });
-  }, {
-    threshold: 0.1, // Adjust this value as needed
-  });
-  observer.observe(constructionScreen);
+  onEnterView(
+    constructionScreen,
+    () => {
+      loadScrollTrigger().then(ScrollTrigger => {
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+      });
+    },
+    { rootMargin: '0px' },
+  );
 }
 
 function initNewsWaveAnimation() {

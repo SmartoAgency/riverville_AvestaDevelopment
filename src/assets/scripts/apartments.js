@@ -1,4 +1,5 @@
 import './modules/public-path';
+import { onResize } from './modules/helpers/defer';
 
 /**
  * @typedef {Object} FlatImages
@@ -411,7 +412,10 @@ function tabsInit(flatsPage) {
     });
   });
 
-  window.addEventListener('resize', () => moveBg(flatsPage, getActiveTab(flatsPage)));
+  // moveBg читає offsetWidth/Height/Top/Left і одразу пише width/height/transform.
+  // На кожну подію resize це forced reflow, а їх під час перетягування вікна
+  // десятки поспіль. onResize зводить до одного виклику на кадр (ТЗ 3.5.2.2).
+  onResize(() => moveBg(flatsPage, getActiveTab(flatsPage)));
 }
 
 /**

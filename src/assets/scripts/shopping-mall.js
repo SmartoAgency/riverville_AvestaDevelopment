@@ -1,4 +1,5 @@
 import './modules/public-path';
+import { onResize } from './modules/helpers/defer';
 import { gsap } from 'gsap';
 
 function initMallSlider(Swiper, Navigation, Autoplay) {
@@ -258,6 +259,8 @@ document.querySelectorAll('.mall-parallax__img').forEach((el) => {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', update);
+  // Для скролу update уже throttled через rAF (див. onScroll вище), а для resize
+  // викликався напряму, без обмеження частоти. Вирівнюємо поведінку.
+  onResize(update);
   update();
 });

@@ -12,6 +12,7 @@
 // ============================================================
 
 import { gsap } from 'gsap';
+import { onResize } from './helpers/defer';
 
 const menu = document.querySelector('[data-menu-v2]');
 
@@ -124,7 +125,9 @@ if (menu) {
     }
   });
 
-  window.addEventListener('resize', () => {
+  // syncOffsets читає header.offsetHeight і одразу пише CSS-змінні — на кожну
+  // подію resize це forced reflow. Зводимо до одного виклику на кадр.
+  onResize(() => {
     if (opened) syncOffsets();
   });
 }

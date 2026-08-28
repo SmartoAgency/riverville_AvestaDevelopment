@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import './modules/form-lazy';
 import './modules/menu-v2';
 import { lenis } from './modules/scroll/leniscroll';
+import { onResize } from './modules/helpers/defer';
 
 const wrapper = document.querySelector('.home-module-screen__frame');
 const sensor = document.getElementById('iframe-sensor');
@@ -101,14 +102,18 @@ document.body.addEventListener('click', evt => {
   if (target || evt.target.classList.contains('popup')) setFormPopup(false);
 });
 
-const vh = window.innerHeight * 0.01;
-document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-window.addEventListener('resize', () => {
-  if (window.screen.width < 600) return;
+function syncViewportHeight() {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
-});
+}
+
+syncViewportHeight();
+
+// Подія resize під час перетягування вікна летить десятками поспіль, і кожен
+// виклик читав innerHeight одразу перед записом у CSS-змінну — тобто змушував
+// браузер перерахувати layout стільки ж разів. onResize зводить це до одного
+// виклику на кадр (ТЗ 3.5.2.2: не читати layout між записами в DOM).
+onResize(syncViewportHeight);
 
 const [menuState, setMenuState, useSetMenuEffect] = useState(false);
 

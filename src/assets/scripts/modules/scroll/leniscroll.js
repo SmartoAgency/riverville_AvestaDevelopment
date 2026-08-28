@@ -1,21 +1,36 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Lenis from '@studio-freight/lenis';
 
-export const lenis = new Lenis()
+// Цей модуль — локальний, а splitChunks у webpack.config.js виносить у спільний
+// vendors.bundle.js лише пакети з node_modules. Тому код модуля потрапляє в
+// КОЖЕН entry-бандл окремо, і `new Lenis()` на рівні модуля виконувався стільки
+// разів, скільки бандлів на сторінці. На головній це два екземпляри (index +
+// home), кожен зі своїм нескінченним requestAnimationFrame-циклом — тобто
+// подвійна кадрова робота протягом усього життя сторінки і два незалежні
+// обробники скролу. Саме звідси бралися сотні мілісекунд Script Evaluation,
+// які Lighthouse приписував index.bundle.js.
+//
+// Тримаємо єдиний екземпляр на window: який би бандл не виконався першим,
+// решта підхоплять уже створений.
+const INSTANCE_KEY = '__riverville_lenis';
 
-function raf(time) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
-}
-const date = new Date().getTime();
+function createLenis() {
+  const instance = new Lenis();
 
-lenis.on('scroll', (e) => {
-    // console.log(date);
-  });
+  // На мобільних плавний скрол вимкнено — там нативний.
+  if (document.documentElement.classList.contains('mobile')) {
+    instance.destroy();
+    return instance;
+  }
 
-if (!document.documentElement.classList.contains('mobile')) {
-    requestAnimationFrame(raf)
+  const raf = time => {
+    instance.raf(time);
+    requestAnimationFrame(raf);
+  };
+
+  requestAnimationFrame(raf);
+
+  return instance;
 }
-if (document.documentElement.classList.contains('mobile')) {
-    lenis.destroy();
-}
+
+export const lenis = window[INSTANCE_KEY] || (window[INSTANCE_KEY] = createLenis());

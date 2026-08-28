@@ -195,7 +195,8 @@
         background-color: var(--color-07222-f);
         transform-origin: left;
         transform: scaleX(0);
-        transition: 0.25s ease-out;
+        // Змінюється лише transform: scaleX().
+        transition: transform 0.25s ease-out;
       }
       &-text:hover:after {
         transform: scaleX(1);
@@ -309,7 +310,9 @@
   a {
     path {
       transform-origin: center;
-      transition: 0.3s ease-out;
+      // Без назви властивості це all, і в аудит потрапляв transform-origin.
+      // На ховері змінюється тільки сам transform: rotate().
+      transition: transform 0.3s ease-out;
       transform-box: fill-box;
     }
   }

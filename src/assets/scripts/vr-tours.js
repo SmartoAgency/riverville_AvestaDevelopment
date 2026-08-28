@@ -70,10 +70,9 @@ document.body.addEventListener('click', (e) => {
     setTab(target.dataset.vrTourTab);
 });
 
-import(/* webpackChunkName: "gsap-scroll" */ 'gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.core.globals('ScrollTrigger', ScrollTrigger);
-});
+// ScrollTrigger тут завантажувався і реєструвався, але жодна анімація сторінки
+// його не використовувала — у файлі немає жодного scrollTrigger: у конфігах.
+// Прибрано: /vr-tours/ більше не тягне чанк gsap-scroll узагалі.
 
 /*
 data-vr-tour-title

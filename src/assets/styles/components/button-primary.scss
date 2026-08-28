@@ -12,7 +12,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    transition: .25s ease-out;
+    // Те саме, що в button-30: без назви властивості це all, через що в аудит
+    // потрапляли padding-left/right/top/bottom. Ховер тут міняє тільки колір.
+    transition: color .25s ease-out, background-color .25s ease-out;
     text-decoration: none;
     overflow: hidden;
     text-transform: uppercase;
@@ -109,7 +111,8 @@
             background-color: var(--color-white);
             z-index: -1;
             transform-origin: top;
-            transition: .25s ease-out;
+            // Змінюється лише transform: scaleY() (див. &:hover span:after).
+            transition: transform .25s ease-out;
             transform: scaleY(0);
         }
         &:hover span:after {
