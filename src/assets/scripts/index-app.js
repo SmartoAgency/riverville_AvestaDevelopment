@@ -3,27 +3,33 @@ import { gsap } from 'gsap';
 import './modules/form-lazy';
 import './modules/menu-v2';
 import { lenis } from './modules/scroll/leniscroll';
-import { onResize } from './modules/helpers/defer';
+import { onEnterView, onResize } from './modules/helpers/defer';
+
+// Прелоадер (template-parts/preloader.php у WP-темі) анімується через gsap, але
+// він не збирається вебпаком і бачить лише глобальні змінні. Раніше заради нього
+// на кожну сторінку вантажився ще один окремий gsap.min.js — тобто бібліотека
+// їхала двічі: тут у vendors.bundle.js і там. Віддаємо ту саму копію.
+//
+// Порядок гарантований специфікацією: index.bundle.js має defer, тож виконається
+// до DOMContentLoaded, а таймлайн прелоадера будується саме в обробнику
+// DOMContentLoaded. Якщо бандл не доїде, у preloader.php є запобіжник, який
+// просто показує контент без анімації.
+window.gsap = gsap;
 
 const wrapper = document.querySelector('.home-module-screen__frame');
 const sensor = document.getElementById('iframe-sensor');
-const lazyIframe = wrapper && wrapper.querySelector('iframe[data-src]');
 
-if (lazyIframe) {
-  const iframeObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          lazyIframe.src = lazyIframe.dataset.src;
-          observer.unobserve(lazyIframe);
-        }
-      });
-    },
-    { rootMargin: '200px' },
+// Будь-який iframe з data-src на сторінці (карта, відео, 3D-тур, embed) —
+// джерело проставляємо лише коли елемент підходить до вьюпорта (ТЗ 3.5.2.2).
+// index.bundle.js глобальний, тож один прохід покриває всі шаблони; раніше
+// тут був окремий обробник лише для .home-module-screen__frame.
+document.querySelectorAll('iframe[data-src]').forEach(frame => {
+  onEnterView(
+    frame,
+    () => { frame.src = frame.dataset.src; },
+    { rootMargin: '300px 0px' },
   );
-
-  iframeObserver.observe(lazyIframe);
-}
+});
 
 if (sensor && wrapper) {
   sensor.addEventListener(

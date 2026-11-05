@@ -36,7 +36,8 @@ block content
     .single-news-container__content
       div.text-style-1920-button.single-news-container__subtitle 25 жовтня 2024
       .single-news-container__frame
-        iframe(src="https://riverville-wp.smarto.com.ua/3d", frameborder="0" allowfullscreen loading="lazy") 
+        //- data-src (не src): index.bundle.js проставляє джерело через IntersectionObserver при наближенні до вьюпорта (ТЗ 3.5.2.2)
+        iframe(data-src="/3d", frameborder="0" allowfullscreen loading="lazy")
       .text-style-1920-h-4.single-news-container__title Яким буде Київ через 10 років? За версією нашої компанії, він буде найкомфортнішим містом у світі. 
       .text-style-1920-body.single-news-container__text Саме такий BHAG ми собі поставили та до якого впевнено рухаємося з кожним новим проєктом. Про те, що вже зараз ми змінюємо обличчя Києва та створюємо проєкти майбутнього, говорить і редакція НВ. У новому номері вона разом з архітекторами, забудовниками та урбаністами склала рейтинг 10 знакових об’єктів столиці та включила до нього відразу два проєкти, які ми реалізуємо спільно з партнерами забудовника1 і забудовника 2 — ми хочемо розказати вам про ці проєкти та показати їхні сильні сторони.
       .single-news-container__image

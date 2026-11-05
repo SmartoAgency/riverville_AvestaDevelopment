@@ -69,7 +69,8 @@ block content
         li «Гарна набережна, яка відкриється на нашому проєкті
         li «Гарна набережна нашого проєкту, стане окрасою Києва», — зазначає
       .single-news-container__frame
-        iframe(src="https://riverville-wp.smarto.com.ua/3d", frameborder="0" allowfullscreen loading="lazy") 
+        //- data-src (не src): index.bundle.js проставляє джерело через IntersectionObserver при наближенні до вьюпорта (ТЗ 3.5.2.2)
+        iframe(data-src="/3d", frameborder="0" allowfullscreen loading="lazy")
       <a href="/3d" class="button-30 button-30--blue">
         <span>Перейти до вибору квартир</span>
       </a>

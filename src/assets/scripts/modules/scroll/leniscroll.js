@@ -14,11 +14,26 @@ import Lenis from '@studio-freight/lenis';
 // решта підхоплять уже створений.
 const INSTANCE_KEY = '__riverville_lenis';
 
+// На тач-пристроях плавний скрол не потрібен — там нативний, і він кращий.
+//
+// Раніше умова перевіряла клас `mobile` на <html>, але його НІХТО не проставляє:
+// у розмітці теми його немає, у скриптах — лише читання. Тобто умова завжди була
+// false, lenis створювався на мобільних теж, і його requestAnimationFrame-цикл
+// крутився кожен кадр протягом усього життя сторінки. У Lighthouse (Moto G Power)
+// це давало 2 489 мс Total CPU Time, приписаних vendors.bundle.js, при тому що
+// Script Evaluation там лише 76 мс — тобто вартість не в парсингу, а в кадровій
+// роботі. Плюс 2 510 мс у категорії "Other".
+//
+// matchMedia не залежить від класів на розмітці й не бреше на емуляції пристрою.
+function isTouchPrimary() {
+  return typeof window.matchMedia === 'function'
+    && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+}
+
 function createLenis() {
   const instance = new Lenis();
 
-  // На мобільних плавний скрол вимкнено — там нативний.
-  if (document.documentElement.classList.contains('mobile')) {
+  if (isTouchPrimary()) {
     instance.destroy();
     return instance;
   }

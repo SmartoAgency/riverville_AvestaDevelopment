@@ -11,7 +11,8 @@ div(class="home-vrtours "+homeVrToursCustomClass)
       .vrtour-item__content
         .vrtour-item__frame
           .vrtour-item__frame-wrapper
-            iframe(data-vr-tour-url onload="console.log('fefefe')" loading="lazy" src="https://www.youtube.com/embed/1w7OgIMMRc4", frameborder="0", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowfullscreen)
+            //- src проставляє vr-tours.js через onEnterView, коли блок туру наближається до вьюпорта (ТЗ 3.5.2.2). Не повертати сюди src="…" — youtube-embed вантажитиметься на старті.
+            iframe(data-vr-tour-url loading="lazy" src="about:blank", frameborder="0", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowfullscreen)
         .vrtour-item__text
           .vrtour-item__text-decor
           .vrtour-item__text-title.text-style-1920-h-4.color-07222-f(data-vr-tour-title) Квартира 1D
