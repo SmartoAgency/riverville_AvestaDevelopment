@@ -48,20 +48,22 @@
             }
         }
         &-text {
+            width: 100%;
+            text-align: center;
             @media screen and (max-width:600px){
                 margin-top: auto;
             }
         }
         &-title {
             display: flex;
-            justify-content: space-between;
+            // номер (другий span) виводиться над назвою, все по центру
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
             width: 100%;
-            column-gap: 20px;
+            row-gap: 12px;
             @include from-to(601px, 1024px){
                 font-size: 24px;
-                span:first-child {
-                    padding-right: 10%;
-                }
             }
         }
         svg {
@@ -177,12 +179,17 @@
         }
         &-text {
             margin-top: auto;
+            width: 100%;
+            text-align: center;
         }
         &-title {
             display: flex;
-            justify-content: space-between;
+            // номер (другий span) виводиться над назвою, все по центру
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
             width: 100%;
-            column-gap: 20px;
+            row-gap: 8px;
             font-size: 16px;
         }
         svg {

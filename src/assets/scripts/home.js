@@ -404,13 +404,21 @@ function initIncredibleBlock() {
       })
         .fromTo(el, { y: offset, autoAlpha: 0 }, { y: 0, autoAlpha: 1, clearProps: 'all' });
     });
+  });
 
-    if (window.screen.width > 600) return;
+  // Мобільний слайдер спостерігаємо окремо, за його власним контейнером.
+  // Раніше він ініціалізувався всередині колбеку для .home-incredible-block,
+  // але той на ≤600px має .hide-on-mobile (display: none), а елемент без
+  // боксу ніколи не перетинається з вьюпортом — колбек не спрацьовував і
+  // Swiper на мобілках так і не створювався. На планшеті/десктопі мобільний
+  // блок схований (.hide-on-tablet/.hide-on-desktop), тож там цей колбек
+  // теж не викличеться.
+  const incredibleBlockMobile = document.querySelector('.home-incredible-block-mobile');
+  onEnterView(incredibleBlockMobile, async () => {
+    const incredibleBlockMobileSlider = incredibleBlockMobile.querySelector('[data-incredible-block-mobile-slider]');
+    if (!incredibleBlockMobileSlider) return;
 
     await yieldToMain();
-
-    const incredibleBlockMobileSlider = document.querySelector('[data-incredible-block-mobile-slider]');
-    if (!incredibleBlockMobileSlider) return;
 
     const { default: Swiper } = await loadSwiper();
 
